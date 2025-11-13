@@ -119,7 +119,9 @@ function App() {
             </div>
 
             <div className="form-group">
-              <label htmlFor="maxMultiple">Highest multiple?</label>
+              <label htmlFor="maxMultiple">
+                What is the highest multiplicand?
+              </label>
               <input
                 id="maxMultiple"
                 type="number"
@@ -130,7 +132,8 @@ function App() {
                 className="setup-input"
               />
               <small className="form-hint">
-                Numbers will range from {MIN_NUMBER} to your chosen maximum
+                Numbers to be multiplied, will range from {MIN_NUMBER} to your
+                chosen maximum
               </small>
             </div>
 
