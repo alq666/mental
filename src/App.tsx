@@ -1,6 +1,5 @@
-import { useState, useEffect } from "react";
+import { useCallback, useEffect, useState } from "react";
 import "./App.css";
-import { getUserSessions, saveUserSession, GameSession } from "./utils/edgeConfig";
 
 function App() {
   const TOTAL_ROUNDS = 20;
@@ -10,8 +9,6 @@ function App() {
   const [gameStarted, setGameStarted] = useState(false);
   const [playerName, setPlayerName] = useState("");
   const [maxMultiple, setMaxMultiple] = useState("");
-  const [previousSessions, setPreviousSessions] = useState<GameSession[]>([]);
-  const [loadingSessions, setLoadingSessions] = useState(false);
 
   // Game state
   const [num1, setNum1] = useState(0);
@@ -28,7 +25,7 @@ function App() {
   const [endTime, setEndTime] = useState<number | null>(null);
 
   // Generate new random numbers
-  const generateNewQuestion = () => {
+  const generateNewQuestion = useCallback(() => {
     const maxNum = parseInt(maxMultiple) || 20;
     const newNum1 =
       Math.floor(Math.random() * (maxNum - MIN_NUMBER + 1)) + MIN_NUMBER;
@@ -39,9 +36,9 @@ function App() {
     setUserAnswer("");
     setFeedback("");
     setShowAnswer(false);
-  };
+  }, [maxMultiple, MIN_NUMBER]);
 
-  const handleStartGame = async (e: React.FormEvent) => {
+  const handleStartGame = (e: React.FormEvent) => {
     e.preventDefault();
     if (
       playerName.trim() === "" ||
@@ -50,18 +47,7 @@ function App() {
     ) {
       return;
     }
-    
-    // Load previous sessions for this user
-    setLoadingSessions(true);
-    try {
-      const sessions = await getUserSessions(playerName.trim());
-      setPreviousSessions(sessions);
-    } catch (error) {
-      console.error('Error loading previous sessions:', error);
-      setPreviousSessions([]);
-    }
-    setLoadingSessions(false);
-    
+
     setGameStarted(true);
     setStartTime(Date.now());
   };
@@ -71,7 +57,7 @@ function App() {
     if (gameStarted && !gameOver) {
       generateNewQuestion();
     }
-  }, [gameStarted]);
+  }, [gameStarted, gameOver, generateNewQuestion]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -158,34 +144,12 @@ function App() {
               disabled={
                 playerName.trim() === "" ||
                 maxMultiple === "" ||
-                parseInt(maxMultiple) < MIN_NUMBER ||
-                loadingSessions
+                parseInt(maxMultiple) < MIN_NUMBER
               }
             >
-              {loadingSessions ? "Loading..." : "Start Game"}
+              Start Game
             </button>
           </form>
-
-          {previousSessions.length > 0 && (
-            <div className="previous-sessions">
-              <h3>Your Previous Sessions</h3>
-              <div className="sessions-list">
-                {previousSessions.map((session, index) => (
-                  <div key={index} className="session-item">
-                    <div className="session-score">
-                      {session.score}/{session.totalRounds} ({Math.round((session.score / session.totalRounds) * 100)}%)
-                    </div>
-                    <div className="session-details">
-                      <span className="session-time">⏱️ {session.timeTaken}s</span>
-                      <span className="session-date">
-                        {new Date(session.timestamp).toLocaleDateString()} {new Date(session.timestamp).toLocaleTimeString()}
-                      </span>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          )}
         </div>
       </div>
     );
@@ -197,18 +161,6 @@ function App() {
     const timeTaken =
       startTime && endTime ? ((endTime - startTime) / 1000).toFixed(2) : "0";
 
-    // Save session when game ends (only once)
-    useEffect(() => {
-      if (gameOver && startTime && endTime) {
-        const session: GameSession = {
-          score,
-          totalRounds: TOTAL_ROUNDS,
-          timestamp: endTime,
-          timeTaken: parseFloat(timeTaken)
-        };
-        saveUserSession(playerName.trim(), session);
-      }
-    }, [gameOver, startTime, endTime, score, playerName, timeTaken]);
 
     return (
       <div className="game-container">
