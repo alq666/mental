@@ -383,6 +383,80 @@
     cursor: not-allowed;
 }
 
+/* Best sessions (localStorage) */
+.best-sessions {
+    width: 100%;
+    max-width: 520px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.best-sessions-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.best-sessions-header h2 {
+    margin: 0;
+    font-size: 1.25rem;
+    color: #646cff;
+}
+
+.clear-sessions-button {
+    background: transparent;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 0.5rem;
+    color: inherit;
+    padding: 0.5rem 0.75rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.clear-sessions-button:hover {
+    border-color: rgba(255, 255, 255, 0.35);
+    transform: translateY(-1px);
+}
+
+.best-sessions-list {
+    margin: 1rem 0 0 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+}
+
+.best-session-row {
+    display: grid;
+    grid-template-columns: 2rem 1fr auto auto;
+    gap: 0.75rem;
+    align-items: center;
+    padding: 0.5rem 0.75rem;
+    border-radius: 0.5rem;
+    background: rgba(255, 255, 255, 0.03);
+}
+
+.best-session-rank {
+    color: #888;
+}
+
+.best-session-name {
+    text-align: left;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.best-session-score,
+.best-session-duration {
+    color: #888;
+    font-variant-numeric: tabular-nums;
+}
+
 /* Responsive Design */
 @media (max-width: 640px) {
     .setup-container h1,

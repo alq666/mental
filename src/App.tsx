@@ -1,5 +1,84 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import "./App.css";
+
+type BestSession = {
+  name: string;
+  score: number;
+  durationMs: number;
+  completedAt: number;
+};
+
+const BEST_SESSIONS_STORAGE_KEY = "mental-math-challenge:best-sessions:v1";
+const BEST_SESSIONS_LIMIT = 10;
+
+function loadBestSessions(): BestSession[] {
+  if (typeof window === "undefined") return [];
+
+  try {
+    const raw = window.localStorage.getItem(BEST_SESSIONS_STORAGE_KEY);
+    if (!raw) return [];
+
+    const parsed: unknown = JSON.parse(raw);
+    if (!Array.isArray(parsed)) return [];
+
+    const normalized = parsed
+      .map((item): BestSession | null => {
+        if (typeof item !== "object" || item === null) return null;
+
+        const record = item as Record<string, unknown>;
+        const name = typeof record.name === "string" ? record.name : null;
+        const score = typeof record.score === "number" ? record.score : null;
+        const durationMs =
+          typeof record.durationMs === "number" ? record.durationMs : null;
+        const completedAt =
+          typeof record.completedAt === "number" ? record.completedAt : null;
+
+        if (name === null || score === null || durationMs === null || completedAt === null) {
+          return null;
+        }
+
+        return { name, score, durationMs, completedAt };
+      })
+      .filter((item): item is BestSession => item !== null);
+
+    return rankBestSessions(normalized);
+  } catch {
+    return [];
+  }
+}
+
+function saveBestSessions(sessions: BestSession[]) {
+  if (typeof window === "undefined") return;
+
+  try {
+    window.localStorage.setItem(
+      BEST_SESSIONS_STORAGE_KEY,
+      JSON.stringify(sessions),
+    );
+  } catch {
+    // localStorage might be full or unavailable; ignore and keep the game playable.
+  }
+}
+
+function rankBestSessions(sessions: BestSession[]): BestSession[] {
+  return [...sessions]
+    .sort((a, b) => {
+      // Higher score is better; for ties, faster time is better.
+      const scoreDiff = b.score - a.score;
+      if (scoreDiff !== 0) return scoreDiff;
+
+      const durationDiff = a.durationMs - b.durationMs;
+      if (durationDiff !== 0) return durationDiff;
+
+      // For stable ordering, newest first.
+      return b.completedAt - a.completedAt;
+    })
+    .slice(0, BEST_SESSIONS_LIMIT);
+}
+
+function formatDurationSeconds(durationMs: number): string {
+  return (durationMs / 1000).toFixed(2);
+}
 
 function App() {
   const TOTAL_ROUNDS = 20;
@@ -23,6 +102,85 @@ function App() {
   // Timer state
   const [startTime, setStartTime] = useState<number | null>(null);
   const [endTime, setEndTime] = useState<number | null>(null);
+
+  // Best sessions (persisted)
+  const [bestSessions, setBestSessions] = useState<BestSession[]>([]);
+  const lastSavedSessionRef = useRef<string | null>(null);
+
+  useEffect(() => {
+    setBestSessions(loadBestSessions());
+  }, []);
+
+  useEffect(() => {
+    if (!gameOver) return;
+    if (startTime === null || endTime === null) return;
+
+    const durationMs = endTime - startTime;
+    const newSession: BestSession = {
+      name: playerName.trim() || "Anonymous",
+      score,
+      durationMs,
+      completedAt: endTime,
+    };
+
+    const sessionKey = `${newSession.completedAt}:${newSession.name}:${newSession.score}:${newSession.durationMs}`;
+    if (lastSavedSessionRef.current === sessionKey) return;
+    lastSavedSessionRef.current = sessionKey;
+
+    setBestSessions((prev) => {
+      const ranked = rankBestSessions([...prev, newSession]);
+      saveBestSessions(ranked);
+      return ranked;
+    });
+  }, [endTime, gameOver, playerName, score, startTime]);
+
+  const clearBestSessions = () => {
+    if (typeof window !== "undefined") {
+      try {
+        window.localStorage.removeItem(BEST_SESSIONS_STORAGE_KEY);
+      } catch {
+        // ignore
+      }
+    }
+
+    setBestSessions([]);
+  };
+
+  const BestSessionsPanel = () => {
+    if (bestSessions.length === 0) return null;
+
+    return (
+      <div className="best-sessions">
+        <div className="best-sessions-header">
+          <h2>Best sessions</h2>
+          <button
+            type="button"
+            className="clear-sessions-button"
+            onClick={clearBestSessions}
+          >
+            Clear
+          </button>
+        </div>
+        <ol className="best-sessions-list">
+          {bestSessions.map((session, index) => (
+            <li
+              key={`${session.completedAt}-${index}`}
+              className="best-session-row"
+            >
+              <span className="best-session-rank">{index + 1}.</span>
+              <span className="best-session-name">{session.name}</span>
+              <span className="best-session-score">
+                {session.score} / {TOTAL_ROUNDS}
+              </span>
+              <span className="best-session-duration">
+                {formatDurationSeconds(session.durationMs)}s
+              </span>
+            </li>
+          ))}
+        </ol>
+      </div>
+    );
+  };
 
   // Generate new random numbers
   const generateNewQuestion = useCallback(() => {
@@ -150,6 +308,7 @@ function App() {
               Start Game
             </button>
           </form>
+          <BestSessionsPanel />
         </div>
       </div>
     );
@@ -158,9 +317,9 @@ function App() {
   // Game over screen
   if (gameOver) {
     const percentage = Math.round((score / TOTAL_ROUNDS) * 100);
-    const timeTaken =
-      startTime && endTime ? ((endTime - startTime) / 1000).toFixed(2) : "0";
-
+    const durationMs =
+      startTime !== null && endTime !== null ? endTime - startTime : 0;
+    const timeTaken = formatDurationSeconds(durationMs);
 
     return (
       <div className="game-container">
@@ -175,6 +334,7 @@ function App() {
               ⏱️ Time: <strong>{timeTaken}</strong> seconds
             </p>
           </div>
+          <BestSessionsPanel />
           <button onClick={restartGame} className="restart-button">
             Play Again
           </button>
