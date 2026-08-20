@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import "./App.css";
+import RomanGame from "./RomanGame";
 
 type BestSession = {
   name: string;
@@ -80,7 +81,7 @@ function formatDurationSeconds(durationMs: number): string {
   return (durationMs / 1000).toFixed(2);
 }
 
-function App() {
+function ClassicApp() {
   const TOTAL_ROUNDS = 20;
   const MIN_NUMBER = 2;
 
@@ -309,6 +310,10 @@ function App() {
             </button>
           </form>
           <BestSessionsPanel />
+          <a className="roman-variant-link" href="/roman">
+            <span aria-hidden="true">🏛️</span>
+            Try the Roman challenge
+          </a>
         </div>
       </div>
     );
@@ -407,6 +412,14 @@ function App() {
         ></div>
       </div>
     </div>
+  );
+}
+
+function App() {
+  return window.location.pathname.startsWith("/roman") ? (
+    <RomanGame />
+  ) : (
+    <ClassicApp />
   );
 }
 
