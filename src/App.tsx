@@ -310,6 +310,10 @@ function ClassicApp() {
             </button>
           </form>
           <BestSessionsPanel />
+          <a className="roman-variant-link" href="/roman">
+            <span aria-hidden="true">🏛️</span>
+            Try the Roman challenge
+          </a>
         </div>
       </div>
     );
