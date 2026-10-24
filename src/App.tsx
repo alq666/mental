@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import "./App.css";
 import RomanGame from "./RomanGame";
+import Practice from "./Practice";
 
 type BestSession = {
   name: string;
@@ -264,6 +265,7 @@ function ClassicApp() {
       <div className="game-container">
         <div className="setup-container">
           <h1>Mental Math Challenge</h1>
+          <a href="/">Back to daily practice</a>
           <form onSubmit={handleStartGame} className="setup-form">
             <div className="form-group">
               <label htmlFor="playerName">What's your name?</label>
@@ -416,6 +418,8 @@ function ClassicApp() {
 }
 
 function App() {
+  const [challenge, setChallenge] = useState(false);
+  if (!window.location.pathname.startsWith("/roman") && !challenge) return <Practice challenge={() => setChallenge(true)} />;
   return window.location.pathname.startsWith("/roman") ? (
     <RomanGame />
   ) : (
