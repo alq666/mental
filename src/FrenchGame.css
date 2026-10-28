@@ -1,0 +1,200 @@
+@import url('https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=IM+Fell+French+Canon:ital@0;1&family=UnifrakturMaguntia&display=swap');
+
+#root:has(.france-app) {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  text-align: initial;
+}
+
+body:has(.france-app) {
+  display: block;
+  background: #efe4c8;
+}
+
+.france-app {
+  --numerals: "EB Garamond", Garamond, Georgia, serif;
+  --ink: #2b2118;
+  --azure: #1f3b78;
+  --azure-dark: #142853;
+  --gold: #c39a3b;
+  --vermilion: #a6321f;
+  --vellum: #f6eedb;
+  --muted: #6f5f48;
+  min-height: 100vh;
+  color: var(--ink);
+  background: #efe4c8;
+  font-family: "EB Garamond", Garamond, Georgia, serif;
+  font-size: 17px;
+  font-variant-numeric: lining-nums;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Vellum, a semé of lilies, and a château skyline in the manner of the Très Riches Heures. */
+.france-app::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    url("/france-skyline.svg"),
+    url("/france-lys.svg"),
+    radial-gradient(circle at 50% 20%, #fbf5e6 0, #efe4c8 60%, #dccaa0 100%);
+  background-repeat: no-repeat, repeat, no-repeat;
+  background-size: 100% auto, 120px 120px, cover;
+  background-position: center bottom, center top, center;
+}
+
+.france-app button, .france-app input { font: inherit; }
+.france-nav {
+  height: 84px;
+  padding: 0 clamp(24px, 6vw, 90px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #f4ead2;
+  background: var(--azure);
+  border-bottom: 3px double var(--gold);
+  position: relative;
+  z-index: 2;
+}
+.france-brand { display: flex; align-items: center; gap: 12px; color: inherit; text-decoration: none; }
+.fr-brand-mark { width: 40px; height: 46px; display: grid; place-items: center; color: var(--gold); background: var(--azure-dark); border: 2px solid var(--gold); border-radius: 0 0 50% 50% / 0 0 42% 42%; font-size: 24px; }
+.france-brand b { display: block; line-height: 1.1; font: 400 21px "IM Fell French Canon", serif; letter-spacing: .02em; }
+.france-brand small { display: block; color: #cdb98b; font-size: 12px; font-variant: small-caps; letter-spacing: .14em; margin-top: 1px; }
+.france-nav nav { display: flex; align-items: center; gap: 26px; }
+.fr-nav-link { white-space: nowrap; padding: 8px 0; border: 0; background: none; color: #efe3c6; text-decoration: none; font-size: 15px; font-variant: small-caps; letter-spacing: .1em; cursor: pointer; }
+.fr-nav-link:hover { color: var(--gold); }
+.fr-badges-link span { display: inline-grid; place-items: center; margin-left: 5px; width: 20px; height: 20px; border-radius: 50%; color: var(--azure-dark); background: var(--gold); font-size: 11px; font-variant: normal; }
+
+.france-hero { min-height: calc(100vh - 140px); padding: 56px 24px 120px; display: grid; place-items: center; position: relative; }
+.fr-hero-copy { width: min(620px, 100%); text-align: center; position: relative; z-index: 1; }
+.fr-rubric { margin: 0; color: var(--vermilion); font-size: 15px; font-variant: small-caps; letter-spacing: .22em; }
+.fr-hero-copy h1, .fr-result-screen h1, .fr-badges-screen > h1 { font: 400 clamp(38px, 5vw, 62px)/1.1 "IM Fell French Canon", serif; margin: 18px 0 16px; color: var(--azure-dark); }
+.fr-hero-copy h1 em { color: var(--vermilion); }
+.fr-lettrine { display: inline-block; margin-right: 4px; padding: 0 10px; color: var(--gold); background: var(--azure); border: 2px solid var(--gold); font: 400 1.1em/1.15 UnifrakturMaguntia, "IM Fell French Canon", serif; vertical-align: -0.08em; box-shadow: inset 0 0 0 3px var(--azure-dark); }
+.fr-hero-subtitle { color: var(--muted); line-height: 1.6; font-size: 18px; font-style: italic; max-width: 520px; margin: 0 auto 28px; }
+
+.france-setup-card, .fr-lists-card { background: rgba(250, 245, 232, .97); border: 1px solid #b89a5e; box-shadow: 0 18px 45px rgba(60, 40, 15, .16); position: relative; }
+.france-setup-card::before, .fr-lists-card::before { content: ""; position: absolute; inset: 6px; border: 2px solid var(--azure); outline: 1px solid var(--gold); outline-offset: 3px; pointer-events: none; }
+.france-setup-card { margin: auto; max-width: 500px; padding: 30px 34px 22px; text-align: left; }
+.france-setup-card label { display: grid; gap: 6px; }
+.france-setup-card label > span { font-size: 15px; font-variant: small-caps; letter-spacing: .1em; color: var(--vermilion); }
+.france-setup-card input, .france-answer input { min-width: 0; box-sizing: border-box; width: 100%; border: 0; border-bottom: 1px solid #b6a27a; border-radius: 0; padding: 8px 2px; background: transparent; color: var(--ink); font-size: 18px; outline: none; }
+.france-setup-card input:focus, .france-answer input:focus { border-color: var(--azure); box-shadow: 0 2px 0 rgba(31, 59, 120, .15); }
+.fr-form-row { display: grid; grid-template-columns: 1fr 1.25fr; gap: 28px; margin: 22px 0 26px; }
+.fr-timer-setting { display: grid; grid-template-columns: 42px 1fr auto; gap: 8px; align-items: center; }
+.fr-timer-setting input { text-align: center; }
+.fr-timer-setting > span { font-size: 14px; color: var(--muted); }
+.fr-toggle { position: relative; width: 39px; height: 22px; padding: 0; border: 1px solid #a08f6d; border-radius: 999px; background: #cbbd9e; cursor: pointer; }
+.fr-toggle i { position: absolute; top: 3px; left: 3px; width: 14px; height: 14px; border-radius: 50%; background: #fffaf0; transition: transform .2s; }
+.fr-toggle.fr-on { background: var(--azure); border-color: var(--azure-dark); }
+.fr-toggle.fr-on i { transform: translateX(17px); background: var(--gold); }
+.france-primary, .france-secondary { position: relative; z-index: 1; border-radius: 0; cursor: pointer; font-size: 17px; font-variant: small-caps; letter-spacing: .12em; padding: 11px 22px; }
+.france-primary { width: 100%; color: #fbf3dc; background: var(--vermilion); border: 1px solid #7c2314; box-shadow: inset 0 0 0 3px rgba(195, 154, 59, .45); }
+.france-primary:hover { background: #87281a; }
+.france-primary span { float: right; }
+.fr-setup-note { margin: 12px 0 0; text-align: center; font-size: 14px; font-style: italic; color: var(--muted); }
+
+.fr-game-stage { width: min(820px, calc(100% - 36px)); min-height: calc(100vh - 160px); margin: 0 auto; padding: 42px 0 120px; position: relative; z-index: 1; }
+.fr-game-topline { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; margin-bottom: 22px; }
+.fr-game-topline > div { display: grid; gap: 2px; }
+.fr-game-topline span { color: var(--vermilion); font-size: 13px; font-variant: small-caps; letter-spacing: .14em; }
+.fr-game-topline strong { font: 400 19px "IM Fell French Canon", serif; color: var(--azure-dark); }
+.fr-game-clock { text-align: center; padding: 6px 32px; border-left: 1px solid #b6a27a; border-right: 1px solid #b6a27a; }
+.fr-game-clock strong { font: 500 28px var(--numerals); font-variant-numeric: lining-nums tabular-nums; }
+.fr-game-clock.fr-urgent strong { color: var(--vermilion); animation: franceClockPulse 1s infinite; }
+@keyframes franceClockPulse { 50% { opacity: .5; } }
+.fr-game-topline button { justify-self: end; border: 0; border-bottom: 1px solid var(--azure); border-radius: 0; padding: 4px 0; background: none; color: var(--azure); font-size: 15px; font-variant: small-caps; letter-spacing: .08em; cursor: pointer; }
+.fr-lists-card { padding: 30px 48px 38px; }
+.fr-progress-meta { display: flex; justify-content: space-between; font-size: 14px; font-variant: small-caps; letter-spacing: .1em; color: var(--muted); }
+.france-progress { height: 5px; margin-top: 10px; background: #ddd0b2; border: 1px solid #c4b087; }
+.france-progress i { display: block; height: 100%; background: repeating-linear-gradient(90deg, var(--azure) 0 12px, var(--gold) 12px 16px); transition: width .3s; }
+.fr-inscription { margin: 38px 0 14px; text-align: center; color: var(--vermilion); font-size: 16px; font-style: italic; }
+.france-question { display: flex; justify-content: center; align-items: center; gap: clamp(14px, 4vw, 34px); margin-bottom: 28px; color: var(--azure-dark); font: 500 clamp(52px, 10vw, 92px) var(--numerals); font-variant-numeric: lining-nums; }
+.france-question i { color: var(--gold); font: 400 38px "EB Garamond", serif; }
+.france-question b { color: var(--vermilion); font-weight: 400; }
+.france-answer { display: grid; grid-template-columns: 1fr auto; width: min(460px, 100%); margin: 0 auto; gap: 14px; }
+.france-answer input { font-variant-numeric: lining-nums; border: 1px solid #b6a27a; padding: 11px; text-align: center; font-size: 20px; background: #fffbf0; }
+.france-answer button { border-radius: 0; border: 1px solid var(--azure-dark); background: var(--azure); color: #f7edd4; padding: 0 24px; font-size: 16px; font-variant: small-caps; letter-spacing: .12em; cursor: pointer; }
+.france-answer button:disabled { opacity: .45; cursor: default; }
+.france-feedback { min-height: 26px; margin-top: 18px; text-align: center; font-style: italic; font-size: 18px; }
+.france-feedback.correct { color: var(--azure); }
+.france-feedback.wrong { color: var(--vermilion); }
+.fr-streak-panel { width: min(500px, calc(100% - 60px)); margin: 18px auto 0; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 12px; padding: 11px 18px; border-top: 2px solid var(--azure); border-bottom: 2px solid var(--azure); background: rgba(246, 238, 219, .9); }
+.fr-streak-mark { color: var(--vermilion); font-size: 24px; }
+.fr-streak-panel div:nth-child(2) { display: grid; }
+.fr-streak-panel span { font-size: 13px; font-variant: small-caps; letter-spacing: .12em; color: var(--muted); }
+.fr-streak-panel strong { font: 500 17px var(--numerals); color: var(--azure-dark); }
+.fr-streak-next { color: var(--muted); font-size: 14px; font-style: italic; }
+
+.fr-result-screen, .fr-badges-screen { width: min(920px, calc(100% - 40px)); margin: auto; padding: 56px 0 140px; position: relative; z-index: 1; text-align: center; min-height: calc(100vh - 190px); }
+.fr-result-screen > p:not(.fr-rubric), .fr-badges-screen > p:not(.fr-rubric) { color: var(--muted); font-style: italic; font-size: 18px; }
+.fr-result-card { max-width: 650px; margin: 32px auto; display: grid; grid-template-columns: repeat(3, 1fr); border: 2px solid var(--azure); outline: 1px solid var(--gold); outline-offset: 3px; background: rgba(250, 245, 232, .96); }
+.fr-result-card > div { padding: 24px 12px; display: grid; gap: 6px; }
+.fr-result-card > div + div { border-left: 1px solid #c9b78f; }
+.fr-result-card strong { font: 500 42px var(--numerals); font-variant-numeric: lining-nums; color: var(--vermilion); }
+.fr-result-card strong small { font-size: 17px; color: var(--muted); }
+.fr-result-card span { font-size: 14px; font-variant: small-caps; letter-spacing: .1em; color: var(--muted); }
+.fr-result-actions { display: flex; justify-content: center; gap: 12px; }
+.fr-result-actions .france-primary { width: auto; }
+.france-secondary { background: rgba(250, 245, 232, .9); border: 1px solid var(--azure); color: var(--azure-dark); }
+.fr-new-badge { width: max-content; max-width: calc(100% - 30px); margin: 0 auto 28px; display: flex; align-items: center; gap: 16px; text-align: left; }
+.fr-new-badge > div:last-child { display: grid; }
+.fr-new-badge span { color: var(--vermilion); font-size: 13px; font-variant: small-caps; letter-spacing: .14em; }
+.fr-new-badge strong { font: 400 20px "IM Fell French Canon", serif; color: var(--azure-dark); }
+.fr-new-badge small { color: var(--muted); font-style: italic; font-size: 15px; }
+
+.fr-badges-screen { padding-top: 40px; }
+.fr-back-button { display: block; margin-bottom: 30px; border: 0; background: none; color: var(--azure); font-size: 16px; font-variant: small-caps; letter-spacing: .1em; cursor: pointer; }
+.fr-badges-screen > h1 { margin-bottom: 10px; }
+.fr-player-plaque { display: flex; align-items: baseline; justify-content: center; flex-wrap: wrap; gap: 6px 18px; margin: 26px 0 22px; padding: 13px; border-top: 2px solid var(--azure); border-bottom: 2px solid var(--azure); background: rgba(246, 238, 219, .85); }
+.fr-player-plaque span, .fr-player-plaque small { color: var(--muted); font-size: 14px; font-variant: small-caps; letter-spacing: .1em; }
+.fr-player-plaque strong { font: 400 20px "IM Fell French Canon", serif; color: var(--azure-dark); }
+.fr-badge-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
+.fr-badge-card { padding: 26px 15px 22px; border: 1px solid #b89a5e; background: rgba(250, 245, 232, .96); box-shadow: 0 10px 25px rgba(60, 40, 15, .08); }
+.fr-badge-card.fr-locked { opacity: .6; filter: grayscale(.8); }
+.fr-badge-card .fr-badge-state { display: block; margin: 14px 0 8px; color: var(--vermilion); font-size: 13px; font-variant: small-caps; letter-spacing: .14em; }
+.fr-badge-card h2 { margin: 0; font: 400 20px "IM Fell French Canon", serif; color: var(--azure-dark); }
+.fr-badge-card em { display: block; margin-top: 3px; color: var(--muted); font-size: 14px; }
+.fr-badge-card p { margin: 12px 0 0; color: var(--muted); font-size: 14px; line-height: 1.45; }
+
+/* Heraldic escutcheon: azure field, gold lily, the streak written in scribal numerals. */
+.fr-shield { width: 74px; height: 88px; margin: auto; display: grid; place-content: center; gap: 2px; color: var(--gold); background: radial-gradient(circle at 35% 25%, #3256a3, var(--azure) 55%, var(--azure-dark)); border: 3px solid var(--gold); border-radius: 4px 4px 50% 50% / 4px 4px 45% 45%; box-shadow: inset 0 0 0 3px var(--azure-dark), 0 3px 8px rgba(30, 30, 60, .28); }
+.fr-shield span { font-size: 22px; line-height: 1; }
+.fr-shield strong { font: italic 400 22px "IM Fell French Canon", serif; line-height: 1; }
+.fr-shield.fr-dim { color: #7d776b; background: #b9b2a2; border-color: #8a8374; box-shadow: inset 0 0 0 3px #a29b8b; }
+
+.france-app footer { position: relative; z-index: 1; padding: 14px; text-align: center; color: #e9dcbc; background: var(--azure-dark); border-top: 3px double var(--gold); font-size: 13px; font-variant: small-caps; letter-spacing: .2em; }
+
+@media (max-width: 760px) {
+  .france-nav { height: 70px; padding: 0 17px; }
+  .france-brand small { display: none; }
+  .france-brand b { font-size: 16px; }
+  .france-nav nav { gap: 14px; }
+  .fr-nav-link { font-size: 13px; }
+  .france-hero { padding-top: 36px; }
+  .fr-badge-grid { grid-template-columns: repeat(2, 1fr); }
+  .fr-game-topline { grid-template-columns: 1fr auto; }
+  .fr-game-topline button { display: none; }
+  .fr-game-clock { border-right: 0; padding-right: 0; }
+  .fr-lists-card { padding: 26px 22px 30px; }
+  .fr-result-card { grid-template-columns: 1fr; }
+  .fr-result-card > div + div { border-left: 0; border-top: 1px solid #c9b78f; }
+}
+@media (max-width: 470px) {
+  .france-brand b { font-size: 15px; }
+  .france-nav nav .fr-nav-link:first-child { display: none; }
+  .fr-form-row { grid-template-columns: 1fr; gap: 20px; }
+  .france-setup-card { padding: 26px 22px 20px; }
+  .france-question { gap: 11px; }
+  .france-answer { grid-template-columns: 1fr; }
+  .france-answer button { padding: 11px; }
+  .fr-streak-panel { grid-template-columns: auto 1fr; }
+  .fr-streak-next { grid-column: 1 / -1; text-align: center; }
+  .fr-badge-grid { grid-template-columns: 1fr; }
+  .fr-result-actions { flex-direction: column; }
+  .fr-result-actions .france-primary { width: 100%; }
+}

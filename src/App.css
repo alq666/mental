@@ -383,7 +383,14 @@
     cursor: not-allowed;
 }
 
-.roman-variant-link {
+.variant-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+}
+
+.variant-link {
     display: inline-flex;
     align-items: center;
     gap: 0.6rem;
@@ -397,14 +404,14 @@
     transition: transform 0.2s ease, border-color 0.2s ease, background 0.2s ease;
 }
 
-.roman-variant-link:hover {
+.variant-link:hover {
     color: #efd28f;
     border-color: rgba(239, 210, 143, 0.8);
     background: rgba(194, 155, 83, 0.14);
     transform: translateY(-2px);
 }
 
-.roman-variant-link:focus-visible {
+.variant-link:focus-visible {
     outline: 3px solid rgba(239, 210, 143, 0.35);
     outline-offset: 3px;
 }

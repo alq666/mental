@@ -1,0 +1,202 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+TC:wght@400;600;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC:wght@400;700&display=swap');
+
+#root:has(.tang-app) {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  text-align: initial;
+}
+
+body:has(.tang-app) {
+  display: block;
+  background: #f1e7d2;
+}
+
+.tang-app {
+  --ink: #2a211c;
+  --vermilion: #b0362a;
+  --vermilion-dark: #7f2219;
+  --gold: #c08f2e;
+  --jade: #3e7465;
+  --paper: #f7f0e0;
+  --muted: #76664f;
+  --brush: "LXGW WenKai TC", "Noto Serif TC", "Songti TC", serif;
+  min-height: 100vh;
+  color: var(--ink);
+  background: #f1e7d2;
+  font-family: "Noto Serif TC", "Songti TC", "PMingLiU", serif;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Rice paper, auspicious clouds, and the skyline of Chang'an with the Giant Wild Goose Pagoda. */
+.tang-app::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    url("/tang-skyline.svg"),
+    url("/tang-clouds.svg"),
+    radial-gradient(circle at 50% 18%, #fdf8ec 0, #f1e7d2 58%, #e2cfa8 100%);
+  background-repeat: no-repeat, repeat, no-repeat;
+  background-size: 100% auto, 220px 140px, cover;
+  background-position: center bottom, center top, center;
+}
+
+.tang-app button, .tang-app input { font: inherit; }
+.tang-nav {
+  height: 84px;
+  padding: 0 clamp(24px, 6vw, 90px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #f8ecd2;
+  background: linear-gradient(#a8342a, var(--vermilion-dark));
+  border-bottom: 4px solid var(--gold);
+  box-shadow: 0 4px 0 #3b2a1c;
+  position: relative;
+  z-index: 2;
+}
+.tang-brand { display: flex; align-items: center; gap: 12px; color: inherit; text-decoration: none; }
+.tang-brand-mark { width: 44px; height: 44px; display: grid; place-items: center; color: #fff4dd; background: var(--vermilion); border: 2px solid #f0d9a8; border-radius: 6px; font: 700 26px var(--brush); box-shadow: inset 0 0 0 3px var(--vermilion-dark); transform: rotate(-3deg); }
+.tang-brand b { display: block; font: 700 22px var(--brush); letter-spacing: .12em; }
+.tang-brand small { display: block; color: #efcf93; font-size: 12px; letter-spacing: .3em; margin-top: 2px; }
+.tang-nav nav { display: flex; align-items: center; gap: 28px; }
+.tang-nav-link { padding: 8px 0; border: 0; background: none; color: #f8ecd2; text-decoration: none; font-size: 16px; letter-spacing: .2em; cursor: pointer; }
+.tang-nav-link:hover { color: #f3c96b; }
+.tang-badges-link span { display: inline-grid; place-items: center; margin-left: 4px; width: 20px; height: 20px; border-radius: 50%; color: var(--vermilion-dark); background: #f3c96b; font-size: 11px; letter-spacing: 0; }
+
+.tang-hero { min-height: calc(100vh - 140px); padding: 60px 24px 140px; display: grid; place-items: center; position: relative; }
+.tang-hero-copy { width: min(620px, 100%); text-align: center; position: relative; z-index: 1; }
+.tang-eyebrow { margin: 0; display: flex; align-items: center; justify-content: center; gap: 14px; color: var(--vermilion); font-size: 15px; font-weight: 600; letter-spacing: .5em; text-indent: .5em; }
+.tang-eyebrow span { display: block; width: 40px; height: 2px; background: var(--gold); }
+.tang-hero-copy h1, .tang-result-screen h1, .tang-badges-screen > h1 { font: 700 clamp(40px, 6vw, 70px)/1.2 var(--brush); margin: 20px 0 16px; letter-spacing: .08em; }
+.tang-hero-copy h1 em { font-style: normal; color: var(--vermilion); }
+.tang-hero-subtitle { color: var(--muted); line-height: 1.9; font-size: 16px; max-width: 520px; margin: 0 auto 30px; }
+
+.tang-setup-card, .tang-exam-card { background: rgba(251, 246, 234, .97); border: 1px solid #c7a96c; box-shadow: 0 18px 45px rgba(80, 45, 20, .15); position: relative; }
+/* Lacquered posts on either side, like the pillars of a hall. */
+.tang-setup-card::before, .tang-exam-card::before { content: ""; position: absolute; inset: 0; border-left: 8px solid var(--vermilion); border-right: 8px solid var(--vermilion); box-shadow: inset 10px 0 0 -6px var(--gold), inset -10px 0 0 -6px var(--gold); pointer-events: none; }
+.tang-setup-card { margin: auto; max-width: 500px; padding: 30px 40px 22px; text-align: left; }
+.tang-setup-card label { display: grid; gap: 8px; }
+.tang-setup-card label > span { font-size: 14px; font-weight: 600; letter-spacing: .3em; color: var(--vermilion-dark); }
+.tang-setup-card input, .tang-answer input { min-width: 0; box-sizing: border-box; width: 100%; border: 0; border-bottom: 1px solid #c2ab80; border-radius: 0; padding: 9px 2px; background: transparent; color: var(--ink); font-size: 17px; outline: none; }
+.tang-setup-card input:focus, .tang-answer input:focus { border-color: var(--vermilion); box-shadow: 0 2px 0 rgba(176, 54, 42, .14); }
+.tang-form-row { display: grid; grid-template-columns: 1fr 1.25fr; gap: 28px; margin: 22px 0 26px; }
+.tang-timer-setting { display: grid; grid-template-columns: 42px 1fr auto; gap: 8px; align-items: center; }
+.tang-timer-setting input { text-align: center; }
+.tang-timer-setting > span { font-size: 13px; color: var(--muted); }
+.tang-toggle { position: relative; width: 39px; height: 22px; padding: 0; border: 1px solid #ae9a77; border-radius: 999px; background: #d3c4a6; cursor: pointer; }
+.tang-toggle i { position: absolute; top: 3px; left: 3px; width: 14px; height: 14px; border-radius: 50%; background: #fffaf0; transition: transform .2s; }
+.tang-toggle.tang-on { background: var(--jade); border-color: #2d5a4e; }
+.tang-toggle.tang-on i { transform: translateX(17px); }
+.tang-primary, .tang-secondary { position: relative; z-index: 1; border-radius: 3px; cursor: pointer; font-size: 16px; font-weight: 600; letter-spacing: .3em; padding: 13px 22px; }
+.tang-primary { width: 100%; color: #fff4dd; background: var(--vermilion); border: 1px solid var(--vermilion-dark); box-shadow: inset 0 0 0 3px rgba(243, 201, 107, .35); }
+.tang-primary:hover { background: var(--vermilion-dark); }
+.tang-primary span { float: right; letter-spacing: 0; }
+.tang-setup-note { margin: 13px 0 0; text-align: center; font-size: 13px; color: var(--muted); letter-spacing: .08em; }
+
+.tang-game-stage { width: min(820px, calc(100% - 36px)); min-height: calc(100vh - 160px); margin: 0 auto; padding: 42px 0 140px; position: relative; z-index: 1; }
+.tang-game-topline { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; margin-bottom: 22px; }
+.tang-game-topline > div { display: grid; gap: 3px; }
+.tang-game-topline span { color: var(--muted); font-size: 12px; letter-spacing: .3em; }
+.tang-game-topline strong { font: 700 18px var(--brush); }
+.tang-game-clock { text-align: center; padding: 8px 32px; border-left: 1px solid #c2ab80; border-right: 1px solid #c2ab80; }
+.tang-game-clock strong { font: 600 26px "Noto Serif TC", serif; font-variant-numeric: tabular-nums; }
+.tang-game-clock.tang-urgent strong { color: var(--vermilion); animation: tangClockPulse 1s infinite; }
+@keyframes tangClockPulse { 50% { opacity: .5; } }
+.tang-game-topline button { justify-self: end; border: 0; border-bottom: 1px solid var(--vermilion); border-radius: 0; padding: 5px 0; background: none; color: var(--vermilion-dark); font-size: 14px; letter-spacing: .2em; cursor: pointer; }
+.tang-exam-card { padding: 30px 52px 38px; }
+.tang-progress-meta { display: flex; justify-content: space-between; font-size: 13px; letter-spacing: .12em; color: var(--muted); }
+.tang-progress { height: 4px; margin-top: 10px; background: #e0d3b8; }
+.tang-progress i { display: block; height: 100%; background: linear-gradient(90deg, var(--jade), var(--gold)); transition: width .3s; }
+.tang-inscription { margin: 38px 0 16px; text-align: center; color: var(--vermilion-dark); font: 400 20px var(--brush); letter-spacing: .15em; }
+.tang-question { display: flex; justify-content: center; align-items: center; gap: clamp(14px, 4vw, 34px); margin-bottom: 28px; font: 600 clamp(48px, 9vw, 84px) "Noto Serif TC", serif; }
+.tang-question i { color: var(--gold); font: 400 36px "Noto Serif TC", serif; }
+.tang-question b { color: var(--vermilion); }
+.tang-answer { display: grid; grid-template-columns: 1fr auto; width: min(460px, 100%); margin: 0 auto; gap: 14px; }
+.tang-answer input { border: 1px solid #c2ab80; border-radius: 3px; padding: 12px; text-align: center; font-size: 19px; background: #fffbf1; }
+.tang-answer button { border-radius: 3px; border: 1px solid #2d5a4e; background: var(--jade); color: #f8f1df; padding: 0 26px; font-size: 16px; font-weight: 600; letter-spacing: .3em; cursor: pointer; }
+.tang-answer button:disabled { opacity: .45; cursor: default; }
+.tang-feedback { min-height: 26px; margin-top: 18px; text-align: center; font: 400 18px var(--brush); letter-spacing: .08em; }
+.tang-feedback.correct { color: var(--jade); }
+.tang-feedback.wrong { color: var(--vermilion); }
+.tang-streak-panel { width: min(500px, calc(100% - 60px)); margin: 18px auto 0; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 14px; padding: 12px 18px; border-top: 2px solid var(--gold); border-bottom: 2px solid var(--gold); background: rgba(247, 240, 224, .9); }
+.tang-streak-mark { width: 34px; height: 34px; display: grid; place-items: center; color: #fff4dd; background: var(--vermilion); border-radius: 4px; font: 700 18px var(--brush); }
+.tang-streak-panel div:nth-child(2) { display: grid; }
+.tang-streak-panel span { font-size: 11px; letter-spacing: .3em; color: var(--muted); }
+.tang-streak-panel strong { font: 700 16px var(--brush); }
+.tang-streak-next { color: var(--muted); font-size: 13px; }
+
+.tang-result-screen, .tang-badges-screen { width: min(920px, calc(100% - 40px)); margin: auto; padding: 60px 0 150px; position: relative; z-index: 1; text-align: center; min-height: calc(100vh - 190px); }
+.tang-result-screen > p:not(.tang-eyebrow), .tang-badges-screen > p:not(.tang-eyebrow) { color: var(--muted); letter-spacing: .05em; }
+.tang-result-card { max-width: 650px; margin: 34px auto; display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid #c2a466; border-top: 6px solid var(--vermilion); border-bottom: 6px solid var(--vermilion); background: rgba(251, 246, 234, .96); }
+.tang-result-card > div { padding: 26px 12px; display: grid; gap: 8px; }
+.tang-result-card > div + div { border-left: 1px solid #dcc9a2; }
+.tang-result-card strong { font: 600 40px "Noto Serif TC", serif; color: var(--vermilion); }
+.tang-result-card strong small { font-size: 16px; color: var(--muted); }
+.tang-result-card span { font-size: 13px; letter-spacing: .25em; color: var(--muted); }
+.tang-result-actions { display: flex; justify-content: center; gap: 12px; }
+.tang-result-actions .tang-primary { width: auto; }
+.tang-secondary { background: rgba(251, 246, 234, .9); border: 1px solid var(--jade); color: #2d5a4e; }
+.tang-new-badge { width: max-content; max-width: calc(100% - 30px); margin: 0 auto 28px; display: flex; align-items: center; gap: 16px; text-align: left; }
+.tang-new-badge > div:last-child { display: grid; gap: 2px; }
+.tang-new-badge span { color: var(--vermilion); font-size: 12px; letter-spacing: .3em; }
+.tang-new-badge strong { font: 700 20px var(--brush); }
+.tang-new-badge small { color: var(--muted); font-size: 13px; }
+
+.tang-badges-screen { padding-top: 44px; }
+.tang-back-button { display: block; margin-bottom: 32px; border: 0; background: none; color: var(--vermilion-dark); font-size: 15px; letter-spacing: .2em; cursor: pointer; }
+.tang-badges-screen > h1 { margin-bottom: 10px; }
+.tang-player-plaque { display: flex; align-items: baseline; justify-content: center; flex-wrap: wrap; gap: 8px 18px; margin: 28px 0 22px; padding: 14px; border-top: 2px solid var(--gold); border-bottom: 2px solid var(--gold); background: rgba(247, 240, 224, .85); }
+.tang-player-plaque span, .tang-player-plaque small { color: var(--muted); font-size: 13px; letter-spacing: .25em; }
+.tang-player-plaque strong { font: 700 20px var(--brush); }
+.tang-badge-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
+.tang-badge-card { padding: 26px 15px 22px; border: 1px solid #c7a96c; border-top: 4px solid var(--vermilion); background: rgba(251, 246, 234, .96); box-shadow: 0 10px 25px rgba(80, 45, 20, .08); }
+.tang-badge-card.tang-locked { opacity: .6; filter: grayscale(.8); }
+.tang-badge-state { display: block; margin: 14px 0 8px; color: var(--vermilion); font-size: 12px; letter-spacing: .4em; }
+.tang-badge-card h2 { margin: 0; font: 700 21px var(--brush); letter-spacing: .1em; }
+.tang-badge-card em { display: block; margin-top: 4px; font-style: normal; color: var(--jade); font-size: 13px; }
+.tang-badge-card p { margin: 12px 0 0; color: var(--muted); font-size: 13px; line-height: 1.6; }
+
+.tang-coin { width: 84px; height: 84px; margin: auto; border-radius: 50%; display: grid; grid-template-rows: 1fr 22px 1fr; justify-items: center; align-items: center; position: relative; color: #4c3410; background: radial-gradient(circle at 35% 30%, #f2cf7c, #c0913a 52%, #7e5a1f 75%); border: 3px solid #6b4a17; box-shadow: inset 0 0 0 5px #d8ae5c, inset 0 0 0 6px #6b4a17, 0 3px 8px rgba(70, 45, 15, .25); }
+.tang-coin i { width: 20px; height: 20px; background: #f1e7d2; border: 3px solid #6b4a17; box-sizing: border-box; }
+.tang-coin strong { align-self: end; font: 700 18px var(--brush); line-height: 1; }
+.tang-coin small { align-self: start; font: 600 11px "Noto Serif TC", serif; line-height: 1; }
+.tang-coin.tang-dim { color: #6f685c; background: #b5ab98; border-color: #817968; box-shadow: inset 0 0 0 5px #c8bead, inset 0 0 0 6px #817968; }
+.tang-coin.tang-dim i { border-color: #817968; }
+
+.tang-app footer { position: relative; z-index: 1; padding: 15px; text-align: center; color: #f3dfb7; background: var(--vermilion-dark); border-top: 4px solid var(--gold); font-size: 13px; letter-spacing: .4em; }
+
+@media (max-width: 760px) {
+  .tang-nav { height: 70px; padding: 0 17px; }
+  .tang-brand small { display: none; }
+  .tang-brand b { font-size: 18px; }
+  .tang-nav nav { gap: 14px; }
+  .tang-nav-link { font-size: 14px; letter-spacing: .1em; }
+  .tang-hero { padding-top: 38px; }
+  .tang-badge-grid { grid-template-columns: repeat(2, 1fr); }
+  .tang-game-topline { grid-template-columns: 1fr auto; }
+  .tang-game-topline button { display: none; }
+  .tang-game-clock { border-right: 0; padding-right: 0; }
+  .tang-exam-card { padding: 26px 26px 30px; }
+  .tang-result-card { grid-template-columns: 1fr; }
+  .tang-result-card > div + div { border-left: 0; border-top: 1px solid #dcc9a2; }
+}
+@media (max-width: 470px) {
+  .tang-brand b { font-size: 16px; letter-spacing: .05em; }
+  .tang-nav nav .tang-nav-link:first-child { display: none; }
+  .tang-form-row { grid-template-columns: 1fr; gap: 20px; }
+  .tang-setup-card { padding: 26px 26px 20px; }
+  .tang-question { gap: 11px; }
+  .tang-answer { grid-template-columns: 1fr; }
+  .tang-answer button { padding: 12px; }
+  .tang-streak-panel { grid-template-columns: auto 1fr; }
+  .tang-streak-next { grid-column: 1 / -1; text-align: center; }
+  .tang-badge-grid { grid-template-columns: 1fr; }
+  .tang-result-actions { flex-direction: column; }
+  .tang-result-actions .tang-primary { width: 100%; }
+}
