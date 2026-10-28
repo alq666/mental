@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 260" preserveAspectRatio="xMidYMax slice">
+  <!-- Chang'an: Zhongnan mountains, the city wall, a gate tower, and the Giant Wild Goose Pagoda (652). -->
+  <path fill="#3e7465" fill-opacity=".07" d="M0 150L120 95L220 135L340 70L470 130L560 100L700 140L860 80L1000 135L1120 90L1260 130L1400 75L1520 120L1600 100V260H0Z"/>
+  <g fill="#7f2219" fill-opacity=".12">
+    <!-- Giant Wild Goose Pagoda: seven tapering storeys with corbelled eaves -->
+    <g transform="translate(300 0)">
+      <rect x="-70" y="214" width="140" height="16"/>
+      <rect x="-56" y="188" width="112" height="28"/><rect x="-64" y="182" width="128" height="7"/>
+      <rect x="-51" y="160" width="102" height="24"/><rect x="-58" y="155" width="116" height="6"/>
+      <rect x="-46" y="135" width="92" height="22"/><rect x="-53" y="130" width="106" height="6"/>
+      <rect x="-41" y="112" width="82" height="20"/><rect x="-48" y="107" width="96" height="6"/>
+      <rect x="-36" y="91" width="72" height="18"/><rect x="-43" y="86" width="86" height="6"/>
+      <rect x="-31" y="72" width="62" height="16"/><rect x="-38" y="67" width="76" height="6"/>
+      <rect x="-26" y="55" width="52" height="14"/><rect x="-33" y="50" width="66" height="6"/>
+      <polygon points="-22,50 0,28 22,50"/>
+      <rect x="-2" y="8" width="4" height="22"/><circle cx="0" cy="18" r="5"/><circle cx="0" cy="8" r="3"/>
+    </g>
+    <!-- city wall with crenellations -->
+    <rect x="420" y="190" width="1180" height="40"/>
+    <g>
+      <rect x="430" y="182" width="16" height="10"/><rect x="466" y="182" width="16" height="10"/><rect x="502" y="182" width="16" height="10"/><rect x="538" y="182" width="16" height="10"/>
+      <rect x="1220" y="182" width="16" height="10"/><rect x="1256" y="182" width="16" height="10"/><rect x="1292" y="182" width="16" height="10"/><rect x="1328" y="182" width="16" height="10"/>
+      <rect x="1364" y="182" width="16" height="10"/><rect x="1400" y="182" width="16" height="10"/><rect x="1436" y="182" width="16" height="10"/><rect x="1472" y="182" width="16" height="10"/>
+    </g>
+    <!-- gate tower: platform, two halls with sweeping hip roofs -->
+    <rect x="700" y="160" width="400" height="34"/>
+    <rect x="760" y="122" width="280" height="40"/>
+    <path d="M700 126C760 118 790 104 820 92H980C1010 104 1040 118 1100 126C1104 120 1092 116 1086 116C1050 110 1020 98 995 84H805C780 98 750 110 714 116C708 116 696 120 700 126Z"/>
+    <rect x="800" y="66" width="200" height="22"/>
+    <path d="M760 70C800 64 822 52 842 40H958C978 52 1000 64 1040 70C1044 64 1034 60 1028 60C1000 56 982 46 966 34H834C818 46 800 56 772 60C766 60 756 64 760 70Z"/>
+    <rect x="896" y="26" width="8" height="10"/>
+    <!-- watch towers on the wall -->
+    <rect x="600" y="160" width="50" height="32"/><path d="M584 164C600 160 612 152 618 146H632C638 152 650 160 666 164L664 158C650 156 640 148 636 140H614C610 148 600 156 586 158Z"/>
+    <rect x="1170" y="160" width="50" height="32"/><path d="M1154 164C1170 160 1182 152 1188 146H1202C1208 152 1220 160 1236 164L1234 158C1220 156 1210 148 1206 140H1184C1180 148 1170 156 1156 158Z"/>
+  </g>
+  <path fill="#7f2219" fill-opacity=".14" d="M0 228C300 220 500 236 800 228S1300 220 1600 230V260H0Z"/>
+</svg>

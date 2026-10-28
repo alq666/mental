@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import "./App.css";
+import FrenchGame from "./FrenchGame";
 import RomanGame from "./RomanGame";
+import TangGame from "./TangGame";
 
 type BestSession = {
   name: string;
@@ -310,10 +312,20 @@ function ClassicApp() {
             </button>
           </form>
           <BestSessionsPanel />
-          <a className="roman-variant-link" href="/roman">
-            <span aria-hidden="true">🏛️</span>
-            Try the Roman challenge
-          </a>
+          <div className="variant-links">
+            <a className="variant-link" href="/roman">
+              <span aria-hidden="true">🏛️</span>
+              Try the Roman challenge
+            </a>
+            <a className="variant-link" href="/france" lang="fr">
+              <span aria-hidden="true">⚜️</span>
+              Le défi du royaume de France
+            </a>
+            <a className="variant-link" href="/tang" lang="zh-Hant">
+              <span aria-hidden="true">🏯</span>
+              大唐算學館
+            </a>
+          </div>
         </div>
       </div>
     );
@@ -416,11 +428,11 @@ function ClassicApp() {
 }
 
 function App() {
-  return window.location.pathname.startsWith("/roman") ? (
-    <RomanGame />
-  ) : (
-    <ClassicApp />
-  );
+  const path = window.location.pathname;
+  if (path.startsWith("/roman")) return <RomanGame />;
+  if (path.startsWith("/france")) return <FrenchGame />;
+  if (path.startsWith("/tang")) return <TangGame />;
+  return <ClassicApp />;
 }
 
 export default App;

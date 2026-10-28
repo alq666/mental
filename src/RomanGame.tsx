@@ -1,9 +1,5 @@
-import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import "./RomanGame.css";
-
-type Screen = "setup" | "game" | "result" | "badges";
-type EndReason = "completed" | "time";
-type PlayerBadges = Record<string, string[]>;
+import { formatClock, TOTAL_ROUNDS, useStreakGame } from "./useStreakGame";
 
 type Badge = {
   id: string;
@@ -14,8 +10,6 @@ type Badge = {
   mark: string;
 };
 
-const TOTAL_ROUNDS = 20;
-const MIN_NUMBER = 2;
 const BADGE_STORAGE_KEY = "mental-math-challenge:roman-badges:v1";
 
 const BADGES: Badge[] = [
@@ -25,136 +19,15 @@ const BADGES: Badge[] = [
   { id: "caesar", name: "Caesar's Crown", latin: "Corona Caesaris", description: "Complete all 20 without a mistake.", threshold: 20, mark: "XX" },
 ];
 
-function loadBadges(): PlayerBadges {
-  try {
-    const parsed: unknown = JSON.parse(localStorage.getItem(BADGE_STORAGE_KEY) || "{}");
-    return typeof parsed === "object" && parsed !== null ? parsed as PlayerBadges : {};
-  } catch {
-    return {};
-  }
-}
-
-function formatClock(seconds: number) {
-  const mins = Math.floor(seconds / 60);
-  const secs = seconds % 60;
-  return `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
-}
-
 function RomanGame() {
-  const [screen, setScreen] = useState<Screen>("setup");
-  const [returnScreen, setReturnScreen] = useState<Screen>("setup");
-  const [playerName, setPlayerName] = useState("");
-  const [maxMultiple, setMaxMultiple] = useState("12");
-  const [timerEnabled, setTimerEnabled] = useState(true);
-  const [timerMinutes, setTimerMinutes] = useState("2");
-  const [timeLeft, setTimeLeft] = useState(120);
-  const [round, setRound] = useState(1);
-  const [score, setScore] = useState(0);
-  const [streak, setStreak] = useState(0);
-  const [bestStreak, setBestStreak] = useState(0);
-  const [num1, setNum1] = useState(2);
-  const [num2, setNum2] = useState(2);
-  const [answer, setAnswer] = useState("");
-  const [feedback, setFeedback] = useState<"correct" | "wrong" | "">("");
-  const [badgesByPlayer, setBadgesByPlayer] = useState<PlayerBadges>(loadBadges);
-  const [newBadgeId, setNewBadgeId] = useState<string | null>(null);
-  const [endReason, setEndReason] = useState<EndReason>("completed");
-  const advanceTimer = useRef<number | null>(null);
-  const answerInput = useRef<HTMLInputElement>(null);
-
-  const playerKey = playerName.trim().toLocaleLowerCase() || "anonymous";
-  const earnedIds = badgesByPlayer[playerKey] || [];
-
-  const makeQuestion = useCallback(() => {
-    const max = Math.max(MIN_NUMBER, Number(maxMultiple) || 12);
-    setNum1(Math.floor(Math.random() * (max - MIN_NUMBER + 1)) + MIN_NUMBER);
-    setNum2(Math.floor(Math.random() * (max - MIN_NUMBER + 1)) + MIN_NUMBER);
-    setAnswer("");
-    setFeedback("");
-    requestAnimationFrame(() => answerInput.current?.focus());
-  }, [maxMultiple]);
-
-  const endGame = useCallback((reason: EndReason) => {
-    if (advanceTimer.current) window.clearTimeout(advanceTimer.current);
-    setEndReason(reason);
-    setScreen("result");
-  }, []);
-
-  useEffect(() => {
-    if (screen !== "game" || !timerEnabled) return;
-    const tick = window.setInterval(() => {
-      setTimeLeft((current) => {
-        if (current <= 1) {
-          window.clearInterval(tick);
-          endGame("time");
-          return 0;
-        }
-        return current - 1;
-      });
-    }, 1000);
-    return () => window.clearInterval(tick);
-  }, [endGame, screen, timerEnabled]);
-
-  useEffect(() => () => {
-    if (advanceTimer.current) window.clearTimeout(advanceTimer.current);
-  }, []);
-
-  const unlockForStreak = (nextStreak: number) => {
-    const newlyEarned = BADGES.filter((badge) => badge.threshold <= nextStreak && !earnedIds.includes(badge.id));
-    if (!newlyEarned.length) return;
-    const ids = [...earnedIds, ...newlyEarned.map((badge) => badge.id)];
-    const next = { ...badgesByPlayer, [playerKey]: ids };
-    setBadgesByPlayer(next);
-    localStorage.setItem(BADGE_STORAGE_KEY, JSON.stringify(next));
-    setNewBadgeId(newlyEarned[newlyEarned.length - 1].id);
-  };
-
-  const startGame = (event: React.FormEvent) => {
-    event.preventDefault();
-    if (!playerName.trim() || Number(maxMultiple) < MIN_NUMBER || (timerEnabled && Number(timerMinutes) <= 0)) return;
-    setRound(1);
-    setScore(0);
-    setStreak(0);
-    setBestStreak(0);
-    setTimeLeft(Math.round(Number(timerMinutes) * 60));
-    setNewBadgeId(null);
-    setEndReason("completed");
-    makeQuestion();
-    setScreen("game");
-  };
-
-  const submitAnswer = (event: React.FormEvent) => {
-    event.preventDefault();
-    if (!answer || feedback) return;
-    const correct = Number(answer) === num1 * num2;
-    const nextStreak = correct ? streak + 1 : 0;
-    if (correct) {
-      setScore((value) => value + 1);
-      setStreak(nextStreak);
-      setBestStreak((value) => Math.max(value, nextStreak));
-      unlockForStreak(nextStreak);
-      setFeedback("correct");
-    } else {
-      setStreak(0);
-      setFeedback("wrong");
-    }
-
-    advanceTimer.current = window.setTimeout(() => {
-      if (round >= TOTAL_ROUNDS) endGame("completed");
-      else {
-        setRound((value) => value + 1);
-        makeQuestion();
-      }
-    }, 850);
-  };
-
-  const openBadges = () => {
-    setReturnScreen(screen);
-    setScreen("badges");
-  };
-
-  const earnedBadges = useMemo(() => BADGES.filter((badge) => earnedIds.includes(badge.id)), [earnedIds]);
-  const latestBadge = BADGES.find((badge) => badge.id === newBadgeId);
+  const {
+    screen, setScreen, openBadges, closeBadges,
+    playerName, setPlayerName, maxMultiple, setMaxMultiple,
+    timerEnabled, setTimerEnabled, timerMinutes, setTimerMinutes,
+    timeLeft, round, score, streak, bestStreak, endReason,
+    num1, num2, answer, setAnswer, feedback, answerInput,
+    startGame, submitAnswer, earnedIds, earnedBadges, latestBadge, nextBadge,
+  } = useStreakGame(BADGES, BADGE_STORAGE_KEY);
 
   return (
     <main className="roman-app">
@@ -226,7 +99,7 @@ function RomanGame() {
           <div className="streak-panel">
             <div className="streak-flame">♨</div>
             <div><span>Current streak</span><strong>{streak} correct</strong></div>
-            <div className="streak-next">{BADGES.find((badge) => !earnedIds.includes(badge.id)) ? `Next insignia at ${BADGES.find((badge) => !earnedIds.includes(badge.id))?.threshold}` : "All insignia earned"}</div>
+            <div className="streak-next">{nextBadge ? `Next insignia at ${nextBadge.threshold}` : "All insignia earned"}</div>
           </div>
         </section>
       )}
@@ -248,7 +121,7 @@ function RomanGame() {
 
       {screen === "badges" && (
         <section className="badges-screen">
-          <button className="back-button" onClick={() => setScreen(returnScreen === "badges" ? "setup" : returnScreen)}>← Return</button>
+          <button className="back-button" onClick={closeBadges}>← Return</button>
           <p className="eyebrow"><span /> Hall of Honors <span /></p>
           <h1>Your insignia</h1>
           <p>Every streak is a campaign. Every badge, a victory remembered.</p>
