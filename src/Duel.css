@@ -1,0 +1,57 @@
+/* Fight shown over the question card after each answer. Themes set the --duel-* variables. */
+.duel-overlay {
+  --duel-bg: #faf5e8;
+  --duel-ink: #2b2118;
+  --duel-accent: #762f2d;
+  --duel-win: #3f6b35;
+  --duel-lose: #8f2a22;
+  --duel-ground: rgba(80, 60, 30, .25);
+  position: absolute;
+  inset: 12px;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  color: var(--duel-ink);
+  background: var(--duel-bg);
+  animation: duelFadeIn .15s ease-out;
+}
+@keyframes duelFadeIn { from { opacity: 0; } }
+
+.duel-stage { position: relative; flex: none; width: 400px; height: 170px; }
+@media (max-width: 470px) { .duel-stage { margin: -24px 0; transform: scale(.72); } }
+.duel-fighter { position: absolute; bottom: 10px; width: 96px; height: 108px; transition: left .1s linear, right .1s linear, transform .1s linear; }
+.duel-fighter svg { display: block; width: 100%; height: 100%; transform-origin: 50% 100%; transition: transform .25s ease-in; }
+.duel-hurt svg { filter: brightness(1.6) sepia(1) saturate(6) hue-rotate(-30deg); }
+.duel-player.duel-down svg { transform: translate(-9px, -34px) rotate(-90deg); }
+.duel-foe.duel-down svg { transform: translate(9px, -34px) rotate(90deg); }
+.duel-down svg { filter: grayscale(.6) opacity(.8); }
+
+/* Name tag that marks which fighter is the player. */
+.duel-tag { position: absolute; top: 0; z-index: 1; padding: 2px 8px; color: #fff; background: var(--duel-accent); border-radius: 3px; font-size: 13px; font-weight: 600; letter-spacing: .06em; line-height: 1.4; transition: left .1s linear, transform .25s; }
+.duel-tag i { position: absolute; left: 50%; bottom: -5px; margin-left: -5px; border: 5px solid transparent; border-bottom: 0; border-top-color: var(--duel-accent); }
+.duel-tag span { display: block; max-width: 110px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.duel-spark { position: absolute; left: 50%; bottom: 68px; margin-left: -14px; color: #f2b632; font-size: 30px; line-height: 1; text-shadow: 0 0 6px #fff3c4; animation: duelSpark .1s ease-out; }
+@keyframes duelSpark { from { transform: scale(.3) rotate(-30deg); opacity: .4; } }
+.duel-ground { position: absolute; left: 0; right: 0; bottom: 8px; height: 2px; background: var(--duel-ground); }
+
+.duel-verdict { min-height: 1.3em; font-size: 22px; letter-spacing: .08em; opacity: 0; transform: scale(.8); transition: opacity .2s, transform .2s; }
+.duel-verdict.shown { opacity: 1; transform: none; }
+.duel-verdict.win { color: var(--duel-win); }
+.duel-verdict.lose { color: var(--duel-lose); }
+.duel-caption { margin: 0; padding: 0 12px; text-align: center; font-size: 15px; font-style: italic; }
+
+.duel-roman { --duel-accent: #762f2d; --duel-bg: #f6f0e2; font-family: "Libre Caslon Text", Georgia, serif; }
+.duel-roman .duel-verdict { font: 600 24px Cinzel, serif; }
+.duel-roman .duel-tag { font-family: Cinzel, serif; }
+
+.duel-france { --duel-accent: #1f3b78; --duel-bg: #faf5e8; --duel-win: #1f3b78; --duel-lose: #a6321f; font-family: "EB Garamond", Georgia, serif; }
+.duel-france .duel-verdict { font: 400 28px "IM Fell French Canon", serif; letter-spacing: .02em; }
+.duel-france .duel-caption { font-size: 17px; }
+
+.duel-tang { --duel-accent: #b0362a; --duel-bg: #fbf6ea; --duel-win: #3e7465; --duel-lose: #b0362a; font-family: "Noto Serif TC", serif; }
+.duel-tang .duel-verdict { font: 700 28px "LXGW WenKai TC", "Noto Serif TC", serif; letter-spacing: .3em; text-indent: .3em; }
+.duel-tang .duel-caption { font-style: normal; font-family: "LXGW WenKai TC", "Noto Serif TC", serif; }

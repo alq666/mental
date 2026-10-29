@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { DUEL_MS } from "./Duel";
 
 export type Screen = "setup" | "game" | "result" | "badges";
 export type EndReason = "completed" | "time";
@@ -46,6 +47,7 @@ export function useStreakGame<B extends StreakBadge>(badges: B[], storageKey: st
   const [newBadgeId, setNewBadgeId] = useState<string | null>(null);
   const [endReason, setEndReason] = useState<EndReason>("completed");
   const advanceTimer = useRef<number | null>(null);
+  const remainingMs = useRef(120_000);
   const answerInput = useRef<HTMLInputElement>(null);
 
   const playerKey = playerName.trim().toLocaleLowerCase() || "anonymous";
@@ -67,19 +69,25 @@ export function useStreakGame<B extends StreakBadge>(badges: B[], storageKey: st
   }, []);
 
   useEffect(() => {
-    if (screen !== "game" || !timerEnabled) return;
+    // The clock stops while the duel for the last answer plays.
+    // Time is kept in milliseconds so that the fraction of a second spent on
+    // an answer is carried across the pause rather than dropped.
+    if (screen !== "game" || !timerEnabled || feedback) return;
+    const resumedAt = Date.now();
+    const budget = remainingMs.current;
     const tick = window.setInterval(() => {
-      setTimeLeft((current) => {
-        if (current <= 1) {
-          window.clearInterval(tick);
-          endGame("time");
-          return 0;
-        }
-        return current - 1;
-      });
-    }, 1000);
-    return () => window.clearInterval(tick);
-  }, [endGame, screen, timerEnabled]);
+      const left = budget - (Date.now() - resumedAt);
+      setTimeLeft(Math.max(0, Math.ceil(left / 1000)));
+      if (left <= 0) {
+        window.clearInterval(tick);
+        endGame("time");
+      }
+    }, 100);
+    return () => {
+      window.clearInterval(tick);
+      remainingMs.current = Math.max(0, budget - (Date.now() - resumedAt));
+    };
+  }, [endGame, feedback, screen, timerEnabled]);
 
   useEffect(() => () => {
     if (advanceTimer.current) window.clearTimeout(advanceTimer.current);
@@ -107,6 +115,7 @@ export function useStreakGame<B extends StreakBadge>(badges: B[], storageKey: st
     setStreak(0);
     setBestStreak(0);
     setTimeLeft(Math.round(Number(timerMinutes) * 60));
+    remainingMs.current = Math.round(Number(timerMinutes) * 60) * 1000;
     setNewBadgeId(null);
     setEndReason("completed");
     makeQuestion();
@@ -135,7 +144,7 @@ export function useStreakGame<B extends StreakBadge>(badges: B[], storageKey: st
         setRound((value) => value + 1);
         makeQuestion();
       }
-    }, 850);
+    }, DUEL_MS + 300);
   };
 
   const openBadges = () => {

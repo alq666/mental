@@ -1,4 +1,5 @@
 import "./FrenchGame.css";
+import { Duel, type DuelTheme } from "./Duel";
 import { formatClock, TOTAL_ROUNDS, useStreakGame } from "./useStreakGame";
 
 type Badge = {
@@ -23,6 +24,15 @@ const BADGES: Badge[] = [
 
 const frenchNumber = (value: string) => value.replace(".", ",");
 
+// A knight of France against an English man-at-arms, as at Formigny (1450).
+const DUEL_THEME: DuelTheme = {
+  className: "duel-france",
+  player: { h: "#a3acb8", c: "#c39a3b", t: "#1f3b78", d: "#c39a3b", l: "#7b8591" },
+  foe: { h: "#8d939c", c: "#e8e2d4", t: "#ece6d6", d: "#b3261e", l: "#5b4a3a" },
+  win: "Victoire !",
+  lose: "Défaite…",
+};
+
 function FrenchGame() {
   const {
     screen, setScreen, openBadges, closeBadges,
@@ -32,6 +42,7 @@ function FrenchGame() {
     num1, num2, answer, setAnswer, feedback, answerInput,
     startGame, submitAnswer, earnedIds, earnedBadges, latestBadge, nextBadge,
   } = useStreakGame(BADGES, BADGE_STORAGE_KEY);
+  const feedbackText = feedback === "correct" ? "Juste ! Montjoie Saint-Denis !" : feedback === "wrong" ? `Que nenni — la réponse est ${num1 * num2}.` : "";
 
   return (
     <main className="france-app" lang="fr">
@@ -95,10 +106,8 @@ function FrenchGame() {
               <input ref={answerInput} type="number" inputMode="numeric" value={answer} onChange={(event) => setAnswer(event.target.value)} placeholder="Votre réponse" aria-label="Votre réponse" disabled={!!feedback} />
               <button type="submit" disabled={!answer || !!feedback}>Valider</button>
             </form>
-            <div className={`france-feedback ${feedback}`} aria-live="polite">
-              {feedback === "correct" && "Juste ! Montjoie Saint-Denis !"}
-              {feedback === "wrong" && `Que nenni — la réponse est ${num1 * num2}.`}
-            </div>
+            <div className={`france-feedback ${feedback}`} aria-live="polite">{feedbackText}</div>
+            {feedback && <Duel key={round} outcome={feedback === "correct" ? "win" : "lose"} theme={DUEL_THEME} playerName={playerName} caption={feedbackText} />}
           </div>
           <div className="fr-streak-panel">
             <div className="fr-streak-mark">⚔</div>
