@@ -1,4 +1,5 @@
 import "./RomanGame.css";
+import { Duel, type DuelTheme } from "./Duel";
 import { formatClock, TOTAL_ROUNDS, useStreakGame } from "./useStreakGame";
 
 type Badge = {
@@ -19,6 +20,14 @@ const BADGES: Badge[] = [
   { id: "caesar", name: "Caesar's Crown", latin: "Corona Caesaris", description: "Complete all 20 without a mistake.", threshold: 20, mark: "XX" },
 ];
 
+const DUEL_THEME: DuelTheme = {
+  className: "duel-roman",
+  player: { h: "#b98a3a", c: "#b3261e", t: "#8d2a24", d: "#c9a227", l: "#e2b48a" },
+  foe: { h: "#c4672a", c: "#c4672a", t: "#55703f", d: "#3a4f2c", l: "#6b5236" },
+  win: "Victoria!",
+  lose: "Vae victis!",
+};
+
 function RomanGame() {
   const {
     screen, setScreen, openBadges, closeBadges,
@@ -28,6 +37,7 @@ function RomanGame() {
     num1, num2, answer, setAnswer, feedback, answerInput,
     startGame, submitAnswer, earnedIds, earnedBadges, latestBadge, nextBadge,
   } = useStreakGame(BADGES, BADGE_STORAGE_KEY);
+  const feedbackText = feedback === "correct" ? "Correct — the laurel grows." : feedback === "wrong" ? `Not so — the answer is ${num1 * num2}.` : "";
 
   return (
     <main className="roman-app">
@@ -91,10 +101,8 @@ function RomanGame() {
               <input ref={answerInput} type="number" inputMode="numeric" value={answer} onChange={(event) => setAnswer(event.target.value)} placeholder="Your answer" disabled={!!feedback} />
               <button type="submit" disabled={!answer || !!feedback}>Submit answer</button>
             </form>
-            <div className={`roman-feedback ${feedback}`} aria-live="polite">
-              {feedback === "correct" && "Correct — the laurel grows."}
-              {feedback === "wrong" && `Not so — the answer is ${num1 * num2}.`}
-            </div>
+            <div className={`roman-feedback ${feedback}`} aria-live="polite">{feedbackText}</div>
+            {feedback && <Duel key={round} outcome={feedback === "correct" ? "win" : "lose"} theme={DUEL_THEME} playerName={playerName} caption={feedbackText} />}
           </div>
           <div className="streak-panel">
             <div className="streak-flame">♨</div>

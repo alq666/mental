@@ -1,4 +1,5 @@
 import "./TangGame.css";
+import { Duel, type DuelTheme } from "./Duel";
 import { formatClock, TOTAL_ROUNDS, useStreakGame } from "./useStreakGame";
 
 type Badge = {
@@ -30,6 +31,14 @@ function toChineseNumeral(value: number): string {
   return `${tens === 1 ? "" : DIGITS[tens]}十${ones ? DIGITS[ones] : ""}`;
 }
 
+const DUEL_THEME: DuelTheme = {
+  className: "duel-tang",
+  player: { h: "#241c18", c: "#241c18", t: "#b0362a", d: "#c08f2e", l: "#3b2a1c" },
+  foe: { h: "#4a4a4a", c: "#7a2a2a", t: "#2f4c6b", d: "#1e3247", l: "#2a2a2a" },
+  win: "勝",
+  lose: "敗",
+};
+
 function TangGame() {
   const {
     screen, setScreen, openBadges, closeBadges,
@@ -39,6 +48,7 @@ function TangGame() {
     num1, num2, answer, setAnswer, feedback, answerInput,
     startGame, submitAnswer, earnedIds, earnedBadges, latestBadge, nextBadge,
   } = useStreakGame(BADGES, BADGE_STORAGE_KEY);
+  const feedbackText = feedback === "correct" ? "答對了！功名可期。" : feedback === "wrong" ? `非也——答案是 ${num1 * num2}。` : "";
 
   return (
     <main className="tang-app" lang="zh-Hant">
@@ -102,10 +112,8 @@ function TangGame() {
               <input ref={answerInput} type="number" inputMode="numeric" value={answer} onChange={(event) => setAnswer(event.target.value)} placeholder="你的答案" aria-label="你的答案" disabled={!!feedback} />
               <button type="submit" disabled={!answer || !!feedback}>作答</button>
             </form>
-            <div className={`tang-feedback ${feedback}`} aria-live="polite">
-              {feedback === "correct" && "答對了！功名可期。"}
-              {feedback === "wrong" && `非也——答案是 ${num1 * num2}。`}
-            </div>
+            <div className={`tang-feedback ${feedback}`} aria-live="polite">{feedbackText}</div>
+            {feedback && <Duel key={round} outcome={feedback === "correct" ? "win" : "lose"} theme={DUEL_THEME} playerName={playerName} caption={feedbackText} />}
           </div>
           <div className="tang-streak-panel">
             <div className="tang-streak-mark">籌</div>

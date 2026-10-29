@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
+import { DUEL_MS } from "./Duel";
 
 export type Screen = "setup" | "game" | "result" | "badges";
 export type EndReason = "completed" | "time";
@@ -67,7 +68,8 @@ export function useStreakGame<B extends StreakBadge>(badges: B[], storageKey: st
   }, []);
 
   useEffect(() => {
-    if (screen !== "game" || !timerEnabled) return;
+    // The clock stops while the duel for the last answer plays.
+    if (screen !== "game" || !timerEnabled || feedback) return;
     const tick = window.setInterval(() => {
       setTimeLeft((current) => {
         if (current <= 1) {
@@ -79,7 +81,7 @@ export function useStreakGame<B extends StreakBadge>(badges: B[], storageKey: st
       });
     }, 1000);
     return () => window.clearInterval(tick);
-  }, [endGame, screen, timerEnabled]);
+  }, [endGame, feedback, screen, timerEnabled]);
 
   useEffect(() => () => {
     if (advanceTimer.current) window.clearTimeout(advanceTimer.current);
@@ -135,7 +137,7 @@ export function useStreakGame<B extends StreakBadge>(badges: B[], storageKey: st
         setRound((value) => value + 1);
         makeQuestion();
       }
-    }, 850);
+    }, DUEL_MS + 300);
   };
 
   const openBadges = () => {
