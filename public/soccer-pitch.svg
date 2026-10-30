@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 260" preserveAspectRatio="xMidYMax slice">
+  <!-- Penalty area, goal area, spot and arc, chalked in perspective at the foot of the page. -->
+  <g fill="none" stroke="#f4f8f2" stroke-opacity=".22" stroke-width="4">
+    <path d="M0 40H1600"/>
+    <path d="M330 40L180 260M1270 40L1420 260"/>
+    <path d="M330 40L300 260"/>
+    <path d="M590 40L560 120H1040L1010 40"/>
+    <path d="M640 230C700 190 900 190 960 230"/>
+  </g>
+  <ellipse cx="800" cy="178" rx="9" ry="4" fill="#f4f8f2" fill-opacity=".3"/>
+</svg>
