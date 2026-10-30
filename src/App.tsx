@@ -2,6 +2,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import "./App.css";
 import FrenchGame from "./FrenchGame";
 import RomanGame from "./RomanGame";
+import SoccerGame from "./SoccerGame";
 import TangGame from "./TangGame";
 
 type BestSession = {
@@ -325,6 +326,10 @@ function ClassicApp() {
               <span aria-hidden="true">🏯</span>
               大唐算學館
             </a>
+            <a className="variant-link" href="/soccer">
+              <span aria-hidden="true">⚽</span>
+              Penalty shootout
+            </a>
           </div>
         </div>
       </div>
@@ -432,6 +437,7 @@ function App() {
   if (path.startsWith("/roman")) return <RomanGame />;
   if (path.startsWith("/france")) return <FrenchGame />;
   if (path.startsWith("/tang")) return <TangGame />;
+  if (path.startsWith("/soccer")) return <SoccerGame />;
   return <ClassicApp />;
 }
 

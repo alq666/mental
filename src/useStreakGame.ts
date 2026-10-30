@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { DUEL_MS } from "./Duel";
+import { SCENE_MS } from "./sceneTimeline";
 
 export type Screen = "setup" | "game" | "result" | "badges";
 export type EndReason = "completed" | "time";
@@ -144,7 +144,7 @@ export function useStreakGame<B extends StreakBadge>(badges: B[], storageKey: st
         setRound((value) => value + 1);
         makeQuestion();
       }
-    }, DUEL_MS + 300);
+    }, SCENE_MS + 300);
   };
 
   const openBadges = () => {

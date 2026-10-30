@@ -1,5 +1,6 @@
-import { useEffect, useState } from "react";
 import "./Duel.css";
+import { PixelSprite } from "./PixelSprite";
+import { useSceneTick } from "./sceneTimeline";
 
 // Pixel sprites, 16 × 18, facing right. Each character is a palette key; "." is transparent.
 // h helmet/hair, c crest, s skin, e eye, t tunic, d tunic trim, b belt, l legs, f feet, w blade, g hilt.
@@ -86,20 +87,8 @@ export type DuelTheme = {
 
 const BASE_COLORS: Record<string, string> = { s: "#efc39a", e: "#1b1410", b: "#4a3020", f: "#2a1d14", w: "#e8ebef", g: "#c9a227" };
 
-const TICK_MS = 100;
-const TICKS = 24;
-/** Length of the fight animation; the game waits this long (plus a short hold) before the next question. */
-export const DUEL_MS = TICK_MS * TICKS;
-
 function Sprite({ pose, palette, mirrored }: { pose: keyof typeof POSES; palette: Palette; mirrored: boolean }) {
-  const colors: Record<string, string> = { ...BASE_COLORS, ...palette };
-  return (
-    <svg viewBox="0 0 16 18" shapeRendering="crispEdges">
-      <g transform={mirrored ? "translate(16 0) scale(-1 1)" : undefined}>
-        {POSES[pose].flatMap((row, y) => [...row].map((key, x) => key === "." ? null : <rect key={`${x}-${y}`} x={x} y={y} width={1.02} height={1.02} fill={colors[key]} />))}
-      </g>
-    </svg>
-  );
+  return <PixelSprite rows={POSES[pose]} colors={{ ...BASE_COLORS, ...palette }} mirrored={mirrored} />;
 }
 
 type Fighter = { pose: Pose; x: number; y: number };
@@ -126,13 +115,7 @@ function FighterView({ fighter, palette, side }: { fighter: Fighter; palette: Pa
 }
 
 export function Duel({ outcome, theme, playerName, caption }: { outcome: "win" | "lose"; theme: DuelTheme; playerName: string; caption: string }) {
-  const [tick, setTick] = useState(() => window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ? TICKS : 0);
-
-  useEffect(() => {
-    if (tick >= TICKS) return;
-    const timer = window.setTimeout(() => setTick((value) => value + 1), TICK_MS);
-    return () => window.clearTimeout(timer);
-  }, [tick]);
+  const tick = useSceneTick();
 
   const player = choreograph(tick, outcome === "win");
   const foe = choreograph(tick, outcome === "lose");
