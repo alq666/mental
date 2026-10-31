@@ -8,6 +8,8 @@
     { "source": "/tang", "destination": "/index.html" },
     { "source": "/tang/:path*", "destination": "/index.html" },
     { "source": "/soccer", "destination": "/index.html" },
-    { "source": "/soccer/:path*", "destination": "/index.html" }
+    { "source": "/soccer/:path*", "destination": "/index.html" },
+    { "source": "/muromachi", "destination": "/index.html" },
+    { "source": "/muromachi/:path*", "destination": "/index.html" }
   ]
 }

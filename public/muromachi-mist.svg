@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 140">
+  <!-- Ink-wash mist bands (suiboku haze), offset in a half-drop repeat. -->
+  <defs>
+    <path id="mist" fill="none" stroke-linecap="round" d="M8 44C60 38 92 50 136 42C170 36 192 46 212 40M20 76C70 70 102 82 152 76C180 73 198 78 212 74M46 106C100 100 132 112 176 106C192 104 202 107 214 105"/>
+  </defs>
+  <g stroke="#233a5c" stroke-opacity=".08" stroke-width="9">
+    <use href="#mist"/>
+    <use href="#mist" transform="translate(116 62) scale(.9)"/>
+  </g>
+</svg>

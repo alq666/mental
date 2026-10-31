@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import "./App.css";
 import FrenchGame from "./FrenchGame";
+import MuromachiGame from "./MuromachiGame";
 import RomanGame from "./RomanGame";
 import SoccerGame from "./SoccerGame";
 import TangGame from "./TangGame";
@@ -330,6 +331,10 @@ function ClassicApp() {
               <span aria-hidden="true">⚽</span>
               Penalty shootout
             </a>
+            <a className="variant-link" href="/muromachi" lang="ja">
+              <span aria-hidden="true">⛩️</span>
+              室町算術道場
+            </a>
           </div>
         </div>
       </div>
@@ -438,6 +443,7 @@ function App() {
   if (path.startsWith("/france")) return <FrenchGame />;
   if (path.startsWith("/tang")) return <TangGame />;
   if (path.startsWith("/soccer")) return <SoccerGame />;
+  if (path.startsWith("/muromachi")) return <MuromachiGame />;
   return <ClassicApp />;
 }
 

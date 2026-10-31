@@ -55,3 +55,7 @@
 .duel-tang { --duel-accent: #b0362a; --duel-bg: #fbf6ea; --duel-win: #3e7465; --duel-lose: #b0362a; font-family: "Noto Serif TC", serif; }
 .duel-tang .duel-verdict { font: 700 28px "LXGW WenKai TC", "Noto Serif TC", serif; letter-spacing: .3em; text-indent: .3em; }
 .duel-tang .duel-caption { font-style: normal; font-family: "LXGW WenKai TC", "Noto Serif TC", serif; }
+
+.duel-muromachi { --duel-accent: #233a5c; --duel-bg: #f5f0df; --duel-win: #47614f; --duel-lose: #a63b2e; font-family: "Noto Serif JP", serif; }
+.duel-muromachi .duel-verdict { font: 400 30px "Yuji Syuku", "Noto Serif JP", serif; letter-spacing: .25em; text-indent: .25em; }
+.duel-muromachi .duel-caption { font-style: normal; font-family: "Yuji Syuku", "Noto Serif JP", serif; }
