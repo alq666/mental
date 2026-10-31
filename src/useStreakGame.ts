@@ -25,7 +25,7 @@ export function formatClock(seconds: number) {
   return `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
 }
 
-// Game loop shared by the themed variants (Roman, French, Tang): 20 rounds,
+// Game loop shared by the themed variants (Roman, French, Tang, Muromachi): 20 rounds,
 // optional countdown, and streak badges stored per player in localStorage.
 export function useStreakGame<B extends StreakBadge>(badges: B[], storageKey: string) {
   const [screen, setScreen] = useState<Screen>("setup");
