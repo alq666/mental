@@ -23,12 +23,12 @@ function SoccerGame() {
   const {
     screen, setScreen, openBadges, closeBadges,
     playerName, setPlayerName, maxMultiple, setMaxMultiple,
-    timerEnabled, setTimerEnabled, timerMinutes, setTimerMinutes,
-    timeLeft, round, score, streak, bestStreak, endReason,
+    timerEnabled, setTimerEnabled, timerSeconds, setTimerSeconds,
+    timeLeft, round, score, streak, bestStreak,
     num1, num2, answer, setAnswer, feedback, answerInput,
     startGame, submitAnswer, earnedIds, earnedBadges, latestBadge, nextBadge,
   } = useStreakGame(BADGES, BADGE_STORAGE_KEY);
-  const feedbackText = feedback === "correct" ? "Right in the corner!" : feedback === "wrong" ? `The keeper read it — the answer is ${num1 * num2}.` : "";
+  const feedbackText = feedback === "correct" ? "Right in the corner!" : feedback === "wrong" ? `The keeper read it — the answer is ${num1 * num2}.` : feedback === "timeout" ? `Time's up — the answer is ${num1 * num2}.` : "";
   const taken = round - 1 + (feedback ? 1 : 0);
 
   return (
@@ -62,16 +62,16 @@ function SoccerGame() {
                   <input type="number" min="2" max="99" value={maxMultiple} onChange={(event) => setMaxMultiple(event.target.value)} />
                 </label>
                 <label>
-                  <span>Match clock</span>
+                  <span>Shot clock</span>
                   <div className="sc-timer-setting">
-                    <button type="button" className={`sc-toggle ${timerEnabled ? "sc-on" : ""}`} onClick={() => setTimerEnabled((value) => !value)} aria-pressed={timerEnabled} aria-label="Use the match clock"><i /></button>
-                    <input aria-label="Match clock in minutes" type="number" min="0.5" max="30" step="0.5" value={timerMinutes} onChange={(event) => setTimerMinutes(event.target.value)} disabled={!timerEnabled} />
-                    <span>min</span>
+                    <button type="button" className={`sc-toggle ${timerEnabled ? "sc-on" : ""}`} onClick={() => setTimerEnabled((value) => !value)} aria-pressed={timerEnabled} aria-label="Use the shot clock"><i /></button>
+                    <input aria-label="Shot clock in seconds" type="number" min="1" max="60" step="1" value={timerSeconds} onChange={(event) => setTimerSeconds(event.target.value)} disabled={!timerEnabled} />
+                    <span>sec</span>
                   </div>
                 </label>
               </div>
               <button className="soccer-primary" type="submit">Kick off <span>→</span></button>
-              <p className="sc-setup-note">20 penalties · Trophies for scoring runs · {timerEnabled ? `${timerMinutes || 0} minute clock` : "No clock"}</p>
+              <p className="sc-setup-note">20 penalties · Trophies for scoring runs · {timerEnabled ? `${timerSeconds || 0} second shot clock` : "No clock"}</p>
             </form>
           </div>
         </section>
@@ -82,7 +82,7 @@ function SoccerGame() {
           <div className="sc-scoreboard">
             <div><span>Striker</span><strong>{playerName}</strong></div>
             <div className="sc-score"><span>Goals</span><strong>{score}<i>–</i>{taken - score}</strong><span>Saved</span></div>
-            <div className={`sc-game-clock ${timerEnabled && timeLeft <= 20 ? "sc-urgent" : ""}`}><span>{timerEnabled ? "Clock" : "No clock"}</span><strong>{timerEnabled ? formatClock(timeLeft) : "∞"}</strong></div>
+            <div className={`sc-game-clock ${timerEnabled && timeLeft <= 3 ? "sc-urgent" : ""}`}><span>{timerEnabled ? "Shot clock" : "No clock"}</span><strong>{timerEnabled ? formatClock(timeLeft) : "∞"}</strong></div>
           </div>
           <div className="sc-pitch-card">
             <div className="sc-progress-meta"><span>Penalty {round} of {TOTAL_ROUNDS}</span><button onClick={openBadges}>Trophies</button></div>
@@ -109,7 +109,7 @@ function SoccerGame() {
       {screen === "result" && (
         <section className="sc-result-screen">
           <p className="sc-eyebrow">Full time</p>
-          <h1>{endReason === "time" ? "The final whistle" : "Shootout complete"}</h1>
+          <h1>Shootout complete</h1>
           <p>{playerName}, here is your match report.</p>
           <div className="sc-result-card">
             <div><strong>{score}<small> / {TOTAL_ROUNDS}</small></strong><span>Goals</span></div>

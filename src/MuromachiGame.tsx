@@ -45,12 +45,12 @@ function MuromachiGame() {
   const {
     screen, setScreen, openBadges, closeBadges,
     playerName, setPlayerName, maxMultiple, setMaxMultiple,
-    timerEnabled, setTimerEnabled, timerMinutes, setTimerMinutes,
-    timeLeft, round, score, streak, bestStreak, endReason,
+    timerEnabled, setTimerEnabled, timerSeconds, setTimerSeconds,
+    timeLeft, round, score, streak, bestStreak,
     num1, num2, answer, setAnswer, feedback, answerInput,
     startGame, submitAnswer, earnedIds, earnedBadges, latestBadge, nextBadge,
   } = useStreakGame(BADGES, BADGE_STORAGE_KEY);
-  const feedbackText = feedback === "correct" ? "見事！鮮やかな手並み。" : feedback === "wrong" ? `無念——積は ${num1 * num2}。` : "";
+  const feedbackText = feedback === "correct" ? "見事！鮮やかな手並み。" : feedback === "wrong" ? `無念——積は ${num1 * num2}。` : feedback === "timeout" ? `時切れ——積は ${num1 * num2}。` : "";
 
   return (
     <main className="muro-app" lang="ja">
@@ -83,16 +83,16 @@ function MuromachiGame() {
                   <input type="number" min="2" max="99" value={maxMultiple} onChange={(event) => setMaxMultiple(event.target.value)} />
                 </label>
                 <label>
-                  <span>制限時限</span>
+                  <span>一問の制限</span>
                   <div className="muro-timer-setting">
-                    <button type="button" className={`muro-toggle ${timerEnabled ? "muro-on" : ""}`} onClick={() => setTimerEnabled((value) => !value)} aria-pressed={timerEnabled} aria-label="制限時限を設ける"><i /></button>
-                    <input aria-label="制限時限（分）" type="number" min="0.5" max="30" step="0.5" value={timerMinutes} onChange={(event) => setTimerMinutes(event.target.value)} disabled={!timerEnabled} />
-                    <span>分</span>
+                    <button type="button" className={`muro-toggle ${timerEnabled ? "muro-on" : ""}`} onClick={() => setTimerEnabled((value) => !value)} aria-pressed={timerEnabled} aria-label="一問の制限を設ける"><i /></button>
+                    <input aria-label="一問の制限（秒）" type="number" min="1" max="60" step="1" value={timerSeconds} onChange={(event) => setTimerSeconds(event.target.value)} disabled={!timerEnabled} />
+                    <span>秒</span>
                   </div>
                 </label>
               </div>
               <button className="muro-primary" type="submit">試練に挑む <span>→</span></button>
-              <p className="muro-setup-note">二十問 · 連続正解で武功 · {timerEnabled ? `制限 ${timerMinutes || 0} 分` : "時限なし"}</p>
+              <p className="muro-setup-note">二十問 · 連続正解で武功 · {timerEnabled ? `一問 ${timerSeconds || 0} 秒` : "時限なし"}</p>
             </form>
           </div>
         </section>
@@ -102,7 +102,7 @@ function MuromachiGame() {
         <section className="muro-game-stage">
           <div className="muro-game-topline">
             <div><span>修行者</span><strong>{playerName}</strong></div>
-            <div className={`muro-game-clock ${timerEnabled && timeLeft <= 20 ? "muro-urgent" : ""}`}><span>{timerEnabled ? "残刻" : "時限なし"}</span><strong>{timerEnabled ? formatClock(timeLeft) : "∞"}</strong></div>
+            <div className={`muro-game-clock ${timerEnabled && timeLeft <= 3 ? "muro-urgent" : ""}`}><span>{timerEnabled ? "一問の残刻" : "時限なし"}</span><strong>{timerEnabled ? formatClock(timeLeft) : "∞"}</strong></div>
             <button onClick={openBadges}>武功帖を見る</button>
           </div>
           <div className="muro-exam-card">
@@ -128,7 +128,7 @@ function MuromachiGame() {
       {screen === "result" && (
         <section className="muro-result-screen">
           <p className="muro-eyebrow"><span />採点<span /></p>
-          <h1>{endReason === "time" ? "時は満ちぬ" : "試練、了んぬ"}</h1>
+          <h1>試練、了んぬ</h1>
           <p>{playerName}の修行の記録、ここに刻む。</p>
           <div className="muro-result-card">
             <div><strong>{score}<small> / {TOTAL_ROUNDS}</small></strong><span>正解</span></div>

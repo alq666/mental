@@ -32,12 +32,12 @@ function RomanGame() {
   const {
     screen, setScreen, openBadges, closeBadges,
     playerName, setPlayerName, maxMultiple, setMaxMultiple,
-    timerEnabled, setTimerEnabled, timerMinutes, setTimerMinutes,
-    timeLeft, round, score, streak, bestStreak, endReason,
+    timerEnabled, setTimerEnabled, timerSeconds, setTimerSeconds,
+    timeLeft, round, score, streak, bestStreak,
     num1, num2, answer, setAnswer, feedback, answerInput,
     startGame, submitAnswer, earnedIds, earnedBadges, latestBadge, nextBadge,
   } = useStreakGame(BADGES, BADGE_STORAGE_KEY);
-  const feedbackText = feedback === "correct" ? "Correct — the laurel grows." : feedback === "wrong" ? `Not so — the answer is ${num1 * num2}.` : "";
+  const feedbackText = feedback === "correct" ? "Correct — the laurel grows." : feedback === "wrong" ? `Not so — the answer is ${num1 * num2}.` : feedback === "timeout" ? `Time's up — the answer is ${num1 * num2}.` : "";
 
   return (
     <main className="roman-app">
@@ -70,16 +70,16 @@ function RomanGame() {
                   <input type="number" min="2" max="99" value={maxMultiple} onChange={(event) => setMaxMultiple(event.target.value)} />
                 </label>
                 <label>
-                  <span>Time limit</span>
+                  <span>Time per guess</span>
                   <div className="timer-setting">
                     <button type="button" className={`toggle ${timerEnabled ? "on" : ""}`} onClick={() => setTimerEnabled((value) => !value)} aria-pressed={timerEnabled}><i /></button>
-                    <input aria-label="Time limit in minutes" type="number" min="0.5" max="30" step="0.5" value={timerMinutes} onChange={(event) => setTimerMinutes(event.target.value)} disabled={!timerEnabled} />
-                    <span>min</span>
+                    <input aria-label="Time per guess in seconds" type="number" min="1" max="60" step="1" value={timerSeconds} onChange={(event) => setTimerSeconds(event.target.value)} disabled={!timerEnabled} />
+                    <span>sec</span>
                   </div>
                 </label>
               </div>
               <button className="roman-primary" type="submit">Enter the arena <span>→</span></button>
-              <p className="setup-note">XX problems · Streak badges · {timerEnabled ? `${timerMinutes || 0} minute limit` : "Untimed"}</p>
+              <p className="setup-note">XX problems · Streak badges · {timerEnabled ? `${timerSeconds || 0} seconds per guess` : "Untimed"}</p>
             </form>
           </div>
         </section>
@@ -89,7 +89,7 @@ function RomanGame() {
         <section className="game-stage">
           <div className="game-topline">
             <div><span>Challenger</span><strong>{playerName}</strong></div>
-            <div className={`game-clock ${timerEnabled && timeLeft <= 20 ? "urgent" : ""}`}><span>{timerEnabled ? "Time remaining" : "Untimed trial"}</span><strong>{timerEnabled ? formatClock(timeLeft) : "∞"}</strong></div>
+            <div className={`game-clock ${timerEnabled && timeLeft <= 3 ? "urgent" : ""}`}><span>{timerEnabled ? "Guess clock" : "Untimed trial"}</span><strong>{timerEnabled ? formatClock(timeLeft) : "∞"}</strong></div>
             <button onClick={openBadges}>View insignia</button>
           </div>
           <div className="arena-card">
@@ -115,7 +115,7 @@ function RomanGame() {
       {screen === "result" && (
         <section className="result-screen">
           <p className="eyebrow"><span /> Acta Est Fabula <span /></p>
-          <h1>{endReason === "time" ? "The hourglass is empty" : "The trial is complete"}</h1>
+          <h1>The trial is complete</h1>
           <p>{playerName}, your performance has been entered into the annals.</p>
           <div className="result-card">
             <div><strong>{score}<small> / {TOTAL_ROUNDS}</small></strong><span>Correct answers</span></div>
