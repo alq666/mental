@@ -1,5 +1,10 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import "./App.css";
+import FrenchGame from "./FrenchGame";
+import MuromachiGame from "./MuromachiGame";
+import RomanGame from "./RomanGame";
+import SoccerGame from "./SoccerGame";
+import TangGame from "./TangGame";
 
 type BestSession = {
   name: string;
@@ -80,7 +85,7 @@ function formatDurationSeconds(durationMs: number): string {
   return (durationMs / 1000).toFixed(2);
 }
 
-function App() {
+function ClassicApp() {
   const TOTAL_ROUNDS = 20;
   const MIN_NUMBER = 2;
 
@@ -309,6 +314,28 @@ function App() {
             </button>
           </form>
           <BestSessionsPanel />
+          <div className="variant-links">
+            <a className="variant-link" href="/roman">
+              <span aria-hidden="true">🏛️</span>
+              Try the Roman challenge
+            </a>
+            <a className="variant-link" href="/france" lang="fr">
+              <span aria-hidden="true">⚜️</span>
+              Le défi du royaume de France
+            </a>
+            <a className="variant-link" href="/tang" lang="zh-Hant">
+              <span aria-hidden="true">🏯</span>
+              大唐算學館
+            </a>
+            <a className="variant-link" href="/soccer">
+              <span aria-hidden="true">⚽</span>
+              Penalty shootout
+            </a>
+            <a className="variant-link" href="/muromachi" lang="ja">
+              <span aria-hidden="true">⛩️</span>
+              室町算術道場
+            </a>
+          </div>
         </div>
       </div>
     );
@@ -408,6 +435,16 @@ function App() {
       </div>
     </div>
   );
+}
+
+function App() {
+  const path = window.location.pathname;
+  if (path.startsWith("/roman")) return <RomanGame />;
+  if (path.startsWith("/france")) return <FrenchGame />;
+  if (path.startsWith("/tang")) return <TangGame />;
+  if (path.startsWith("/soccer")) return <SoccerGame />;
+  if (path.startsWith("/muromachi")) return <MuromachiGame />;
+  return <ClassicApp />;
 }
 
 export default App;

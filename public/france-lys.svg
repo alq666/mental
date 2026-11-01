@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120">
+  <defs>
+    <g id="lys">
+      <path d="M50 3C59 15 65 30 61 45C59 51 56 55 55 59H45C44 55 41 51 39 45C35 30 41 15 50 3Z"/>
+      <path d="M43 58C35 48 34 30 23 24C14 19 4 26 4 38C4 45 8 50 12 53C11 44 15 37 21 38C29 40 31 51 35 60Z"/>
+      <path d="M57 58C65 48 66 30 77 24C86 19 96 26 96 38C96 45 92 50 88 53C89 44 85 37 79 38C71 40 69 51 65 60Z"/>
+      <rect x="30" y="57" width="40" height="8" rx="2"/>
+      <path d="M44 66C40 74 33 79 25 78C31 84 42 81 48 71Z"/>
+      <path d="M56 66C60 74 67 79 75 78C69 84 58 81 52 71Z"/>
+      <path d="M46 66L50 84L54 66Z"/>
+    </g>
+  </defs>
+  <g fill="#1f3b78" fill-opacity=".07">
+    <use href="#lys" transform="translate(16 14) scale(.28)"/>
+    <use href="#lys" transform="translate(76 74) scale(.28)"/>
+  </g>
+</svg>

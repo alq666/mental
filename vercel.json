@@ -1,0 +1,15 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "rewrites": [
+    { "source": "/roman", "destination": "/index.html" },
+    { "source": "/roman/:path*", "destination": "/index.html" },
+    { "source": "/france", "destination": "/index.html" },
+    { "source": "/france/:path*", "destination": "/index.html" },
+    { "source": "/tang", "destination": "/index.html" },
+    { "source": "/tang/:path*", "destination": "/index.html" },
+    { "source": "/soccer", "destination": "/index.html" },
+    { "source": "/soccer/:path*", "destination": "/index.html" },
+    { "source": "/muromachi", "destination": "/index.html" },
+    { "source": "/muromachi/:path*", "destination": "/index.html" }
+  ]
+}

@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 140">
+  <!-- Auspicious cloud scroll (祥雲), offset in a half-drop repeat. -->
+  <defs>
+    <path id="cloud" fill="none" stroke-linecap="round" d="M4 30C4 18 18 14 24 22C26 10 44 8 48 20C52 12 66 14 64 26C72 24 78 32 72 38H10C6 38 4 34 4 30ZM24 22C22 28 28 32 32 28C34 25 31 22 28 24M48 20C46 27 54 30 56 25"/>
+  </defs>
+  <g stroke="#b0362a" stroke-opacity=".09" stroke-width="2.4">
+    <use href="#cloud" transform="translate(20 20)"/>
+    <use href="#cloud" transform="translate(130 90)"/>
+  </g>
+</svg>

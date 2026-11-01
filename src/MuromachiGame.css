@@ -1,0 +1,204 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Yuji+Syuku&display=swap');
+
+#root:has(.muro-app) {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0;
+  text-align: initial;
+}
+
+body:has(.muro-app) {
+  display: block;
+  background: #e7e0c9;
+}
+
+.muro-app {
+  --ink: #26221a;
+  --indigo: #233a5c;
+  --indigo-deep: #16253f;
+  --vermilion: #a63b2e;
+  --gold: #b18a3c;
+  --moss: #47614f;
+  --paper: #f5f0e0;
+  --muted: #6d6752;
+  --brush: "Yuji Syuku", "Hiragino Mincho ProN", "Yu Mincho", "Noto Serif JP", serif;
+  min-height: 100vh;
+  color: var(--ink);
+  background: #e7e0c9;
+  font-family: "Noto Serif JP", "Hiragino Mincho ProN", "Yu Mincho", serif;
+  position: relative;
+  overflow-x: hidden;
+}
+
+/* Washi paper, ink-wash mist, and the skyline of Kyoto: the pagoda of Toji,
+   the Golden Pavilion, and the Higashiyama hills. */
+.muro-app::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background-image:
+    url("/muromachi-skyline.svg"),
+    url("/muromachi-mist.svg"),
+    radial-gradient(circle at 50% 20%, #fbf6e6 0, #e7e0c9 58%, #d9cfb2 100%);
+  background-repeat: no-repeat, repeat, no-repeat;
+  background-size: 100% auto, 240px 150px, cover;
+  background-position: center bottom, center top, center;
+}
+
+.muro-app button, .muro-app input { font: inherit; }
+.muro-nav {
+  height: 84px;
+  padding: 0 clamp(24px, 6vw, 90px);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #f2ecdb;
+  background: linear-gradient(var(--indigo), var(--indigo-deep));
+  border-bottom: 4px solid var(--gold);
+  box-shadow: 0 4px 0 #141b2b;
+  position: relative;
+  z-index: 2;
+}
+.muro-brand { display: flex; align-items: center; gap: 12px; color: inherit; text-decoration: none; }
+.muro-brand-mark { width: 44px; height: 44px; display: grid; place-items: center; color: #f5edda; background: var(--indigo); border: 2px solid #cfb87a; border-radius: 4px; font: 700 26px var(--brush); box-shadow: inset 0 0 0 3px var(--indigo-deep); transform: rotate(-2deg); }
+.muro-brand b { display: block; font: 700 22px var(--brush); letter-spacing: .14em; }
+.muro-brand small { display: block; color: #cdc39e; font-size: 12px; letter-spacing: .32em; margin-top: 2px; }
+.muro-nav nav { display: flex; align-items: center; gap: 28px; }
+.muro-nav-link { padding: 8px 0; border: 0; background: none; color: #f2ecdb; text-decoration: none; font-size: 16px; letter-spacing: .22em; cursor: pointer; }
+.muro-nav-link:hover { color: #e3c57e; }
+.muro-badges-link span { display: inline-grid; place-items: center; margin-left: 4px; width: 20px; height: 20px; border-radius: 50%; color: var(--indigo-deep); background: #e3c57e; font-size: 11px; letter-spacing: 0; }
+
+.muro-hero { min-height: calc(100vh - 140px); padding: 60px 24px 140px; display: grid; place-items: center; position: relative; }
+.muro-hero-copy { width: min(620px, 100%); text-align: center; position: relative; z-index: 1; }
+.muro-eyebrow { margin: 0; display: flex; align-items: center; justify-content: center; gap: 14px; color: var(--vermilion); font-size: 15px; font-weight: 600; letter-spacing: .5em; text-indent: .5em; }
+.muro-eyebrow span { display: block; width: 40px; height: 2px; background: var(--gold); }
+.muro-hero-copy h1, .muro-result-screen h1, .muro-badges-screen > h1 { font: 400 clamp(38px, 6vw, 64px)/1.35 var(--brush); margin: 24px 0 16px; letter-spacing: .08em; }
+.muro-hero-copy h1 em { font-style: normal; color: var(--vermilion); }
+.muro-hero-subtitle { color: var(--muted); line-height: 1.9; font-size: 16px; max-width: 520px; margin: 0 auto 30px; }
+
+.muro-setup-card, .muro-exam-card { background: rgba(250, 245, 232, .97); border: 1px solid #b9ac8a; box-shadow: 0 18px 45px rgba(30, 40, 55, .18); position: relative; }
+/* Lacquered indigo posts on either side, dark wood with a line of gold. */
+.muro-setup-card::before, .muro-exam-card::before { content: ""; position: absolute; inset: 0; border-left: 8px solid var(--indigo); border-right: 8px solid var(--indigo); box-shadow: inset 10px 0 0 -6px var(--gold), inset -10px 0 0 -6px var(--gold); pointer-events: none; }
+.muro-setup-card { margin: auto; max-width: 500px; padding: 30px 40px 22px; text-align: left; }
+.muro-setup-card label { display: grid; gap: 8px; }
+.muro-setup-card label > span { font-size: 14px; font-weight: 600; letter-spacing: .3em; color: var(--indigo); }
+.muro-setup-card input, .muro-answer input { min-width: 0; box-sizing: border-box; width: 100%; border: 0; border-bottom: 1px solid #b3a67f; border-radius: 0; padding: 9px 2px; background: transparent; color: var(--ink); font-size: 17px; outline: none; }
+.muro-setup-card input:focus, .muro-answer input:focus { border-color: var(--indigo); box-shadow: 0 2px 0 rgba(35, 58, 92, .14); }
+.muro-form-row { display: grid; grid-template-columns: 1fr 1.25fr; gap: 28px; margin: 22px 0 26px; }
+.muro-timer-setting { display: grid; grid-template-columns: 42px 1fr auto; gap: 8px; align-items: center; }
+.muro-timer-setting input { text-align: center; }
+.muro-timer-setting > span { font-size: 13px; color: var(--muted); }
+.muro-toggle { position: relative; width: 39px; height: 22px; padding: 0; border: 1px solid #9a8f6f; border-radius: 999px; background: #cfc3a4; cursor: pointer; }
+.muro-toggle i { position: absolute; top: 3px; left: 3px; width: 14px; height: 14px; border-radius: 50%; background: #faf5e8; transition: transform .2s; }
+.muro-toggle.muro-on { background: var(--moss); border-color: #35483b; }
+.muro-toggle.muro-on i { transform: translateX(17px); }
+.muro-primary, .muro-secondary { position: relative; z-index: 1; border-radius: 4px; cursor: pointer; font-size: 16px; font-weight: 600; letter-spacing: .3em; padding: 13px 22px; }
+.muro-primary { width: 100%; color: #f5edda; background: var(--indigo); border: 1px solid var(--indigo-deep); box-shadow: inset 0 0 0 3px rgba(177, 138, 60, .35); }
+.muro-primary:hover { background: var(--indigo-deep); }
+.muro-primary span { float: right; letter-spacing: 0; }
+.muro-setup-note { margin: 13px 0 0; text-align: center; font-size: 13px; color: var(--muted); letter-spacing: .08em; }
+
+.muro-game-stage { width: min(820px, calc(100% - 36px)); min-height: calc(100vh - 160px); margin: 0 auto; padding: 42px 0 140px; position: relative; z-index: 1; }
+.muro-game-topline { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; margin-bottom: 22px; }
+.muro-game-topline > div { display: grid; gap: 3px; }
+.muro-game-topline span { color: var(--muted); font-size: 12px; letter-spacing: .3em; }
+.muro-game-topline strong { font: 600 18px var(--brush); }
+.muro-game-clock { text-align: center; padding: 8px 32px; border-left: 1px solid #b3a67f; border-right: 1px solid #b3a67f; }
+.muro-game-clock strong { font: 600 26px "Noto Serif JP", serif; font-variant-numeric: tabular-nums; }
+.muro-game-clock.muro-urgent strong { color: var(--vermilion); animation: muroClockPulse 1s infinite; }
+@keyframes muroClockPulse { 50% { opacity: .5; } }
+.muro-game-topline button { justify-self: end; border: 0; border-bottom: 1px solid var(--indigo); border-radius: 0; padding: 5px 0; background: none; color: var(--indigo); font-size: 14px; letter-spacing: .2em; cursor: pointer; }
+.muro-exam-card { padding: 30px 52px 38px; }
+.muro-progress-meta { display: flex; justify-content: space-between; font-size: 13px; letter-spacing: .12em; color: var(--muted); }
+.muro-progress { height: 4px; margin-top: 10px; background: #ddd4b8; }
+.muro-progress i { display: block; height: 100%; background: linear-gradient(90deg, var(--moss), var(--gold)); transition: width .3s; }
+.muro-inscription { margin: 38px 0 16px; text-align: center; color: var(--indigo); font: 400 20px var(--brush); letter-spacing: .15em; }
+.muro-question { display: flex; justify-content: center; align-items: center; gap: clamp(14px, 4vw, 34px); margin-bottom: 28px; font: 600 clamp(48px, 9vw, 84px) "Noto Serif JP", serif; }
+.muro-question i { color: var(--gold); font: 400 36px "Noto Serif JP", serif; }
+.muro-question b { color: var(--vermilion); }
+.muro-answer { display: grid; grid-template-columns: 1fr auto; width: min(460px, 100%); margin: 0 auto; gap: 14px; }
+.muro-answer input { border: 1px solid #b3a67f; border-radius: 4px; padding: 12px; text-align: center; font-size: 19px; background: #fdfaf0; }
+.muro-answer button { border-radius: 4px; border: 1px solid #35483b; background: var(--moss); color: #f6f2e2; padding: 0 26px; font-size: 16px; font-weight: 600; letter-spacing: .3em; cursor: pointer; }
+.muro-answer button:disabled { opacity: .45; cursor: default; }
+.muro-feedback { min-height: 26px; margin-top: 18px; text-align: center; font: 400 18px var(--brush); letter-spacing: .08em; }
+.muro-feedback.correct { color: var(--moss); }
+.muro-feedback.wrong { color: var(--vermilion); }
+.muro-streak-panel { width: min(500px, calc(100% - 60px)); margin: 18px auto 0; display: grid; grid-template-columns: auto 1fr auto; align-items: center; gap: 14px; padding: 12px 18px; border-top: 2px solid var(--gold); border-bottom: 2px solid var(--gold); background: rgba(245, 240, 224, .9); }
+.muro-streak-mark { width: 34px; height: 34px; display: grid; place-items: center; color: #f5edda; background: var(--indigo); border-radius: 5px; font: 700 18px var(--brush); }
+.muro-streak-panel div:nth-child(2) { display: grid; }
+.muro-streak-panel span { font-size: 11px; letter-spacing: .3em; color: var(--muted); }
+.muro-streak-panel strong { font: 700 16px var(--brush); }
+.muro-streak-next { color: var(--muted); font-size: 13px; }
+
+.muro-result-screen, .muro-badges-screen { width: min(920px, calc(100% - 40px)); margin: auto; padding: 60px 0 150px; position: relative; z-index: 1; text-align: center; min-height: calc(100vh - 190px); }
+.muro-result-screen > p:not(.muro-eyebrow), .muro-badges-screen > p:not(.muro-eyebrow) { color: var(--muted); letter-spacing: .05em; }
+.muro-result-card { max-width: 650px; margin: 34px auto; display: grid; grid-template-columns: repeat(3, 1fr); border: 1px solid #b3a086; border-top: 6px solid var(--indigo); border-bottom: 6px solid var(--indigo); background: rgba(250, 245, 232, .96); }
+.muro-result-card > div { padding: 26px 12px; display: grid; gap: 8px; }
+.muro-result-card > div + div { border-left: 1px solid #d6cba7; }
+.muro-result-card strong { font: 600 40px "Noto Serif JP", serif; color: var(--indigo); }
+.muro-result-card strong small { font-size: 16px; color: var(--muted); }
+.muro-result-card span { font-size: 13px; letter-spacing: .25em; color: var(--muted); }
+.muro-result-actions { display: flex; justify-content: center; gap: 12px; }
+.muro-result-actions .muro-primary { width: auto; }
+.muro-secondary { background: rgba(250, 245, 232, .9); border: 1px solid var(--moss); color: #35483b; }
+.muro-new-badge { width: max-content; max-width: calc(100% - 30px); margin: 0 auto 28px; display: flex; align-items: center; gap: 16px; text-align: left; }
+.muro-new-badge > div:last-child { display: grid; gap: 2px; }
+.muro-new-badge span { color: var(--vermilion); font-size: 12px; letter-spacing: .3em; }
+.muro-new-badge strong { font: 700 20px var(--brush); }
+.muro-new-badge small { color: var(--muted); font-size: 13px; }
+
+.muro-badges-screen { padding-top: 44px; }
+.muro-back-button { display: block; margin-bottom: 32px; border: 0; background: none; color: var(--indigo); font-size: 15px; letter-spacing: .2em; cursor: pointer; }
+.muro-badges-screen > h1 { margin-bottom: 10px; }
+.muro-player-plaque { display: flex; align-items: baseline; justify-content: center; flex-wrap: wrap; gap: 8px 18px; margin: 28px 0 22px; padding: 14px; border-top: 2px solid var(--gold); border-bottom: 2px solid var(--gold); background: rgba(245, 240, 224, .85); }
+.muro-player-plaque span, .muro-player-plaque small { color: var(--muted); font-size: 13px; letter-spacing: .25em; }
+.muro-player-plaque strong { font: 700 20px var(--brush); }
+.muro-badge-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; }
+.muro-badge-card { padding: 26px 15px 22px; border: 1px solid #b9ac8a; border-top: 4px solid var(--indigo); background: rgba(250, 245, 232, .96); box-shadow: 0 10px 25px rgba(30, 40, 55, .1); }
+.muro-badge-card.muro-locked { opacity: .6; filter: grayscale(.8); }
+.muro-badge-state { display: block; margin: 14px 0 8px; color: var(--vermilion); font-size: 12px; letter-spacing: .4em; }
+.muro-badge-card h2 { margin: 0; font: 700 21px var(--brush); letter-spacing: .1em; }
+.muro-badge-card em { display: block; margin-top: 4px; font-style: normal; color: var(--moss); font-size: 13px; }
+.muro-badge-card p { margin: 12px 0 0; color: var(--muted); font-size: 13px; line-height: 1.6; }
+
+.muro-coin { width: 84px; height: 84px; margin: auto; border-radius: 50%; display: grid; grid-template-rows: 1fr 22px 1fr; justify-items: center; align-items: center; position: relative; color: #443314; background: radial-gradient(circle at 35% 30%, #d9c27c, #a5803a 52%, #6a4f22 78%); border: 3px solid #5c441a; box-shadow: inset 0 0 0 5px #c3a35e, inset 0 0 0 6px #5c441a, 0 3px 8px rgba(50, 38, 16, .3); }
+.muro-coin i { width: 20px; height: 20px; background: #e7e0c9; border: 3px solid #5c441a; box-sizing: border-box; }
+.muro-coin strong { align-self: end; font: 700 18px var(--brush); line-height: 1; }
+.muro-coin small { align-self: start; font: 600 11px "Noto Serif JP", serif; line-height: 1; }
+.muro-coin.muro-dim { color: #6f6a5c; background: #b0a894; border-color: #817a68; box-shadow: inset 0 0 0 5px #c6bfa9, inset 0 0 0 6px #817a68; }
+.muro-coin.muro-dim i { border-color: #817a68; }
+
+.muro-app footer { position: relative; z-index: 1; padding: 15px; text-align: center; color: #e3d9c2; background: var(--indigo-deep); border-top: 4px solid var(--gold); font-size: 13px; letter-spacing: .4em; }
+
+@media (max-width: 760px) {
+  .muro-nav { height: 70px; padding: 0 17px; }
+  .muro-brand small { display: none; }
+  .muro-brand b { font-size: 18px; }
+  .muro-nav nav { gap: 14px; }
+  .muro-nav-link { font-size: 14px; letter-spacing: .1em; }
+  .muro-hero { padding-top: 38px; }
+  .muro-badge-grid { grid-template-columns: repeat(2, 1fr); }
+  .muro-game-topline { grid-template-columns: 1fr auto; }
+  .muro-game-topline button { display: none; }
+  .muro-game-clock { border-right: 0; padding-right: 0; }
+  .muro-exam-card { padding: 26px 26px 30px; }
+  .muro-result-card { grid-template-columns: 1fr; }
+  .muro-result-card > div + div { border-left: 0; border-top: 1px solid #d6cba7; }
+}
+@media (max-width: 470px) {
+  .muro-brand b { font-size: 16px; letter-spacing: .05em; }
+  .muro-nav nav .muro-nav-link:first-child { display: none; }
+  .muro-form-row { grid-template-columns: 1fr; gap: 20px; }
+  .muro-setup-card { padding: 26px 26px 20px; }
+  .muro-question { gap: 11px; }
+  .muro-answer { grid-template-columns: 1fr; }
+  .muro-answer button { padding: 12px; }
+  .muro-streak-panel { grid-template-columns: auto 1fr; }
+  .muro-streak-next { grid-column: 1 / -1; text-align: center; }
+  .muro-badge-grid { grid-template-columns: 1fr; }
+  .muro-result-actions { flex-direction: column; }
+  .muro-result-actions .muro-primary { width: 100%; }
+}

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 240" preserveAspectRatio="xMidYMax slice">
+  <!-- Distant hills and a walled town, in the manner of a 15th-century book of hours. -->
+  <path fill="#1f3b78" fill-opacity=".06" d="M0 170C180 120 330 150 470 135S760 95 900 125S1200 110 1360 130S1520 120 1600 140V240H0Z"/>
+  <g fill="#1f3b78" fill-opacity=".13">
+    <!-- church with spire, left -->
+    <rect x="150" y="150" width="120" height="60"/>
+    <polygon points="150,150 210,118 270,150"/>
+    <rect x="236" y="98" width="22" height="60"/>
+    <polygon points="232,98 247,30 262,98"/>
+    <!-- town wall -->
+    <rect x="270" y="175" width="1060" height="40"/>
+    <g>
+      <rect x="270" y="165" width="14" height="12"/><rect x="300" y="165" width="14" height="12"/><rect x="330" y="165" width="14" height="12"/>
+      <rect x="1220" y="165" width="14" height="12"/><rect x="1250" y="165" width="14" height="12"/><rect x="1280" y="165" width="14" height="12"/>
+    </g>
+    <!-- château: keep and four towers with pepper-pot roofs -->
+    <rect x="620" y="110" width="360" height="80"/>
+    <rect x="700" y="70" width="200" height="50"/>
+    <polygon points="690,72 800,20 910,72"/>
+    <rect x="580" y="95" width="56" height="110"/><polygon points="572,97 608,22 644,97"/>
+    <rect x="964" y="95" width="56" height="110"/><polygon points="956,97 992,22 1028,97"/>
+    <rect x="660" y="60" width="40" height="70"/><polygon points="654,62 680,6 706,62"/>
+    <rect x="900" y="60" width="40" height="70"/><polygon points="894,62 920,6 946,62"/>
+    <rect x="796" y="0" width="3" height="22"/><polygon points="799,2 826,9 799,16"/>
+    <!-- towers along the wall -->
+    <rect x="420" y="135" width="40" height="70"/><polygon points="414,137 440,90 466,137"/>
+    <rect x="1140" y="135" width="40" height="70"/><polygon points="1134,137 1160,90 1186,137"/>
+    <!-- mill, right -->
+    <rect x="1420" y="150" width="40" height="60"/>
+    <polygon points="1412,152 1440,124 1468,152"/>
+    <path d="M1440 140L1400 90L1408 84L1440 134L1480 86L1487 92L1446 140L1490 182L1482 189L1440 146L1398 186L1391 180Z"/>
+  </g>
+  <path fill="#1f3b78" fill-opacity=".16" d="M0 205C300 195 500 215 800 205S1300 195 1600 208V240H0Z"/>
+</svg>

@@ -1,0 +1,27 @@
+/* Penalty kick shown over the question card in the soccer variant; reuses the duel overlay, tag and verdict. */
+.duel-soccer {
+  --duel-bg: linear-gradient(#1b6b35, #1f7a3a 45%, #23863f);
+  --duel-ink: #f4f8f2;
+  --duel-accent: #e63946;
+  --duel-win: #ffd23f;
+  --duel-lose: #ffffff;
+  font-family: "Barlow", system-ui, sans-serif;
+}
+.duel-soccer .duel-verdict { font: 800 34px/1 "Barlow Condensed", "Barlow", sans-serif; letter-spacing: .12em; text-shadow: 0 2px 0 rgba(0, 0, 0, .35); }
+.duel-soccer .duel-caption { font-style: normal; font-weight: 600; }
+.duel-soccer .duel-tag { font-family: "Barlow Condensed", sans-serif; letter-spacing: .1em; text-transform: uppercase; }
+
+.penalty-stage { position: relative; flex: none; width: 400px; height: 200px; overflow: hidden; }
+@media (max-width: 470px) { .penalty-stage { margin: -28px 0; transform: scale(.72); } }
+.penalty-goal { position: absolute; inset: 0; width: 100%; height: 100%; }
+.penalty-net-hit { animation: penaltyNet .35s ease-out; }
+@keyframes penaltyNet { 30% { transform: translateY(-3px) scaleY(1.02); } 60% { transform: translateY(2px); } }
+
+.penalty-keeper { position: absolute; width: 64px; height: 72px; transform-origin: 50% 50%; transition: left .3s ease-out, top .3s ease-out, transform .3s ease-out; }
+.penalty-striker { position: absolute; top: 110px; width: 80px; height: 90px; transition: left .1s linear, transform .1s; }
+.penalty-keeper svg, .penalty-striker svg { display: block; width: 100%; height: 100%; }
+
+.penalty-ball { position: absolute; width: 22px; height: 22px; z-index: 1; transition: left .3s ease-out, top .3s ease-out, transform .3s ease-out; }
+.penalty-ball svg { display: block; width: 100%; height: 100%; }
+.penalty-ball-flying svg { animation: penaltySpin .15s linear infinite; }
+@keyframes penaltySpin { to { transform: rotate(360deg); } }
