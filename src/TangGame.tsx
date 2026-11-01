@@ -43,12 +43,12 @@ function TangGame() {
   const {
     screen, setScreen, openBadges, closeBadges,
     playerName, setPlayerName, maxMultiple, setMaxMultiple,
-    timerEnabled, setTimerEnabled, timerMinutes, setTimerMinutes,
-    timeLeft, round, score, streak, bestStreak, endReason,
+    timerEnabled, setTimerEnabled, timerSeconds, setTimerSeconds,
+    timeLeft, round, score, streak, bestStreak,
     num1, num2, answer, setAnswer, feedback, answerInput,
     startGame, submitAnswer, earnedIds, earnedBadges, latestBadge, nextBadge,
   } = useStreakGame(BADGES, BADGE_STORAGE_KEY);
-  const feedbackText = feedback === "correct" ? "答對了！功名可期。" : feedback === "wrong" ? `非也——答案是 ${num1 * num2}。` : "";
+  const feedbackText = feedback === "correct" ? "答對了！功名可期。" : feedback === "wrong" ? `非也——答案是 ${num1 * num2}。` : feedback === "timeout" ? `時辰已到——答案是 ${num1 * num2}。` : "";
 
   return (
     <main className="tang-app" lang="zh-Hant">
@@ -81,16 +81,16 @@ function TangGame() {
                   <input type="number" min="2" max="99" value={maxMultiple} onChange={(event) => setMaxMultiple(event.target.value)} />
                 </label>
                 <label>
-                  <span>限時</span>
+                  <span>每題限時</span>
                   <div className="tang-timer-setting">
                     <button type="button" className={`tang-toggle ${timerEnabled ? "tang-on" : ""}`} onClick={() => setTimerEnabled((value) => !value)} aria-pressed={timerEnabled} aria-label="開啟計時"><i /></button>
-                    <input aria-label="限時（分鐘）" type="number" min="0.5" max="30" step="0.5" value={timerMinutes} onChange={(event) => setTimerMinutes(event.target.value)} disabled={!timerEnabled} />
-                    <span>分鐘</span>
+                    <input aria-label="每題限時（秒）" type="number" min="1" max="60" step="1" value={timerSeconds} onChange={(event) => setTimerSeconds(event.target.value)} disabled={!timerEnabled} />
+                    <span>秒</span>
                   </div>
                 </label>
               </div>
               <button className="tang-primary" type="submit">入場應試 <span>→</span></button>
-              <p className="tang-setup-note">廿題 · 連對可得功名 · {timerEnabled ? `限時 ${timerMinutes || 0} 分鐘` : "不限時"}</p>
+              <p className="tang-setup-note">廿題 · 連對可得功名 · {timerEnabled ? `每題限時 ${timerSeconds || 0} 秒` : "不限時"}</p>
             </form>
           </div>
         </section>
@@ -100,7 +100,7 @@ function TangGame() {
         <section className="tang-game-stage">
           <div className="tang-game-topline">
             <div><span>考生</span><strong>{playerName}</strong></div>
-            <div className={`tang-game-clock ${timerEnabled && timeLeft <= 20 ? "tang-urgent" : ""}`}><span>{timerEnabled ? "剩餘時間" : "不限時"}</span><strong>{timerEnabled ? formatClock(timeLeft) : "∞"}</strong></div>
+            <div className={`tang-game-clock ${timerEnabled && timeLeft <= 3 ? "tang-urgent" : ""}`}><span>{timerEnabled ? "每題限時" : "不限時"}</span><strong>{timerEnabled ? formatClock(timeLeft) : "∞"}</strong></div>
             <button onClick={openBadges}>查看功名</button>
           </div>
           <div className="tang-exam-card">
@@ -126,7 +126,7 @@ function TangGame() {
       {screen === "result" && (
         <section className="tang-result-screen">
           <p className="tang-eyebrow"><span />放榜<span /></p>
-          <h1>{endReason === "time" ? "時辰已到" : "考試完畢"}</h1>
+          <h1>考試完畢</h1>
           <p>{playerName}，你的成績已載入史冊。</p>
           <div className="tang-result-card">
             <div><strong>{score}<small> / {TOTAL_ROUNDS}</small></strong><span>答對題數</span></div>

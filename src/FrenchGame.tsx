@@ -37,12 +37,12 @@ function FrenchGame() {
   const {
     screen, setScreen, openBadges, closeBadges,
     playerName, setPlayerName, maxMultiple, setMaxMultiple,
-    timerEnabled, setTimerEnabled, timerMinutes, setTimerMinutes,
-    timeLeft, round, score, streak, bestStreak, endReason,
+    timerEnabled, setTimerEnabled, timerSeconds, setTimerSeconds,
+    timeLeft, round, score, streak, bestStreak,
     num1, num2, answer, setAnswer, feedback, answerInput,
     startGame, submitAnswer, earnedIds, earnedBadges, latestBadge, nextBadge,
   } = useStreakGame(BADGES, BADGE_STORAGE_KEY);
-  const feedbackText = feedback === "correct" ? "Juste ! Montjoie Saint-Denis !" : feedback === "wrong" ? `Que nenni — la réponse est ${num1 * num2}.` : "";
+  const feedbackText = feedback === "correct" ? "Juste ! Montjoie Saint-Denis !" : feedback === "wrong" ? `Que nenni — la réponse est ${num1 * num2}.` : feedback === "timeout" ? `Le temps est écoulé — la réponse est ${num1 * num2}.` : "";
 
   return (
     <main className="france-app" lang="fr">
@@ -75,16 +75,16 @@ function FrenchGame() {
                   <input type="number" min="2" max="99" value={maxMultiple} onChange={(event) => setMaxMultiple(event.target.value)} />
                 </label>
                 <label>
-                  <span>Temps imparti</span>
+                  <span>Temps par calcul</span>
                   <div className="fr-timer-setting">
                     <button type="button" className={`fr-toggle ${timerEnabled ? "fr-on" : ""}`} onClick={() => setTimerEnabled((value) => !value)} aria-pressed={timerEnabled} aria-label="Activer le sablier"><i /></button>
-                    <input aria-label="Temps imparti en minutes" type="number" min="0.5" max="30" step="0.5" value={timerMinutes} onChange={(event) => setTimerMinutes(event.target.value)} disabled={!timerEnabled} />
-                    <span>min</span>
+                    <input aria-label="Temps par calcul, en secondes" type="number" min="1" max="60" step="1" value={timerSeconds} onChange={(event) => setTimerSeconds(event.target.value)} disabled={!timerEnabled} />
+                    <span>s</span>
                   </div>
                 </label>
               </div>
               <button className="france-primary" type="submit">Entrer en lice <span>→</span></button>
-              <p className="fr-setup-note">xx épreuves · Blasons de série · {timerEnabled ? `${frenchNumber(timerMinutes || "0")} minute${Number(timerMinutes) >= 2 ? "s" : ""} au sablier` : "Sans limite de temps"}</p>
+              <p className="fr-setup-note">xx épreuves · Blasons de série · {timerEnabled ? `${frenchNumber(timerSeconds || "0")} secondes par calcul` : "Sans limite de temps"}</p>
             </form>
           </div>
         </section>
@@ -94,7 +94,7 @@ function FrenchGame() {
         <section className="fr-game-stage">
           <div className="fr-game-topline">
             <div><span>Champion</span><strong>{playerName}</strong></div>
-            <div className={`fr-game-clock ${timerEnabled && timeLeft <= 20 ? "fr-urgent" : ""}`}><span>{timerEnabled ? "Sablier" : "Sans limite"}</span><strong>{timerEnabled ? formatClock(timeLeft) : "∞"}</strong></div>
+            <div className={`fr-game-clock ${timerEnabled && timeLeft <= 3 ? "fr-urgent" : ""}`}><span>{timerEnabled ? "Sablier" : "Sans limite"}</span><strong>{timerEnabled ? formatClock(timeLeft) : "∞"}</strong></div>
             <button onClick={openBadges}>Voir les blasons</button>
           </div>
           <div className="fr-lists-card">
@@ -120,7 +120,7 @@ function FrenchGame() {
       {screen === "result" && (
         <section className="fr-result-screen">
           <p className="fr-rubric">✠ Explicit ✠</p>
-          <h1>{endReason === "time" ? "Le sablier est vide" : "L'épreuve est accomplie"}</h1>
+          <h1>L'épreuve est accomplie</h1>
           <p>{playerName}, vos exploits sont consignés dans les chroniques du royaume.</p>
           <div className="fr-result-card">
             <div><strong>{score}<small> / {TOTAL_ROUNDS}</small></strong><span>Bonnes réponses</span></div>
