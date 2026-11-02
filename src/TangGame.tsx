@@ -1,5 +1,7 @@
 import "./TangGame.css";
 import { Duel, type DuelTheme } from "./Duel";
+import { EquationSlots } from "./Equation";
+import { ModePicker, type ModeLabels } from "./ModePicker";
 import { formatClock, TOTAL_ROUNDS, useStreakGame } from "./useStreakGame";
 
 type Badge = {
@@ -39,16 +41,23 @@ const DUEL_THEME: DuelTheme = {
   lose: "敗",
 };
 
+const MODE_LABELS: ModeLabels = {
+  multiply: "乘法",
+  missing: "補缺因數",
+  divide: "除法",
+};
+
 function TangGame() {
   const {
     screen, setScreen, openBadges, closeBadges,
     playerName, setPlayerName, maxMultiple, setMaxMultiple,
+    mode, setMode, equation,
     timerEnabled, setTimerEnabled, timerSeconds, setTimerSeconds,
     timeLeft, round, score, streak, bestStreak,
     num1, num2, answer, setAnswer, feedback, answerInput,
     startGame, submitAnswer, earnedIds, earnedBadges, latestBadge, nextBadge,
   } = useStreakGame(BADGES, BADGE_STORAGE_KEY);
-  const feedbackText = feedback === "correct" ? "答對了！功名可期。" : feedback === "wrong" ? `非也——答案是 ${num1 * num2}。` : feedback === "timeout" ? `時辰已到——答案是 ${num1 * num2}。` : "";
+  const feedbackText = feedback === "correct" ? "答對了！功名可期。" : feedback === "wrong" ? `非也——答案是 ${equation.expected}。` : feedback === "timeout" ? `時辰已到——答案是 ${equation.expected}。` : "";
 
   return (
     <main className="tang-app" lang="zh-Hant">
@@ -89,6 +98,7 @@ function TangGame() {
                   </div>
                 </label>
               </div>
+              <ModePicker value={mode} onChange={setMode} label="算法" labels={MODE_LABELS} />
               <button className="tang-primary" type="submit">入場應試 <span>→</span></button>
               <p className="tang-setup-note">廿題 · 連對可得功名 · {timerEnabled ? `每題限時 ${timerSeconds || 0} 秒` : "不限時"}</p>
             </form>
@@ -106,8 +116,12 @@ function TangGame() {
           <div className="tang-exam-card">
             <div className="tang-progress-meta"><span>第 {round} 題 · 共 {TOTAL_ROUNDS} 題</span><span>已完成 {Math.round(((round - 1) / TOTAL_ROUNDS) * 100)}%</span></div>
             <div className="tang-progress"><i style={{ width: `${((round - 1) / TOTAL_ROUNDS) * 100}%` }} /></div>
-            <p className="tang-inscription">今有{toChineseNumeral(num1)}乘{toChineseNumeral(num2)}，問得幾何？</p>
-            <div className="tang-question"><span>{num1}</span><i>×</i><span>{num2}</span><i>=</i><b>?</b></div>
+            <p className="tang-inscription">{mode === "missing"
+              ? `今有${toChineseNumeral(num1)}乘幾何得${toChineseNumeral(equation.product)}？`
+              : mode === "divide"
+                ? `今有${toChineseNumeral(equation.product)}，以${toChineseNumeral(num1)}除之，問得幾何？`
+                : `今有${toChineseNumeral(num1)}乘${toChineseNumeral(num2)}，問得幾何？`}</p>
+            <div className="tang-question"><EquationSlots tokens={equation.tokens} /></div>
             <form className="tang-answer" onSubmit={submitAnswer}>
               <input ref={answerInput} type="number" inputMode="numeric" value={answer} onChange={(event) => setAnswer(event.target.value)} placeholder="你的答案" aria-label="你的答案" disabled={!!feedback} />
               <button type="submit" disabled={!answer || !!feedback}>作答</button>

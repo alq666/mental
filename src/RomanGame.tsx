@@ -1,5 +1,7 @@
 import "./RomanGame.css";
 import { Duel, type DuelTheme } from "./Duel";
+import { EquationSlots } from "./Equation";
+import { ModePicker, type ModeLabels } from "./ModePicker";
 import { formatClock, TOTAL_ROUNDS, useStreakGame } from "./useStreakGame";
 
 type Badge = {
@@ -28,16 +30,23 @@ const DUEL_THEME: DuelTheme = {
   lose: "Vae victis!",
 };
 
+const MODE_LABELS: ModeLabels = {
+  multiply: "Product",
+  missing: "Missing factor",
+  divide: "Division",
+};
+
 function RomanGame() {
   const {
     screen, setScreen, openBadges, closeBadges,
     playerName, setPlayerName, maxMultiple, setMaxMultiple,
+    mode, setMode, equation,
     timerEnabled, setTimerEnabled, timerSeconds, setTimerSeconds,
     timeLeft, round, score, streak, bestStreak,
-    num1, num2, answer, setAnswer, feedback, answerInput,
+    answer, setAnswer, feedback, answerInput,
     startGame, submitAnswer, earnedIds, earnedBadges, latestBadge, nextBadge,
   } = useStreakGame(BADGES, BADGE_STORAGE_KEY);
-  const feedbackText = feedback === "correct" ? "Correct — the laurel grows." : feedback === "wrong" ? `Not so — the answer is ${num1 * num2}.` : feedback === "timeout" ? `Time's up — the answer is ${num1 * num2}.` : "";
+  const feedbackText = feedback === "correct" ? "Correct — the laurel grows." : feedback === "wrong" ? `Not so — the answer is ${equation.expected}.` : feedback === "timeout" ? `Time's up — the answer is ${equation.expected}.` : "";
 
   return (
     <main className="roman-app">
@@ -78,6 +87,7 @@ function RomanGame() {
                   </div>
                 </label>
               </div>
+              <ModePicker value={mode} onChange={setMode} label="Kind of exercise" labels={MODE_LABELS} />
               <button className="roman-primary" type="submit">Enter the arena <span>→</span></button>
               <p className="setup-note">XX problems · Streak badges · {timerEnabled ? `${timerSeconds || 0} seconds per guess` : "Untimed"}</p>
             </form>
@@ -96,7 +106,7 @@ function RomanGame() {
             <div className="progress-meta"><span>Trial {round} of {TOTAL_ROUNDS}</span><span>{Math.round(((round - 1) / TOTAL_ROUNDS) * 100)}% complete</span></div>
             <div className="roman-progress"><i style={{ width: `${((round - 1) / TOTAL_ROUNDS) * 100}%` }} /></div>
             <p className="inscription">Solve with swiftness and precision</p>
-            <div className="roman-question"><span>{num1}</span><i>×</i><span>{num2}</span><i>=</i><b>?</b></div>
+            <div className="roman-question"><EquationSlots tokens={equation.tokens} /></div>
             <form className="roman-answer" onSubmit={submitAnswer}>
               <input ref={answerInput} type="number" inputMode="numeric" value={answer} onChange={(event) => setAnswer(event.target.value)} placeholder="Your answer" disabled={!!feedback} />
               <button type="submit" disabled={!answer || !!feedback}>Submit answer</button>

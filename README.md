@@ -18,10 +18,13 @@ Mental Math Challenge is a web-based game that helps you practice multiplication
 | `/tang` | 🏯 大唐算學館 | Classical Chinese in the spirit of the imperial exams, from 算籌 to 金榜題名 |
 | `/soccer` | ⚽ Penalty shootout | Every answer is a penalty kick; trophies from a hat-trick to the World Cup |
 | `/muromachi` | ⛩️ 室町算術道場 | Muromachi-period Kyoto; train from 初陣 to 天下無双 |
+| `/baghdad` | 🕌 بيت الحكمة | Abbasid Baghdad under al-Ma'mun; from scribe to sage of the House of Wisdom |
+| `/byzantium` | ☧ Ἡ Ἀριθμητική | Greek in the queen city; laurels from  Μαθητής to Στεφανίτης of the Hippodrome |
 
 ## Features
 
-- 🎲 Random multiplication problems — operands from 2 up to a maximum you choose (2–99 in the themed games)
+- 🎲 Random problems — operands from 2 up to a maximum you choose (2–99 in the themed games)
+- 🧩 Three ways to pose each problem, chosen on the setup screen: a product (`7 × 8 = ?`), a missing factor (`7 × ? = 56`), or a division (`56 ÷ 7 = ?`)
 - 📊 Real-time score, streak, and best-streak tracking
 - 🏅 Streak ranks at 3 / 5 / 10 / 20 correct answers in a row, earned per player and saved in localStorage
 - ⚔️ A short pixel-art duel (or penalty kick) plays after every answer, on a shared scene clock that respects reduced-motion preferences
@@ -34,7 +37,7 @@ Mental Math Challenge is a web-based game that helps you practice multiplication
 ## How to Play
 
 1. Pick a variant on the setup screen (or play the classic game at `/`)
-2. Enter your name and choose the highest multiplicand
+2. Enter your name, choose the highest multiplicand, and pick how the question is posed (product, missing factor, or division)
 3. Type your answer to each problem (e.g. 7 × 13 = ?) and press Enter
 4. Watch the duel (or the penalty kick) — a correct answer advances you, a miss resets your streak
 5. After 20 rounds — or when the clock runs out — see your result and ranks, then play again
@@ -60,7 +63,7 @@ npm install
 npm run dev
 ```
 
-Vite prints the local URL (commonly port 5173); the variant routes (`/roman`, `/france`, `/tang`, `/soccer`, `/muromachi`) work there too.
+Vite prints the local URL (commonly port 5173); the variant routes (`/roman`, `/france`, `/tang`, `/soccer`, `/muromachi`, `/baghdad`, `/byzantium`) work there too.
 
 ### Lint, Build, Preview
 

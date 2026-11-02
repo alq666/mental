@@ -38,11 +38,15 @@ A small Vite + React + TypeScript single-page app implementing a “Mental Math 
   - also mounts Vercel instrumentation (`@vercel/analytics` and `@vercel/speed-insights`).
 
 ### Core UI / game logic
-- `src/App.tsx` contains essentially all game logic and UI states:
+- `src/App.tsx` contains the classic game logic and UI states, and routes the themed variants:
+  - `/roman`, `/france`, `/tang`, `/soccer`, `/muromachi`, `/baghdad`, `/byzantium` (one component per theme under `src/`)
   - Setup screen (collects player name + max multiplicand)
   - Game loop (20 rounds; random operands between `MIN_NUMBER` and the user-selected max)
   - Game-over screen (final score + total time)
   - Uses a `setTimeout` delay to show correctness feedback before advancing to the next round.
+- `src/useStreakGame.ts` is the shared loop for every variant: 20 rounds, a per-guess countdown,
+  streak badges, and the three question modes (`multiply`, `missing`, `divide`) rendered through
+  `src/Equation.tsx`; `src/ModePicker.tsx` is the shared mode selector.
 
 ### Build and tooling
 - `vite.config.ts` is a minimal Vite config using `@vitejs/plugin-react`.

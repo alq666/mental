@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 240" preserveAspectRatio="xMidYMax slice">
+  <!-- Constantinople above the Golden Horn: the dome of the Great Church, the obelisk of
+       the Hippodrome, cypresses, and the sea walls, as a flat silhouette. -->
+  <g fill="#6b2338" fill-opacity=".07">
+    <path d="M0 176C170 168 300 174 440 170S700 158 840 166S1120 160 1290 168S1480 164 1600 172V240H0Z"/>
+    <path d="M300 176c0-24 70-38 70-38s70 14 70 38z"/>
+    <path d="M1180 176c0-22 60-34 62-34s62 12 62 34z"/>
+  </g>
+
+  <g fill="#6b2338" fill-opacity=".12">
+    <!-- The Great Church: broad central dome on a drum, flanked by two half-domes. -->
+    <rect x="676" y="132" width="248" height="66"/>
+    <path d="M676 132C676 54 924 54 924 132Z"/>
+    <path d="M690 136C690 116 800 104 800 104s110 12 110 32Z" fill="#6b2338" fill-opacity=".05"/>
+    <rect x="660" y="128" width="280" height="8"/>
+    <path d="M800 54v-16" stroke="#6b2338" stroke-opacity=".12" stroke-width="5"/>
+    <rect x="795" y="26" width="10" height="14"/>
+    <rect x="791" y="30" width="18" height="6"/>
+
+    <!-- Half-domes and buttresses. -->
+    <path d="M540 150C540 118 676 112 676 150Z"/>
+    <path d="M924 150C924 112 1060 118 1060 150Z"/>
+    <rect x="530" y="146" width="150" height="6"/>
+    <rect x="920" y="146" width="150" height="6"/>
+    <rect x="536" y="150" width="16" height="50"/>
+    <rect x="664" y="150" width="14" height="50"/>
+    <rect x="922" y="150" width="14" height="50"/>
+    <rect x="1048" y="150" width="16" height="50"/>
+
+    <!-- The obelisk of the Hippodrome, on its stepped base. -->
+    <rect x="1148" y="76" width="20" height="96"/>
+    <polygon points="1148,76 1158,52 1168,76"/>
+    <rect x="1140" y="170" width="36" height="10"/>
+    <rect x="1132" y="180" width="52" height="14"/>
+
+    <!-- Cypresses. -->
+    <path d="M200 200c-10-30-8-62 4-92 12 30 14 62 4 92Z"/>
+    <path d="M252 200c-8-24-6-50 3-74 9 24 11 50 3 74Z"/>
+    <path d="M1330 200c-10-30-8-62 4-92 12 30 14 62 4 92Z"/>
+    <path d="M1382 200c-8-24-6-50 3-74 9 24 11 50 3 74Z"/>
+
+    <!-- Sea walls along the Golden Horn. -->
+    <rect x="0" y="196" width="1600" height="26"/>
+    <g>
+      <rect x="80" y="188" width="16" height="10"/><rect x="126" y="188" width="16" height="10"/>
+      <rect x="172" y="188" width="16" height="10"/><rect x="1268" y="188" width="16" height="10"/>
+      <rect x="1314" y="188" width="16" height="10"/><rect x="1360" y="188" width="16" height="10"/>
+      <rect x="1406" y="188" width="16" height="10"/><rect x="1452" y="188" width="16" height="10"/>
+    </g>
+  </g>
+
+  <path fill="#6b2338" fill-opacity=".09" d="M0 220C240 212 400 226 640 220S1100 230 1320 222S1520 228 1600 224V240H0Z"/>
+</svg>

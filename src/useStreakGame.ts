@@ -9,6 +9,40 @@ export type StreakBadge = { id: string; threshold: number };
 export const TOTAL_ROUNDS = 20;
 export const MIN_NUMBER = 2;
 
+// How the question is posed. The operands are always drawn from the same range; only
+// which of the three numbers is hidden changes:
+//   multiply — a × b = ?
+//   missing  — a × ? = a·b   (solve for the factor)
+//   divide   — a·b ÷ a = ?   (solve for the quotient)
+export type Mode = "multiply" | "missing" | "divide";
+export const MODE_ORDER: Mode[] = ["multiply", "missing", "divide"];
+
+export type EquationToken = { kind: "operand" | "operator" | "unknown"; text: string };
+export type Equation = {
+  /** The five slots of the equation, in reading order. */
+  tokens: EquationToken[];
+  /** The number the player has to type. */
+  expected: number;
+  /** num1 × num2 — the full product, whether or not it is shown. */
+  product: number;
+};
+
+export function buildEquation(mode: Mode, num1: number, num2: number): Equation {
+  const product = num1 * num2;
+  const unknown: EquationToken = { kind: "unknown", text: "?" };
+  const equals: EquationToken = { kind: "operator", text: "=" };
+  const times: EquationToken = { kind: "operator", text: "×" };
+  const operand = (value: number): EquationToken => ({ kind: "operand", text: String(value) });
+
+  if (mode === "missing") {
+    return { tokens: [operand(num1), times, unknown, equals, operand(product)], expected: num2, product };
+  }
+  if (mode === "divide") {
+    return { tokens: [operand(product), { kind: "operator", text: "÷" }, operand(num1), equals, unknown], expected: num2, product };
+  }
+  return { tokens: [operand(num1), times, operand(num2), equals, unknown], expected: product, product };
+}
+
 // The countdown each single guess runs on, in seconds.
 export const DEFAULT_SECONDS_PER_GUESS = 5;
 
@@ -27,12 +61,14 @@ export function formatClock(seconds: number) {
   return `${String(mins).padStart(2, "0")}:${String(secs).padStart(2, "0")}`;
 }
 
-// Game loop shared by the themed variants (Roman, French, Tang, Soccer, Muromachi):
-// 20 rounds, a configurable countdown on every guess, and streak badges stored per
-// player in localStorage. A guess the clock runs out on counts as a miss — the answer
-// is revealed and the next question comes around; only finishing all 20 ends the game.
+// Game loop shared by the themed variants (Roman, French, Tang, Soccer, Muromachi,
+// Baghdad, Byzantine): 20 rounds, a configurable countdown on every guess, one of three
+// ways of posing the question (see Mode), and streak badges stored per player in
+// localStorage. A guess the clock runs out on counts as a miss — the answer is revealed
+// and the next question comes around; only finishing all 20 ends the game.
 export function useStreakGame<B extends StreakBadge>(badges: B[], storageKey: string) {
   const [screen, setScreen] = useState<Screen>("setup");
+  const [mode, setMode] = useState<Mode>("multiply");
   const [returnScreen, setReturnScreen] = useState<Screen>("setup");
   const [playerName, setPlayerName] = useState("");
   const [maxMultiple, setMaxMultiple] = useState("12");
@@ -59,6 +95,10 @@ export function useStreakGame<B extends StreakBadge>(badges: B[], storageKey: st
 
   const playerKey = playerName.trim().toLocaleLowerCase() || "anonymous";
   const earnedIds = badgesByPlayer[playerKey] || [];
+
+  // The question as it is posed in the chosen mode; `equation.expected` is the number
+  // the player types, `equation.tokens` the slots each variant renders.
+  const equation = buildEquation(mode, num1, num2);
 
   const secondsPerGuess = Math.max(1, Math.round(Number(timerSeconds) || DEFAULT_SECONDS_PER_GUESS));
 
@@ -147,7 +187,7 @@ export function useStreakGame<B extends StreakBadge>(badges: B[], storageKey: st
     event.preventDefault();
     if (!answer || feedback || guessSettled.current) return;
     guessSettled.current = true;
-    const correct = Number(answer) === num1 * num2;
+    const correct = Number(answer) === equation.expected;
     const nextStreak = correct ? streak + 1 : 0;
     if (correct) {
       setScore((value) => value + 1);
@@ -174,6 +214,7 @@ export function useStreakGame<B extends StreakBadge>(badges: B[], storageKey: st
     screen, setScreen, openBadges, closeBadges,
     playerName, setPlayerName,
     maxMultiple, setMaxMultiple,
+    mode, setMode, equation,
     timerEnabled, setTimerEnabled,
     timerSeconds, setTimerSeconds,
     timeLeft, round, score, streak, bestStreak,

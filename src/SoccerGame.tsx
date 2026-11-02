@@ -1,6 +1,8 @@
 import "./SoccerGame.css";
 import { useId } from "react";
 import { Penalty } from "./Penalty";
+import { EquationSlots } from "./Equation";
+import { ModePicker, type ModeLabels } from "./ModePicker";
 import { formatClock, TOTAL_ROUNDS, useStreakGame } from "./useStreakGame";
 
 type TrophyMetal = "bronze" | "silver" | "gold";
@@ -24,16 +26,23 @@ const BADGES: Badge[] = [
   { id: "cup", name: "World Cup", tagline: "Lift the trophy", description: "Score all 20 penalties.", threshold: 20, metal: "gold", featured: true },
 ];
 
+const MODE_LABELS: ModeLabels = {
+  multiply: "Multiply",
+  missing: "Missing factor",
+  divide: "Divide",
+};
+
 function SoccerGame() {
   const {
     screen, setScreen, openBadges, closeBadges,
     playerName, setPlayerName, maxMultiple, setMaxMultiple,
+    mode, setMode, equation,
     timerEnabled, setTimerEnabled, timerSeconds, setTimerSeconds,
     timeLeft, round, score, streak, bestStreak,
-    num1, num2, answer, setAnswer, feedback, answerInput,
+    answer, setAnswer, feedback, answerInput,
     startGame, submitAnswer, earnedIds, earnedBadges, latestBadge, nextBadge,
   } = useStreakGame(BADGES, BADGE_STORAGE_KEY);
-  const feedbackText = feedback === "correct" ? "Right in the corner!" : feedback === "wrong" ? `The keeper read it — the answer is ${num1 * num2}.` : feedback === "timeout" ? `Time's up — the answer is ${num1 * num2}.` : "";
+  const feedbackText = feedback === "correct" ? "Right in the corner!" : feedback === "wrong" ? `The keeper read it — the answer is ${equation.expected}.` : feedback === "timeout" ? `Time's up — the answer is ${equation.expected}.` : "";
   const taken = round - 1 + (feedback ? 1 : 0);
 
   return (
@@ -75,6 +84,7 @@ function SoccerGame() {
                   </div>
                 </label>
               </div>
+              <ModePicker value={mode} onChange={setMode} label="Mode of play" labels={MODE_LABELS} />
               <button className="soccer-primary" type="submit">Kick off <span>→</span></button>
               <p className="sc-setup-note">20 penalties · Trophies for scoring runs · {timerEnabled ? `${timerSeconds || 0} second shot clock` : "No clock"}</p>
             </form>
@@ -95,7 +105,7 @@ function SoccerGame() {
               {Array.from({ length: TOTAL_ROUNDS }, (_, index) => <li key={index} className={index < round - 1 || (index === round - 1 && feedback) ? "sc-kick-taken" : index === round - 1 ? "sc-kick-now" : ""} />)}
             </ol>
             <p className="sc-inscription">Beat the keeper</p>
-            <div className="soccer-question"><span>{num1}</span><i>×</i><span>{num2}</span><i>=</i><b>?</b></div>
+            <div className="soccer-question"><EquationSlots tokens={equation.tokens} /></div>
             <form className="soccer-answer" onSubmit={submitAnswer}>
               <input ref={answerInput} type="number" inputMode="numeric" value={answer} onChange={(event) => setAnswer(event.target.value)} placeholder="Your answer" aria-label="Your answer" disabled={!!feedback} />
               <button type="submit" disabled={!answer || !!feedback}>Shoot</button>
