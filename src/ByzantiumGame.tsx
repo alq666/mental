@@ -1,6 +1,6 @@
 import "./ByzantiumGame.css";
 import { useId } from "react";
-import { Duel, type DuelTheme } from "./Duel";
+import { Hippodrome } from "./Hippodrome";
 import { EquationSlots } from "./Equation";
 import { ModePicker, type ModeLabels } from "./ModePicker";
 import { formatClock, TOTAL_ROUNDS, useStreakGame } from "./useStreakGame";
@@ -41,15 +41,6 @@ const METALS: Record<Metal, { leaf: string; deep: string; detail: string; glow: 
   silver: { leaf: "#aab3bd", deep: "#6a7480", detail: "#f4f7fa", glow: false },
   gold: { leaf: "#d3ac38", deep: "#8a6a12", detail: "#fff4c8", glow: false },
   glow: { leaf: "#e6c748", deep: "#8f6d10", detail: "#fffbe4", glow: true },
-};
-
-// A scholastic of the queen city against a charioteer of the Blues.
-const DUEL_THEME: DuelTheme = {
-  className: "duel-byzantium",
-  player: { h: "#2a2a33", c: "#c8a03a", t: "#6b2338", d: "#c8a03a", l: "#4b3a2c" },
-  foe: { h: "#c9d4e0", c: "#2f6f6b", t: "#2f6f6b", d: "#1c4a47", l: "#25303a" },
-  win: "Νίκη!",
-  lose: "Ἧττα…",
 };
 
 function ByzantiumGame() {
@@ -134,7 +125,7 @@ function ByzantiumGame() {
               <button type="submit" disabled={!answer || !!feedback}>Ἔλεγξον</button>
             </form>
             <div className={`byz-feedback ${feedback}`} aria-live="polite">{feedbackText}</div>
-            {feedback && <Duel key={round} outcome={feedback === "correct" ? "win" : "lose"} theme={DUEL_THEME} playerName={playerName} caption={feedbackText} />}
+            {feedback && <Hippodrome key={round} outcome={feedback === "correct" ? "win" : "lose"} playerName={playerName} caption={feedbackText} />}
           </div>
           <div className="byz-streak-panel">
             <div className="byz-streak-mark">☧</div>

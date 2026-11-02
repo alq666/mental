@@ -1,6 +1,6 @@
 import "./BaghdadGame.css";
 import { useId } from "react";
-import { Duel, type DuelTheme } from "./Duel";
+import { Majlis } from "./Majlis";
 import { EquationSlots } from "./Equation";
 import { ModePicker, type ModeLabels } from "./ModePicker";
 import { formatClock, TOTAL_ROUNDS, useStreakGame } from "./useStreakGame";
@@ -41,15 +41,6 @@ const METALS: Record<Metal, { face: [string, string]; ring: string; detail: stri
   silver: { face: ["#aeb7c0", "#6c7681"], ring: "#e0e6ec", detail: "#f7fafc", glow: false },
   gold: { face: ["#d8b43c", "#8a6a12"], ring: "#f3df95", detail: "#fff6cf", glow: false },
   glow: { face: ["#e8c94a", "#8f6d10"], ring: "#ffe9a3", detail: "#fffbe6", glow: true },
-};
-
-// A scholar against a court astronomer, as at a disputation in the House of Wisdom.
-const DUEL_THEME: DuelTheme = {
-  className: "duel-baghdad",
-  player: { h: "#ece5d3", c: "#c9a227", t: "#1a4f7a", d: "#c9a227", l: "#3a3226" },
-  foe: { h: "#3f382f", c: "#a8452c", t: "#7c6a4a", d: "#5e4f36", l: "#2c2620" },
-  win: "أصبت!",
-  lose: "لم تُصب",
 };
 
 function BaghdadGame() {
@@ -134,7 +125,7 @@ function BaghdadGame() {
               <button type="submit" disabled={!answer || !!feedback}>تحقّق</button>
             </form>
             <div className={`bg-feedback ${feedback}`} aria-live="polite">{feedbackText}</div>
-            {feedback && <Duel key={round} outcome={feedback === "correct" ? "win" : "lose"} theme={DUEL_THEME} playerName={playerName} caption={feedbackText} />}
+            {feedback && <Majlis key={round} outcome={feedback === "correct" ? "win" : "lose"} playerName={playerName} caption={feedbackText} />}
           </div>
           <div className="bg-streak-panel">
             <div className="bg-streak-mark">✧</div>

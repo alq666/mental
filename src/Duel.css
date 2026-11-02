@@ -59,10 +59,3 @@
 .duel-muromachi { --duel-accent: #233a5c; --duel-bg: #f5f0df; --duel-win: #47614f; --duel-lose: #a63b2e; font-family: "Noto Serif JP", serif; }
 .duel-muromachi .duel-verdict { font: 400 30px "Yuji Syuku", "Noto Serif JP", serif; letter-spacing: .25em; text-indent: .25em; }
 .duel-muromachi .duel-caption { font-style: normal; font-family: "Yuji Syuku", "Noto Serif JP", serif; }
-.duel-baghdad { --duel-accent: #a8452c; --duel-bg: #f7f1e2; --duel-win: #17695c; --duel-lose: #a8452c; font-family: "Noto Naskh Arabic", serif; }
-.duel-baghdad .duel-verdict { font: 700 28px Amiri, "Noto Naskh Arabic", serif; }
-.duel-baghdad .duel-caption { font-style: normal; font-size: 17px; }
-
-.duel-byzantium { --duel-accent: #6b2338; --duel-bg: #f6f0e2; --duel-win: #2f6f6b; --duel-lose: #6b2338; font-family: "Gentium Book Plus", Georgia, serif; }
-.duel-byzantium .duel-verdict { font: 400 28px "GFS Didot", serif; letter-spacing: .06em; }
-.duel-byzantium .duel-caption { font-size: 17px; }
