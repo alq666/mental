@@ -1,0 +1,57 @@
+/* Mode picker shared by the variants' setup cards. Drawn in currentColor so it takes
+   each theme's ink; no background of its own. */
+.mode-picker {
+  display: grid;
+  gap: 7px;
+  margin: 0 0 22px;
+  text-align: start;
+}
+
+.mode-picker-label {
+  font-size: 14px;
+  letter-spacing: .08em;
+  opacity: .78;
+}
+
+.mode-picker-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.mode-option {
+  flex: 1 1 auto;
+  padding: 8px 14px;
+  border: 1px solid currentColor;
+  border-radius: 2px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 15px;
+  line-height: 1.2;
+  opacity: .6;
+  cursor: pointer;
+  transition: opacity .15s, box-shadow .15s;
+}
+
+.mode-option:hover,
+.mode-option:focus-visible {
+  opacity: 1;
+}
+
+.mode-option.mode-on {
+  opacity: 1;
+  font-weight: 600;
+  box-shadow: inset 0 -3px 0 currentColor;
+}
+
+.mode-picker-hint {
+  font-size: 13px;
+  font-style: italic;
+  opacity: .7;
+}
+
+@media (max-width: 470px) {
+  .mode-picker-options { gap: 6px; }
+  .mode-option { flex: 1 1 100%; }
+}

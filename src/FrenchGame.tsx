@@ -1,5 +1,7 @@
 import "./FrenchGame.css";
 import { Duel, type DuelTheme } from "./Duel";
+import { EquationSlots } from "./Equation";
+import { ModePicker, type ModeLabels } from "./ModePicker";
 import { formatClock, TOTAL_ROUNDS, useStreakGame } from "./useStreakGame";
 
 type Badge = {
@@ -33,16 +35,23 @@ const DUEL_THEME: DuelTheme = {
   lose: "Défaite…",
 };
 
+const MODE_LABELS: ModeLabels = {
+  multiply: "Multiplication",
+  missing: "Facteur manquant",
+  divide: "Division",
+};
+
 function FrenchGame() {
   const {
     screen, setScreen, openBadges, closeBadges,
     playerName, setPlayerName, maxMultiple, setMaxMultiple,
+    mode, setMode, equation,
     timerEnabled, setTimerEnabled, timerSeconds, setTimerSeconds,
     timeLeft, round, score, streak, bestStreak,
-    num1, num2, answer, setAnswer, feedback, answerInput,
+    answer, setAnswer, feedback, answerInput,
     startGame, submitAnswer, earnedIds, earnedBadges, latestBadge, nextBadge,
   } = useStreakGame(BADGES, BADGE_STORAGE_KEY);
-  const feedbackText = feedback === "correct" ? "Juste ! Montjoie Saint-Denis !" : feedback === "wrong" ? `Que nenni — la réponse est ${num1 * num2}.` : feedback === "timeout" ? `Le temps est écoulé — la réponse est ${num1 * num2}.` : "";
+  const feedbackText = feedback === "correct" ? "Juste ! Montjoie Saint-Denis !" : feedback === "wrong" ? `Que nenni — la réponse est ${equation.expected}.` : feedback === "timeout" ? `Le temps est écoulé — la réponse est ${equation.expected}.` : "";
 
   return (
     <main className="france-app" lang="fr">
@@ -83,6 +92,7 @@ function FrenchGame() {
                   </div>
                 </label>
               </div>
+              <ModePicker value={mode} onChange={setMode} label="Type de calcul" labels={MODE_LABELS} />
               <button className="france-primary" type="submit">Entrer en lice <span>→</span></button>
               <p className="fr-setup-note">xx épreuves · Blasons de série · {timerEnabled ? `${frenchNumber(timerSeconds || "0")} secondes par calcul` : "Sans limite de temps"}</p>
             </form>
@@ -101,7 +111,7 @@ function FrenchGame() {
             <div className="fr-progress-meta"><span>Épreuve {round} sur {TOTAL_ROUNDS}</span><span>{Math.round(((round - 1) / TOTAL_ROUNDS) * 100)} % accompli</span></div>
             <div className="france-progress"><i style={{ width: `${((round - 1) / TOTAL_ROUNDS) * 100}%` }} /></div>
             <p className="fr-inscription">Calculez avec promptitude et justesse</p>
-            <div className="france-question"><span>{num1}</span><i>×</i><span>{num2}</span><i>=</i><b>?</b></div>
+            <div className="france-question"><EquationSlots tokens={equation.tokens} /></div>
             <form className="france-answer" onSubmit={submitAnswer}>
               <input ref={answerInput} type="number" inputMode="numeric" value={answer} onChange={(event) => setAnswer(event.target.value)} placeholder="Votre réponse" aria-label="Votre réponse" disabled={!!feedback} />
               <button type="submit" disabled={!answer || !!feedback}>Valider</button>

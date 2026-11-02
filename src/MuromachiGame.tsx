@@ -1,5 +1,7 @@
 import "./MuromachiGame.css";
 import { Duel, type DuelTheme } from "./Duel";
+import { EquationSlots } from "./Equation";
+import { ModePicker, type ModeLabels } from "./ModePicker";
 import { formatClock, TOTAL_ROUNDS, useStreakGame } from "./useStreakGame";
 
 type Badge = {
@@ -41,16 +43,23 @@ const DUEL_THEME: DuelTheme = {
   lose: "負",
 };
 
+const MODE_LABELS: ModeLabels = {
+  multiply: "乗算",
+  missing: "欠けた因数",
+  divide: "除算",
+};
+
 function MuromachiGame() {
   const {
     screen, setScreen, openBadges, closeBadges,
     playerName, setPlayerName, maxMultiple, setMaxMultiple,
+    mode, setMode, equation,
     timerEnabled, setTimerEnabled, timerSeconds, setTimerSeconds,
     timeLeft, round, score, streak, bestStreak,
     num1, num2, answer, setAnswer, feedback, answerInput,
     startGame, submitAnswer, earnedIds, earnedBadges, latestBadge, nextBadge,
   } = useStreakGame(BADGES, BADGE_STORAGE_KEY);
-  const feedbackText = feedback === "correct" ? "見事！鮮やかな手並み。" : feedback === "wrong" ? `無念——積は ${num1 * num2}。` : feedback === "timeout" ? `時切れ——積は ${num1 * num2}。` : "";
+  const feedbackText = feedback === "correct" ? "見事！鮮やかな手並み。" : feedback === "wrong" ? `無念——積は ${equation.expected}。` : feedback === "timeout" ? `時切れ——積は ${equation.expected}。` : "";
 
   return (
     <main className="muro-app" lang="ja">
@@ -91,6 +100,7 @@ function MuromachiGame() {
                   </div>
                 </label>
               </div>
+              <ModePicker value={mode} onChange={setMode} label="算法" labels={MODE_LABELS} />
               <button className="muro-primary" type="submit">試練に挑む <span>→</span></button>
               <p className="muro-setup-note">二十問 · 連続正解で武功 · {timerEnabled ? `一問 ${timerSeconds || 0} 秒` : "時限なし"}</p>
             </form>
@@ -108,8 +118,12 @@ function MuromachiGame() {
           <div className="muro-exam-card">
             <div className="muro-progress-meta"><span>第 {round} 問 · 全 {TOTAL_ROUNDS} 問</span><span>修行 {Math.round(((round - 1) / TOTAL_ROUNDS) * 100)}%</span></div>
             <div className="muro-progress"><i style={{ width: `${((round - 1) / TOTAL_ROUNDS) * 100}%` }} /></div>
-            <p className="muro-inscription">今、{toKanjiNumeral(num1)}に{toKanjiNumeral(num2)}を乗ず。積は幾らか。</p>
-            <div className="muro-question"><span>{num1}</span><i>×</i><span>{num2}</span><i>=</i><b>?</b></div>
+            <p className="muro-inscription">{mode === "missing"
+              ? `今、${toKanjiNumeral(num1)}に何を乗ずれば${toKanjiNumeral(equation.product)}となるか。`
+              : mode === "divide"
+                ? `今、${toKanjiNumeral(equation.product)}を${toKanjiNumeral(num1)}にて割る。商は幾らか。`
+                : `今、${toKanjiNumeral(num1)}に${toKanjiNumeral(num2)}を乗ず。積は幾らか。`}</p>
+            <div className="muro-question"><EquationSlots tokens={equation.tokens} /></div>
             <form className="muro-answer" onSubmit={submitAnswer}>
               <input ref={answerInput} type="number" inputMode="numeric" value={answer} onChange={(event) => setAnswer(event.target.value)} placeholder="答え" aria-label="答え" disabled={!!feedback} />
               <button type="submit" disabled={!answer || !!feedback}>答える</button>
