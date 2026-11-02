@@ -1,0 +1,59 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 240" preserveAspectRatio="xMidYMax slice">
+  <!-- Baghdad on the Tigris: brick domes, a square minaret, palm groves, and the walled
+       round city, flattened into a silhouette as a folio painter would have it. -->
+  <g fill="#1a4f7a" fill-opacity=".07">
+    <path d="M0 178C150 168 260 176 380 172S610 160 740 170S1000 164 1160 172S1420 166 1600 174V240H0Z"/>
+    <path d="M470 176c0-26 100-40 100-40s100 14 100 40z"/>
+    <rect x="1030" y="150" width="104" height="30"/>
+    <path d="M1020 150c0-22 56-34 62-34s62 12 62 34z"/>
+  </g>
+
+  <g fill="#1a4f7a" fill-opacity=".12">
+    <!-- The wall of the round city, with its merlons. -->
+    <rect x="0" y="198" width="1600" height="42"/>
+    <g>
+      <rect x="60" y="190" width="16" height="10"/><rect x="102" y="190" width="16" height="10"/>
+      <rect x="144" y="190" width="16" height="10"/><rect x="186" y="190" width="16" height="10"/>
+      <rect x="228" y="190" width="16" height="10"/><rect x="270" y="190" width="16" height="10"/>
+      <rect x="312" y="190" width="16" height="10"/><rect x="354" y="190" width="16" height="10"/>
+      <rect x="1180" y="190" width="16" height="10"/><rect x="1222" y="190" width="16" height="10"/>
+      <rect x="1264" y="190" width="16" height="10"/><rect x="1306" y="190" width="16" height="10"/>
+      <rect x="1348" y="190" width="16" height="10"/><rect x="1390" y="190" width="16" height="10"/>
+      <rect x="1432" y="190" width="16" height="10"/><rect x="1474" y="190" width="16" height="10"/>
+    </g>
+
+    <!-- The great mosque: a broad brick dome on a squat drum, with a crescent finial. -->
+    <rect x="620" y="150" width="360" height="52"/>
+    <path d="M620 150C620 66 980 66 980 150Z"/>
+    <rect x="612" y="146" width="376" height="8"/>
+    <path d="M800 70v-22" stroke="#1a4f7a" stroke-opacity=".12" stroke-width="5"/>
+    <path d="M794 44a11 11 0 1 0 12 16 9 9 0 1 1-12-16Z"/>
+
+    <!-- Side domes. -->
+    <path d="M500 176c0-34 96-52 96-52s96 18 96 52Z"/>
+    <rect x="496" y="172" width="200" height="6"/>
+    <path d="M1004 176c0-30 84-46 84-46s84 16 84 46Z"/>
+    <rect x="1000" y="172" width="176" height="6"/>
+
+    <!-- Square Abbasid minaret with its balcony. -->
+    <rect x="1152" y="86" width="30" height="116"/>
+    <rect x="1142" y="128" width="50" height="9"/>
+    <path d="M1152 88c0-16 15-24 15-24s15 8 15 24Z"/>
+    <rect x="1166" y="58" width="3" height="12"/>
+
+    <!-- Palms. -->
+    <g>
+      <path d="M200 200c10-30 8-58 2-80" fill="none" stroke="#1a4f7a" stroke-opacity=".12" stroke-width="6" stroke-linecap="round"/>
+      <path d="M202 120c-26-10-44-2-56 12 20 4 38 2 56-12Zm0 0c26-10 44-2 56 12-20 4-38 2-56-12Zm0 4c-4-26 6-44 22-52-2 22-8 40-22 52Zm0 0c4-26-6-44-22-52 2 22 8 40 22 52Z"/>
+      <path d="M330 202c12-34 10-64 4-88" fill="none" stroke="#1a4f7a" stroke-opacity=".09" stroke-width="5" stroke-linecap="round"/>
+      <path d="M334 116c-22-8-38-2-48 10 18 4 32 2 48-10Zm0 0c22-8 38-2 48 10-18 4-32 2-48-10Zm0 4c-4-22 6-38 20-44-2 18-8 34-20 44Zm0 0c4-22-6-38-20-44 2 18 8 34 20 44Z"/>
+      <path d="M1330 200c-10-30-8-58-2-80" fill="none" stroke="#1a4f7a" stroke-opacity=".12" stroke-width="6" stroke-linecap="round"/>
+      <path d="M1328 120c-26-10-44-2-56 12 20 4 38 2 56-12Zm0 0c26-10 44-2 56 12-20 4-38 2-56-12Zm0 4c-4-26 6-44 22-52-2 22-8 40-22 52Zm0 0c4-26-6-44-22-52 2 22 8 40 22 52Z"/>
+      <path d="M1462 202c-12-34-10-64-4-88" fill="none" stroke="#1a4f7a" stroke-opacity=".09" stroke-width="5" stroke-linecap="round"/>
+      <path d="M1458 116c-22-8-38-2-48 10 18 4 32 2 48-10Zm0 0c22-8 38-2 48 10-18 4-32 2-48-10Zm0 4c-4-22 6-38 20-44-2 18-8 34-20 44Zm0 0c4-22-6-38-20-44 2 18 8 34 20 44Z"/>
+    </g>
+  </g>
+
+  <!-- The Tigris, nearest the viewer. -->
+  <path fill="#1a4f7a" fill-opacity=".09" d="M0 218C220 210 380 224 620 218S1080 228 1300 220S1500 226 1600 222V240H0Z"/>
+</svg>
