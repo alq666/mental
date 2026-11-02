@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import "./App.css";
+import { VariantGallery } from "./VariantCards";
 import BaghdadGame from "./BaghdadGame";
 import ByzantiumGame from "./ByzantiumGame";
 import FrenchGame from "./FrenchGame";
@@ -154,37 +155,43 @@ function ClassicApp() {
   };
 
   const BestSessionsPanel = () => {
-    if (bestSessions.length === 0) return null;
-
     return (
       <div className="best-sessions">
         <div className="best-sessions-header">
           <h2>Best sessions</h2>
-          <button
-            type="button"
-            className="clear-sessions-button"
-            onClick={clearBestSessions}
-          >
-            Clear
-          </button>
-        </div>
-        <ol className="best-sessions-list">
-          {bestSessions.map((session, index) => (
-            <li
-              key={`${session.completedAt}-${index}`}
-              className="best-session-row"
+          {bestSessions.length > 0 && (
+            <button
+              type="button"
+              className="clear-sessions-button"
+              onClick={clearBestSessions}
             >
-              <span className="best-session-rank">{index + 1}.</span>
-              <span className="best-session-name">{session.name}</span>
-              <span className="best-session-score">
-                {session.score} / {TOTAL_ROUNDS}
-              </span>
-              <span className="best-session-duration">
-                {formatDurationSeconds(session.durationMs)}s
-              </span>
-            </li>
-          ))}
-        </ol>
+              Clear
+            </button>
+          )}
+        </div>
+        {bestSessions.length === 0 ? (
+          <p className="best-sessions-empty">
+            Nothing on the board yet. Twenty rounds and your name goes here.
+          </p>
+        ) : (
+          <ol className="best-sessions-list">
+            {bestSessions.map((session, index) => (
+              <li
+                key={`${session.completedAt}-${index}`}
+                className={`best-session-row ${index < 3 ? "best-session-podium" : ""}`}
+              >
+                <span className="best-session-rank">{index + 1}</span>
+                <span className="best-session-name">{session.name}</span>
+                <span className="best-session-score">
+                  {session.score} / {TOTAL_ROUNDS}
+                </span>
+                <span className="best-session-duration">
+                  {formatDurationSeconds(session.durationMs)}s
+                </span>
+              </li>
+            ))}
+          </ol>
+        )}
       </div>
     );
   };
@@ -267,86 +274,117 @@ function ClassicApp() {
   // Setup screen
   if (!gameStarted) {
     return (
-      <div className="game-container">
-        <div className="setup-container">
-          <h1>Mental Math Challenge</h1>
-          <form onSubmit={handleStartGame} className="setup-form">
-            <div className="form-group">
-              <label htmlFor="playerName">What's your name?</label>
-              <input
-                id="playerName"
-                type="text"
-                value={playerName}
-                onChange={(e) => setPlayerName(e.target.value)}
-                placeholder="Enter your name"
-                className="setup-input"
-                autoFocus
-              />
+      <div className="home">
+        <header className="home-nav">
+          <a className="home-brand" href="/">
+            <span className="home-mark" aria-hidden="true">×</span>
+            <span className="home-brand-copy">
+              <b>Mental Math</b>
+              <small>twenty rounds, one head</small>
+            </span>
+          </a>
+          <nav className="home-nav-links" aria-label="Sections">
+            <a href="#play">Play</a>
+            <a href="#worlds">The worlds</a>
+            <a href="#records">Records</a>
+          </nav>
+        </header>
+
+        <main className="home-main">
+          <section className="home-hero" id="play">
+            <div className="home-copy">
+              <p className="home-eyebrow">mental arithmetic · no calculator</p>
+              <h1>Twenty rounds.<br /><em>One head.</em></h1>
+              <p className="home-lede">
+                Work the multiplication in your head while the clock runs, then take the
+                same twenty rounds into seven other worlds — Rome, fifteenth-century France,
+                Tang China, a penalty shootout, Muromachi Kyoto, Abbasid Baghdad and Byzantium.
+              </p>
+              <ul className="home-facts">
+                <li><strong>20</strong><span>rounds</span></li>
+                <li><strong>4</strong><span>ranks</span></li>
+                <li><strong>7</strong><span>worlds</span></li>
+              </ul>
             </div>
 
-            <div className="form-group">
-              <label htmlFor="maxMultiple">
-                What is the highest multiplicand?
-              </label>
-              <input
-                id="maxMultiple"
-                type="number"
-                value={maxMultiple}
-                onChange={(e) => setMaxMultiple(e.target.value)}
-                placeholder={`Minimum ${MIN_NUMBER}`}
-                min={MIN_NUMBER}
-                className="setup-input"
-              />
-              <small className="form-hint">
-                Numbers to be multiplied, will range from {MIN_NUMBER} to your
-                chosen maximum
-              </small>
-            </div>
+            <form onSubmit={handleStartGame} className="setup-form">
+              <h2>Start a game</h2>
+              <div className="form-group">
+                <label htmlFor="playerName">Your name</label>
+                <input
+                  id="playerName"
+                  type="text"
+                  value={playerName}
+                  onChange={(e) => setPlayerName(e.target.value)}
+                  placeholder="Enter your name"
+                  className="setup-input"
+                  autoFocus
+                />
+              </div>
 
-            <button
-              type="submit"
-              className="start-button"
-              disabled={
-                playerName.trim() === "" ||
-                maxMultiple === "" ||
-                parseInt(maxMultiple) < MIN_NUMBER
-              }
-            >
-              Start Game
-            </button>
-          </form>
-          <BestSessionsPanel />
-          <div className="variant-links">
-            <a className="variant-link" href="/roman">
-              <span aria-hidden="true">🏛️</span>
-              Try the Roman challenge
-            </a>
-            <a className="variant-link" href="/france" lang="fr">
-              <span aria-hidden="true">⚜️</span>
-              Le défi du royaume de France
-            </a>
-            <a className="variant-link" href="/tang" lang="zh-Hant">
-              <span aria-hidden="true">🏯</span>
-              大唐算學館
-            </a>
-            <a className="variant-link" href="/soccer">
-              <span aria-hidden="true">⚽</span>
-              Penalty shootout
-            </a>
-            <a className="variant-link" href="/muromachi" lang="ja">
-              <span aria-hidden="true">⛩️</span>
-              室町算術道場
-            </a>
-            <a className="variant-link" href="/baghdad" lang="ar">
-              <span aria-hidden="true">🕌</span>
-              بيت الحكمة
-            </a>
-            <a className="variant-link" href="/byzantium" lang="el">
-              <span aria-hidden="true">☧</span>
-              Ἡ Ἀριθμητική
-            </a>
-          </div>
-        </div>
+              <div className="form-group">
+                <label htmlFor="maxMultiple">Highest multiplicand</label>
+                <input
+                  id="maxMultiple"
+                  type="number"
+                  value={maxMultiple}
+                  onChange={(e) => setMaxMultiple(e.target.value)}
+                  placeholder={`Minimum ${MIN_NUMBER}`}
+                  min={MIN_NUMBER}
+                  className="setup-input"
+                />
+                <div className="range-presets" role="group" aria-label="Common ranges">
+                  {[9, 12, 20, 99].map((value) => (
+                    <button
+                      type="button"
+                      key={value}
+                      className={`range-chip ${maxMultiple === String(value) ? "range-chip-on" : ""}`}
+                      aria-pressed={maxMultiple === String(value)}
+                      onClick={() => setMaxMultiple(String(value))}
+                    >
+                      up to {value}
+                    </button>
+                  ))}
+                </div>
+                <small className="form-hint">
+                  Factors run from {MIN_NUMBER} to {maxMultiple || "your maximum"} —
+                  from {MIN_NUMBER} × {MIN_NUMBER} to {maxMultiple || "…"} × {maxMultiple || "…"}.
+                </small>
+              </div>
+
+              <button
+                type="submit"
+                className="start-button"
+                disabled={
+                  playerName.trim() === "" ||
+                  maxMultiple === "" ||
+                  parseInt(maxMultiple) < MIN_NUMBER
+                }
+              >
+                Start the classic game <span aria-hidden="true">→</span>
+              </button>
+              <p className="form-note">No account, no download. Best sessions stay in this browser.</p>
+            </form>
+          </section>
+
+          <section className="home-worlds" id="worlds">
+            <div className="home-section-head">
+              <h2>Seven more worlds</h2>
+              <p>The same twenty rounds and the same rules — a different century, language and ladder of ranks.</p>
+            </div>
+            <VariantGallery />
+          </section>
+
+          <section className="home-records" id="records">
+            <BestSessionsPanel />
+          </section>
+        </main>
+
+        <footer className="home-footer">
+          <span>Mental Math Challenge</span>
+          <span aria-hidden="true">·</span>
+          <span>React, Vite and hand-written CSS</span>
+        </footer>
       </div>
     );
   }
