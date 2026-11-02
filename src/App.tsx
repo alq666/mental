@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import "./App.css";
+import BaghdadGame from "./BaghdadGame";
+import ByzantiumGame from "./ByzantiumGame";
 import FrenchGame from "./FrenchGame";
 import MuromachiGame from "./MuromachiGame";
 import RomanGame from "./RomanGame";
@@ -335,6 +337,14 @@ function ClassicApp() {
               <span aria-hidden="true">⛩️</span>
               室町算術道場
             </a>
+            <a className="variant-link" href="/baghdad" lang="ar">
+              <span aria-hidden="true">🕌</span>
+              بيت الحكمة
+            </a>
+            <a className="variant-link" href="/byzantium" lang="el">
+              <span aria-hidden="true">☧</span>
+              Ἡ Ἀριθμητική
+            </a>
           </div>
         </div>
       </div>
@@ -444,6 +454,8 @@ function App() {
   if (path.startsWith("/tang")) return <TangGame />;
   if (path.startsWith("/soccer")) return <SoccerGame />;
   if (path.startsWith("/muromachi")) return <MuromachiGame />;
+  if (path.startsWith("/baghdad")) return <BaghdadGame />;
+  if (path.startsWith("/byzantium")) return <ByzantiumGame />;
   return <ClassicApp />;
 }
 
