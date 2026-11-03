@@ -39,7 +39,7 @@ A small Vite + React + TypeScript single-page app implementing a “Mental Math 
 
 ### Core UI / game logic
 - `src/App.tsx` contains the classic game logic and UI states, and routes the themed variants:
-  - `/roman`, `/france`, `/tang`, `/soccer`, `/muromachi`, `/baghdad`, `/byzantium` (one component per theme under `src/`)
+  - `/roman`, `/france`, `/tang`, `/soccer`, `/muromachi`, `/baghdad`, `/byzantium`, `/outerrim` (one component per theme under `src/`)
   - Setup screen (collects player name + max multiplicand)
   - Game loop (20 rounds; random operands between `MIN_NUMBER` and the user-selected max)
   - Game-over screen (final score + total time)

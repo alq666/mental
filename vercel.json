@@ -56,6 +56,14 @@
     {
       "source": "/byzantium/:path*",
       "destination": "/index.html"
+    },
+    {
+      "source": "/outerrim",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/outerrim/:path*",
+      "destination": "/index.html"
     }
   ]
 }
