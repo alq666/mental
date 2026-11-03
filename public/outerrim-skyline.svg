@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 240" preserveAspectRatio="xMidYMax slice">
+  <!-- A desert world at dusk: twin suns, dunes, a domed homestead, vaporators, and a wedge
+       of a capital ship holding orbit. -->
+  <defs>
+    <radialGradient id="sunA" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stopColor="#ffe6b0" stopOpacity=".55" />
+      <stop offset=".55" stopColor="#e8c98a" stopOpacity=".22" />
+      <stop offset="1" stopColor="#e8c98a" stopOpacity="0" />
+    </radialGradient>
+    <radialGradient id="sunB" cx=".5" cy=".5" r=".5">
+      <stop offset="0" stopColor="#ffd08a" stopOpacity=".45" />
+      <stop offset="1" stopColor="#e8c98a" stopOpacity="0" />
+    </radialGradient>
+  </defs>
+
+  <!-- Twin suns, low and close together. -->
+  <circle cx="1150" cy="104" r="120" fill="url(#sunA)" />
+  <circle cx="1272" cy="92" r="86" fill="url(#sunB)" />
+  <circle cx="1150" cy="104" r="46" fill="#e8c98a" fill-opacity=".30" />
+  <circle cx="1272" cy="92" r="30" fill="#ffcf94" fill-opacity=".26" />
+
+  <!-- The capital ship: a grey wedge, far off and high. -->
+  <g fill="#6fd3ff" fill-opacity=".13">
+    <path d="M300 46l128 26-128 26-14-26Z" />
+    <rect x="286" y="70" width="16" height="4" />
+  </g>
+
+  <!-- Dunes: three ridges, nearest last. -->
+  <path fill="#6fd3ff" fill-opacity=".05" d="M0 176C210 150 340 166 520 158S860 132 1060 150S1380 142 1600 158V240H0Z" />
+  <path fill="#6fd3ff" fill-opacity=".07" d="M0 200C240 182 420 196 640 188S1000 170 1220 188S1460 180 1600 192V240H0Z" />
+
+  <!-- Homestead: a dome sunk into the sand, with its entry and a moisture vaporator or two. -->
+  <g fill="#6fd3ff" fill-opacity=".12">
+    <path d="M1180 214c0-34 32-58 72-58s72 24 72 58Z" />
+    <rect x="1240" y="196" width="26" height="18" />
+    <rect x="1130" y="176" width="5" height="38" />
+    <rect x="1122" y="184" width="21" height="4" />
+    <rect x="1122" y="194" width="21" height="4" />
+    <rect x="1348" y="182" width="5" height="32" />
+    <rect x="1340" y="190" width="21" height="4" />
+  </g>
+
+  <path fill="#6fd3ff" fill-opacity=".09" d="M0 218C260 206 440 222 680 214S1080 226 1300 216S1520 224 1600 218V240H0Z" />
+</svg>
