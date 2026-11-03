@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 420">
+  <!-- A seamless field of faint stars for the deep-space page background. -->
+  <g fill="#dbe6f5">
+    <circle cx="24" cy="36" r="1.1" opacity=".55" />
+    <circle cx="88" cy="18" r=".9" opacity=".35" />
+    <circle cx="142" cy="74" r="1.4" opacity=".5" />
+    <circle cx="196" cy="28" r="1" opacity=".3" />
+    <circle cx="252" cy="66" r="1.2" opacity=".45" />
+    <circle cx="318" cy="22" r=".9" opacity=".35" />
+    <circle cx="378" cy="58" r="1.5" opacity=".5" />
+    <circle cx="46" cy="122" r="1" opacity=".3" />
+    <circle cx="112" cy="158" r="1.3" opacity=".45" />
+    <circle cx="176" cy="118" r=".9" opacity=".3" />
+    <circle cx="236" cy="162" r="1.1" opacity=".4" />
+    <circle cx="296" cy="126" r="1.4" opacity=".5" />
+    <circle cx="360" cy="170" r="1" opacity=".3" />
+    <circle cx="18" cy="214" r="1.2" opacity=".4" />
+    <circle cx="84" cy="256" r="1" opacity=".32" />
+    <circle cx="150" cy="212" r="1.5" opacity=".52" />
+    <circle cx="214" cy="258" r=".9" opacity=".28" />
+    <circle cx="278" cy="218" r="1.1" opacity=".4" />
+    <circle cx="342" cy="262" r="1.3" opacity=".45" />
+    <circle cx="398" cy="216" r="1" opacity=".3" />
+    <circle cx="40" cy="318" r="1.2" opacity=".42" />
+    <circle cx="104" cy="362" r=".9" opacity=".3" />
+    <circle cx="168" cy="318" r="1.3" opacity=".46" />
+    <circle cx="232" cy="368" r="1" opacity=".3" />
+    <circle cx="296" cy="324" r="1.4" opacity=".5" />
+    <circle cx="360" cy="374" r="1.1" opacity=".36" />
+    <circle cx="412" cy="330" r="1" opacity=".3" />
+  </g>
+  <g fill="#6fd3ff" fill-opacity=".10">
+    <circle cx="58" cy="58" r="26" />
+    <circle cx="332" cy="300" r="34" />
+  </g>
+</svg>
