@@ -5,6 +5,7 @@ import BaghdadGame from "./BaghdadGame";
 import ByzantiumGame from "./ByzantiumGame";
 import FrenchGame from "./FrenchGame";
 import MuromachiGame from "./MuromachiGame";
+import OuterRimGame from "./OuterRimGame";
 import RomanGame from "./RomanGame";
 import SoccerGame from "./SoccerGame";
 import TangGame from "./TangGame";
@@ -297,13 +298,14 @@ function ClassicApp() {
               <h1>Twenty rounds.<br /><em>One head.</em></h1>
               <p className="home-lede">
                 Work the multiplication in your head while the clock runs, then take the
-                same twenty rounds into seven other worlds — Rome, fifteenth-century France,
-                Tang China, a penalty shootout, Muromachi Kyoto, Abbasid Baghdad and Byzantium.
+                same twenty rounds into eight other worlds — Rome, fifteenth-century France,
+                Tang China, a penalty shootout, Muromachi Kyoto, Abbasid Baghdad, Byzantium,
+                and a desert world with two suns.
               </p>
               <ul className="home-facts">
                 <li><strong>20</strong><span>rounds</span></li>
                 <li><strong>4</strong><span>ranks</span></li>
-                <li><strong>7</strong><span>worlds</span></li>
+                <li><strong>8</strong><span>worlds</span></li>
               </ul>
             </div>
 
@@ -369,7 +371,7 @@ function ClassicApp() {
 
           <section className="home-worlds" id="worlds">
             <div className="home-section-head">
-              <h2>Seven more worlds</h2>
+              <h2>Eight more worlds</h2>
               <p>The same twenty rounds and the same rules — a different century, language and ladder of ranks.</p>
             </div>
             <VariantGallery />
@@ -494,6 +496,7 @@ function App() {
   if (path.startsWith("/muromachi")) return <MuromachiGame />;
   if (path.startsWith("/baghdad")) return <BaghdadGame />;
   if (path.startsWith("/byzantium")) return <ByzantiumGame />;
+  if (path.startsWith("/outerrim")) return <OuterRimGame />;
   return <ClassicApp />;
 }
 

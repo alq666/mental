@@ -68,6 +68,13 @@ const VARIANTS: VariantCard[] = [
     lang: "el",
     accent: "#c05a7a",
   },
+  {
+    href: "/outerrim",
+    mark: "🚀",
+    name: "Outer Rim Academy",
+    blurb: "Two suns, starfighters, and twenty rounds at lightspeed.",
+    accent: "#6fd3ff",
+  },
 ];
 
 /**

@@ -1,6 +1,6 @@
 # Mental Math Challenge 🧮
 
-A fun and interactive mental calculation game built with React, TypeScript, and Vite — one classic game plus a series of themed variants of the same 20-round multiplication challenge.
+A fun and interactive mental calculation game built with React, TypeScript, and Vite — one classic game plus eight themed variants of the same 20-round multiplication challenge.
 
 **Play it live: <https://mental-virid.vercel.app>**
 
@@ -20,6 +20,7 @@ Mental Math Challenge is a web-based game that helps you practice multiplication
 | `/muromachi` | ⛩️ 室町算術道場 | Muromachi-period Kyoto; train from 初陣 to 天下無双 |
 | `/baghdad` | 🕌 بيت الحكمة | Abbasid Baghdad under al-Ma'mun; from scribe to sage of the House of Wisdom |
 | `/byzantium` | ☧ Ἡ Ἀριθμητική | Greek in the queen city; laurels from  Μαθητής to Στεφανίτης of the Hippodrome |
+| `/outerrim` | 🚀 Outer Rim Academy | A desert world with two suns; rank plaques from Cadet to Squadron Legend |
 
 ## Features
 
@@ -63,7 +64,7 @@ npm install
 npm run dev
 ```
 
-Vite prints the local URL (commonly port 5173); the variant routes (`/roman`, `/france`, `/tang`, `/soccer`, `/muromachi`, `/baghdad`, `/byzantium`) work there too.
+Vite prints the local URL (commonly port 5173); the variant routes (`/roman`, `/france`, `/tang`, `/soccer`, `/muromachi`, `/baghdad`, `/byzantium`, `/outerrim`) work there too.
 
 ### Lint, Build, Preview
 
