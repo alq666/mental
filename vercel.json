@@ -64,6 +64,14 @@
     {
       "source": "/outerrim/:path*",
       "destination": "/index.html"
+    },
+    {
+      "source": "/venice",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/venice/:path*",
+      "destination": "/index.html"
     }
   ]
 }

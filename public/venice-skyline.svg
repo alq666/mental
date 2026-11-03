@@ -1,0 +1,56 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 240" preserveAspectRatio="xMidYMax slice">
+  <!-- The Grand Canal at dawn: palazzi, a campanile, mooring poles, and two sandoli. -->
+  <g fill="#1f5c63" fill-opacity=".07">
+    <path d="M0 168C240 158 400 172 640 166S1060 150 1280 164S1500 158 1600 166V240H0Z" />
+  </g>
+
+  <g fill="#1f5c63" fill-opacity=".13">
+    <!-- Palace row, left. -->
+    <rect x="40" y="120" width="180" height="70" />
+    <rect x="40" y="112" width="180" height="9" />
+    <rect x="60" y="128" width="16" height="26" rx="8" />
+    <rect x="92" y="128" width="16" height="26" rx="8" />
+    <rect x="124" y="128" width="16" height="26" rx="8" />
+    <rect x="156" y="128" width="16" height="26" rx="8" />
+    <rect x="186" y="128" width="16" height="26" rx="8" />
+
+    <!-- A gothic palazzo with a pointed roofline. -->
+    <path d="M248 190V126l60-44 60 44v64Z" />
+    <rect x="286" y="140" width="20" height="30" rx="10" />
+    <rect x="318" y="140" width="20" height="30" rx="10" />
+
+    <!-- The campanile. -->
+    <rect x="404" y="44" width="46" height="146" />
+    <rect x="396" y="88" width="62" height="12" />
+    <rect x="400" y="120" width="54" height="8" />
+    <polygon points="404,44 450,44 427,6" />
+    <rect x="424" y="0" width="6" height="10" />
+
+    <!-- Long arcaded palace behind the water. -->
+    <rect x="520" y="132" width="300" height="58" />
+    <rect x="520" y="124" width="300" height="9" />
+    <g>
+      <rect x="536" y="140" width="18" height="26" rx="9" /><rect x="572" y="140" width="18" height="26" rx="9" />
+      <rect x="608" y="140" width="18" height="26" rx="9" /><rect x="644" y="140" width="18" height="26" rx="9" />
+      <rect x="680" y="140" width="18" height="26" rx="9" /><rect x="716" y="140" width="18" height="26" rx="9" />
+      <rect x="752" y="140" width="18" height="26" rx="9" /><rect x="788" y="140" width="18" height="26" rx="9" />
+    </g>
+
+    <!-- Right-hand palaces with a dome. -->
+    <rect x="880" y="126" width="200" height="64" />
+    <path d="M960 126c0-26 20-40 40-40s40 14 40 40Z" />
+    <rect x="880" y="118" width="200" height="9" />
+    <rect x="1130" y="138" width="210" height="52" />
+    <rect x="1130" y="130" width="210" height="9" />
+
+    <!-- Mooring poles and two sandoli riding at them. -->
+    <g>
+      <rect x="700" y="176" width="6" height="34" /><rect x="724" y="188" width="6" height="22" />
+      <rect x="1236" y="180" width="6" height="30" /><rect x="1260" y="190" width="6" height="20" />
+    </g>
+    <path d="M760 214c6-8 26-12 48-12 20 0 34 4 38 8-14 4-30 6-46 6-16 0-30-1-40-2Z" />
+    <path d="M1350 206c5-6 22-9 40-9 17 0 28 3 32 6-12 3-25 5-38 5-13 0-25-1-34-2Z" />
+  </g>
+
+  <path fill="#1f5c63" fill-opacity=".10" d="M0 220C260 210 420 226 660 218S1080 230 1300 220S1520 228 1600 222V240H0Z" />
+</svg>
