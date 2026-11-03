@@ -1,6 +1,6 @@
 import "./BaghdadGame.css";
 import { useId } from "react";
-import { Majlis } from "./Majlis";
+import { Shatranj } from "./Shatranj";
 import { EquationSlots } from "./Equation";
 import { ModePicker, type ModeLabels } from "./ModePicker";
 import { formatClock, TOTAL_ROUNDS, useStreakGame } from "./useStreakGame";
@@ -125,7 +125,7 @@ function BaghdadGame() {
               <button type="submit" disabled={!answer || !!feedback}>تحقّق</button>
             </form>
             <div className={`bg-feedback ${feedback}`} aria-live="polite">{feedbackText}</div>
-            {feedback && <Majlis key={round} outcome={feedback === "correct" ? "win" : "lose"} playerName={playerName} caption={feedbackText} />}
+            {feedback && <Shatranj key={round} outcome={feedback === "correct" ? "win" : "lose"} playerName={playerName} caption={feedbackText} />}
           </div>
           <div className="bg-streak-panel">
             <div className="bg-streak-mark">✧</div>
