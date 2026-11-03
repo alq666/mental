@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import "./App.css";
 import { VariantGallery } from "./VariantCards";
+import { VARIANTS } from "./variants";
 import BaghdadGame from "./BaghdadGame";
 import ByzantiumGame from "./ByzantiumGame";
 import FrenchGame from "./FrenchGame";
@@ -9,6 +10,7 @@ import OuterRimGame from "./OuterRimGame";
 import RomanGame from "./RomanGame";
 import SoccerGame from "./SoccerGame";
 import TangGame from "./TangGame";
+import VeniceGame from "./VeniceGame";
 
 type BestSession = {
   name: string;
@@ -87,6 +89,12 @@ function rankBestSessions(sessions: BestSession[]): BestSession[] {
 
 function formatDurationSeconds(durationMs: number): string {
   return (durationMs / 1000).toFixed(2);
+}
+
+const COUNT_WORDS = ["no", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve"];
+
+function countWord(value: number) {
+  return COUNT_WORDS[value] ?? String(value);
 }
 
 function ClassicApp() {
@@ -298,14 +306,14 @@ function ClassicApp() {
               <h1>Twenty rounds.<br /><em>One head.</em></h1>
               <p className="home-lede">
                 Work the multiplication in your head while the clock runs, then take the
-                same twenty rounds into eight other worlds — Rome, fifteenth-century France,
-                Tang China, a penalty shootout, Muromachi Kyoto, Abbasid Baghdad, Byzantium,
-                and a desert world with two suns.
+                same twenty rounds into {countWord(VARIANTS.length)} other worlds — Rome,
+                fifteenth-century France, Tang China, a penalty shootout, Muromachi Kyoto,
+                Abbasid Baghdad, Byzantium, a desert world with two suns, and the canals of Venice.
               </p>
               <ul className="home-facts">
                 <li><strong>20</strong><span>rounds</span></li>
                 <li><strong>4</strong><span>ranks</span></li>
-                <li><strong>8</strong><span>worlds</span></li>
+                <li><strong>{VARIANTS.length}</strong><span>worlds</span></li>
               </ul>
             </div>
 
@@ -371,7 +379,7 @@ function ClassicApp() {
 
           <section className="home-worlds" id="worlds">
             <div className="home-section-head">
-              <h2>Eight more worlds</h2>
+              <h2>{countWord(VARIANTS.length).replace(/^./, (c) => c.toUpperCase())} more worlds</h2>
               <p>The same twenty rounds and the same rules — a different century, language and ladder of ranks.</p>
             </div>
             <VariantGallery />
@@ -497,6 +505,7 @@ function App() {
   if (path.startsWith("/baghdad")) return <BaghdadGame />;
   if (path.startsWith("/byzantium")) return <ByzantiumGame />;
   if (path.startsWith("/outerrim")) return <OuterRimGame />;
+  if (path.startsWith("/venice")) return <VeniceGame />;
   return <ClassicApp />;
 }
 
