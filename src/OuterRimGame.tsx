@@ -1,6 +1,6 @@
 import "./OuterRimGame.css";
 import { useId } from "react";
-import { Dogfight } from "./Dogfight";
+import { SaberDuel } from "./SaberDuel";
 import { EquationSlots } from "./Equation";
 import { ModePicker, type ModeLabels } from "./ModePicker";
 import { formatClock, TOTAL_ROUNDS, useStreakGame } from "./useStreakGame";
@@ -55,11 +55,11 @@ function OuterRimGame() {
     startGame, submitAnswer, earnedIds, earnedBadges, latestBadge, nextBadge,
   } = useStreakGame(BADGES, BADGE_STORAGE_KEY);
   const feedbackText = feedback === "correct"
-    ? "Direct hit!"
+    ? "A clean cut!"
     : feedback === "wrong"
-      ? `Shot went wide — the answer is ${equation.expected}.`
+      ? `Wide of the mark — the answer is ${equation.expected}.`
       : feedback === "timeout"
-        ? `Engines stalled — the answer is ${equation.expected}.`
+        ? `You hesitated — the answer is ${equation.expected}.`
         : "";
 
   return (
@@ -104,7 +104,7 @@ function OuterRimGame() {
                   </div>
                 </label>
               </div>
-              <ModePicker value={mode} onChange={setMode} label="Fire mode" labels={MODE_LABELS} />
+              <ModePicker value={mode} onChange={setMode} label="Form" labels={MODE_LABELS} />
               <button className="or-primary" type="submit">Launch <span>→</span></button>
               <p className="or-setup-note">{TOTAL_ROUNDS} rounds · rank plaques · {timerEnabled ? `${timerSeconds || 0} seconds a round` : "no chrono"}</p>
             </form>
@@ -120,16 +120,16 @@ function OuterRimGame() {
             <button onClick={openBadges}>View ranks</button>
           </div>
           <div className="or-card">
-            <div className="or-progress-meta"><span>Round {round} of {TOTAL_ROUNDS}</span><span>{Math.round(((round - 1) / TOTAL_ROUNDS) * 100)}% flown</span></div>
+            <div className="or-progress-meta"><span>Round {round} of {TOTAL_ROUNDS}</span><span>{Math.round(((round - 1) / TOTAL_ROUNDS) * 100)}% fought</span></div>
             <div className="or-progress"><i style={{ width: `${((round - 1) / TOTAL_ROUNDS) * 100}%` }} /></div>
-            <p className="or-inscription">Compute fast, keep your lane</p>
+            <p className="or-inscription">Compute fast, keep your guard</p>
             <div className="or-question"><EquationSlots tokens={equation.tokens} /></div>
             <form className="or-answer" onSubmit={submitAnswer}>
               <input ref={answerInput} type="number" inputMode="numeric" value={answer} onChange={(event) => setAnswer(event.target.value)} placeholder="Your answer" aria-label="Your answer" disabled={!!feedback} />
-              <button type="submit" disabled={!answer || !!feedback}>Fire</button>
+              <button type="submit" disabled={!answer || !!feedback}>Strike</button>
             </form>
             <div className={`or-feedback ${feedback}`} aria-live="polite">{feedbackText}</div>
-            {feedback && <Dogfight key={round} outcome={feedback === "correct" ? "win" : "lose"} playerName={playerName} caption={feedbackText} />}
+            {feedback && <SaberDuel key={round} outcome={feedback === "correct" ? "win" : "lose"} playerName={playerName} caption={feedbackText} />}
           </div>
           <div className="or-streak-panel">
             <div className="or-streak-mark" aria-hidden="true">✦</div>
